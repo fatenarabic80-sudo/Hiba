@@ -96,6 +96,15 @@ via `LowStock:CheckIntervalMinutes` in `appsettings.json`) and creates a `Notifi
 product's stock drops to or below `LowStock:ThresholdQuantity` (default: 5). Notifications surface
 on the Admin dashboard.
 
+## Documentation
+
+The `docs/` folder contains the course-required deliverables:
+
+- [ProjectProposal.md](docs/ProjectProposal.md)
+- [TechnicalDocumentation.md](docs/TechnicalDocumentation.md) — architecture, API, DB schema, security, testing
+- [Diagrams.md](docs/Diagrams.md) — ER diagram, system architecture diagram, use case diagram (Mermaid)
+- [Presentation.md](docs/Presentation.md) — slide-by-slide outline + live demo script
+
 ## Project Structure Highlights
 
 - `Areas/Identity/Pages/Account` — custom Login/Register/Forgot-Reset Password/Manage(profile)
