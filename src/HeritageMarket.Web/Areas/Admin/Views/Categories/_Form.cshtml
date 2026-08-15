@@ -1,0 +1,20 @@
+@model CategoryFormViewModel
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IconUrl" class="form-label"></label>
+        <input asp-for="IconUrl" class="form-control" placeholder="/images/icons/example.svg" />
+    </div>
+    <button type="submit" class="btn btn-heritage">Save Category</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+</form>

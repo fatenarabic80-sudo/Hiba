@@ -1,0 +1,27 @@
+@model CountryFormViewModel
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Code" class="form-label"></label>
+            <input asp-for="Code" class="form-control" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FlagImageUrl" class="form-label"></label>
+        <input asp-for="FlagImageUrl" class="form-control" placeholder="/images/flags/example.svg" />
+    </div>
+    <button type="submit" class="btn btn-heritage">Save Country</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+</form>

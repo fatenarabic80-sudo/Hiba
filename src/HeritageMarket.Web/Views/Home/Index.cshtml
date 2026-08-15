@@ -1,0 +1,47 @@
+@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-banner mb-5 text-center">
+    <h1 class="display-5 fw-bold">Heritage-Inspired Products, From Every Corner of the World</h1>
+    <p class="lead mb-4">Home decor, accessories, phone covers, traditional wear, and books celebrating culture and history.</p>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-light btn-lg text-heritage fw-semibold">Shop the Collection</a>
+</div>
+
+<section class="mb-5">
+    <h3 class="mb-3">Shop by Category</h3>
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var category in Model.Categories)
+        {
+            <a class="btn btn-outline-secondary country-chip" asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id">
+                @category.Name
+            </a>
+        }
+    </div>
+</section>
+
+<section class="mb-5">
+    <h3 class="mb-3">Shop by Country</h3>
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var country in Model.Countries)
+        {
+            <a class="btn btn-outline-secondary country-chip" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
+                @country.Name
+            </a>
+        }
+    </div>
+</section>
+
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Featured Products</h3>
+        <a asp-controller="Products" asp-action="Index" class="text-heritage">View all &rarr;</a>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var product in Model.FeaturedProducts)
+        {
+            <partial name="_ProductCard" model="product" />
+        }
+    </div>
+</section>

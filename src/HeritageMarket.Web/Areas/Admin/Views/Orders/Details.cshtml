@@ -1,0 +1,46 @@
+@model OrderDetailDto
+@{
+    ViewData["Title"] = $"Order #{Model.Id}";
+}
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Customer:</strong> @Model.CustomerName</p>
+                <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+                <p><strong>Shipping:</strong> @Model.ShippingAddress, @Model.ShippingCity</p>
+                <ul class="list-group list-group-flush mb-3">
+                    @foreach (var item in Model.Items)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>@item.ProductName &times; @item.Quantity</span>
+                            <span>@item.LineTotal.ToString("C")</span>
+                        </li>
+                    }
+                </ul>
+                <div class="d-flex justify-content-between">
+                    <span class="fw-semibold">Total</span>
+                    <span class="fw-bold text-heritage fs-5">@Model.TotalAmount.ToString("C")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Order Status</h6>
+                <p class="mb-3"><span class="badge bg-warning text-dark">@Model.Status</span></p>
+                <form asp-action="UpdateStatus" asp-route-id="@Model.Id" method="post">
+                    <select name="status" class="form-select mb-2">
+                        @foreach (var status in Enum.GetValues<OrderStatus>())
+                        {
+                            <option value="@status" selected="@(status == Model.Status)">@status</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-heritage w-100">Update Status</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

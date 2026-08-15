@@ -1,0 +1,85 @@
+@model DashboardSummaryDto
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <p class="text-muted mb-1">Total Revenue</p>
+                <h3 class="mb-0">@Model.TotalRevenue.ToString("C")</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <p class="text-muted mb-1">Total Orders</p>
+                <h3 class="mb-0">@Model.TotalOrders</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <p class="text-muted mb-1">Products</p>
+                <h3 class="mb-0">@Model.TotalProducts</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <p class="text-muted mb-1">Customers</p>
+                <h3 class="mb-0">@Model.TotalCustomers</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">Recent Orders</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>#</th><th>Date</th><th>Status</th><th>Total</th></tr></thead>
+                    <tbody>
+                        @foreach (var order in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td><a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">#@order.Id</a></td>
+                                <td>@order.OrderDate.ToString("MMM dd")</td>
+                                <td><span class="badge bg-warning text-dark">@order.Status</span></td>
+                                <td>@order.TotalAmount.ToString("C")</td>
+                            </tr>
+                        }
+                        @if (Model.RecentOrders.Count == 0)
+                        {
+                            <tr><td colspan="4" class="text-muted text-center py-3">No orders yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header"><i class="bi bi-bell"></i> Low Stock Notifications</div>
+            <ul class="list-group list-group-flush">
+                @foreach (var notification in Model.RecentNotifications)
+                {
+                    <li class="list-group-item @(notification.IsRead ? "" : "fw-semibold")">
+                        @notification.Message
+                        <div class="text-muted small">@notification.CreatedAt.ToString("MMM dd, HH:mm")</div>
+                    </li>
+                }
+                @if (Model.RecentNotifications.Count == 0)
+                {
+                    <li class="list-group-item text-muted text-center py-3">No notifications yet.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

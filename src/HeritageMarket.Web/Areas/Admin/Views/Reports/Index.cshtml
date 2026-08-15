@@ -1,0 +1,79 @@
+@model SalesReportDto
+@{
+    ViewData["Title"] = "Reports";
+    var fromDate = (DateTime)ViewData["FromDate"]!;
+    var toDate = (DateTime)ViewData["ToDate"]!;
+}
+
+<form class="row g-2 mb-4" method="get">
+    <div class="col-auto">
+        <label class="form-label">From</label>
+        <input type="date" name="fromDate" class="form-control" value="@fromDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-auto">
+        <label class="form-label">To</label>
+        <input type="date" name="toDate" class="form-control" value="@toDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-heritage">Apply</button>
+        <a class="btn btn-outline-secondary" asp-action="ExportCsv" asp-route-fromDate="@fromDate.ToString("yyyy-MM-dd")" asp-route-toDate="@toDate.ToString("yyyy-MM-dd")">
+            <i class="bi bi-download"></i> Export CSV
+        </a>
+    </div>
+</form>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card"><div class="card-body"><p class="text-muted mb-1">Total Revenue</p><h3>@Model.TotalRevenue.ToString("C")</h3></div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card"><div class="card-body"><p class="text-muted mb-1">Total Orders</p><h3>@Model.TotalOrders</h3></div></div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">Daily Sales</div>
+            <div class="card-body"><canvas id="salesChart" height="120"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">Top Products</div>
+            <ul class="list-group list-group-flush">
+                @foreach (var product in Model.TopProducts)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@product.ProductName <span class="text-muted small">(@product.QuantitySold sold)</span></span>
+                        <span class="fw-semibold">@product.Revenue.ToString("C")</span>
+                    </li>
+                }
+                @if (Model.TopProducts.Count == 0)
+                {
+                    <li class="list-group-item text-muted text-center py-3">No sales in this period.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const labels = @Html.Raw(Json.Serialize(Model.DailySales.Select(d => d.Date.ToString("MMM dd"))));
+        const revenue = @Html.Raw(Json.Serialize(Model.DailySales.Select(d => d.Revenue)));
+
+        new Chart(document.getElementById('salesChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Revenue',
+                    data: revenue,
+                    backgroundColor: '#8a4b2f'
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    </script>
+}

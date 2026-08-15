@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HeritageMarket.Application/HeritageMarket.Application.csproj" />
+    <Project Path="src/HeritageMarket.Domain/HeritageMarket.Domain.csproj" />
+    <Project Path="src/HeritageMarket.Infrastructure/HeritageMarket.Infrastructure.csproj" />
+    <Project Path="src/HeritageMarket.Web/HeritageMarket.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HeritageMarket.Tests/HeritageMarket.Tests.csproj" />
+  </Folder>
+</Solution>

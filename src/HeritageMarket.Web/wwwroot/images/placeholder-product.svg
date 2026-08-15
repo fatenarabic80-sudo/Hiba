@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#efe4d5"/>
+  <g fill="#c98a3f" opacity="0.6">
+    <circle cx="200" cy="120" r="45"/>
+    <rect x="140" y="180" width="120" height="60" rx="8"/>
+  </g>
+  <text x="200" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#8a4b2f" text-anchor="middle">Heritage Marketplace</text>
+</svg>

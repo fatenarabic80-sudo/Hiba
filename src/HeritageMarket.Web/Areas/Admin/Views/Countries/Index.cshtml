@@ -1,0 +1,35 @@
+@model IReadOnlyList<CountryDto>
+@{
+    ViewData["Title"] = "Countries";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-heritage"><i class="bi bi-plus-lg"></i> New Country</a>
+</div>
+
+<div class="card">
+    <table class="table align-middle mb-0">
+        <thead><tr><th>Name</th><th>Code</th><th>Description</th><th>Products</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var country in Model)
+            {
+                <tr>
+                    <td>@country.Name</td>
+                    <td>@country.Code</td>
+                    <td>@country.Description</td>
+                    <td>@country.ProductCount</td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@country.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@country.Id" method="post" class="d-inline" onsubmit="return confirm('Delete this country?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="5" class="text-center text-muted py-4">No countries yet.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

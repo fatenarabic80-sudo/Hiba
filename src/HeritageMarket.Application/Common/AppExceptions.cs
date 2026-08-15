@@ -1,0 +1,11 @@
+namespace HeritageMarket.Application.Common;
+
+public class NotFoundException : Exception
+{
+    public NotFoundException(string message) : base(message) { }
+}
+
+public class InsufficientStockException : Exception
+{
+    public InsufficientStockException(string message) : base(message) { }
+}

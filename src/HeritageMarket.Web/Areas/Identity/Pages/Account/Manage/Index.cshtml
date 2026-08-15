@@ -1,0 +1,78 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h2 class="mb-4">My Profile</h2>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="alert alert-success">@Model.StatusMessage</div>
+}
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Profile Details</h5>
+                <form method="post" asp-page-handler="Profile" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="text-center mb-3">
+                        <img src="@(string.IsNullOrEmpty(Model.ProfileInput.ExistingProfileImageUrl) ? "/images/placeholder-avatar.svg" : Model.ProfileInput.ExistingProfileImageUrl)"
+                             class="rounded-circle" width="96" height="96" style="object-fit:cover" alt="Profile picture" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Profile Picture</label>
+                        <input asp-for="ProfileInput.ProfileImageFile" type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProfileInput.FullName" class="form-label"></label>
+                        <input asp-for="ProfileInput.FullName" class="form-control" />
+                        <span asp-validation-for="ProfileInput.FullName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" value="@Model.ProfileInput.Email" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProfileInput.Address" class="form-label"></label>
+                        <input asp-for="ProfileInput.Address" class="form-control" />
+                        <span asp-validation-for="ProfileInput.Address" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-heritage">Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Change Password</h5>
+                <form method="post" asp-page-handler="Password">
+                    <div class="mb-3">
+                        <label asp-for="PasswordInput.OldPassword" class="form-label"></label>
+                        <input asp-for="PasswordInput.OldPassword" class="form-control" />
+                        <span asp-validation-for="PasswordInput.OldPassword" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PasswordInput.NewPassword" class="form-label"></label>
+                        <input asp-for="PasswordInput.NewPassword" class="form-control" />
+                        <span asp-validation-for="PasswordInput.NewPassword" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PasswordInput.ConfirmPassword" class="form-label"></label>
+                        <input asp-for="PasswordInput.ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="PasswordInput.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary">Change Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

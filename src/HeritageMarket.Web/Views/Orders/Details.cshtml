@@ -1,0 +1,39 @@
+@model OrderDetailDto
+@{
+    ViewData["Title"] = $"Order #{Model.Id}";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">My Orders</a></li>
+        <li class="breadcrumb-item active">Order #@Model.Id</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <p class="mb-1"><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+                <p class="mb-1"><strong>Shipping:</strong> @Model.ShippingAddress, @Model.ShippingCity</p>
+            </div>
+            <span class="badge bg-warning text-dark align-self-start">@Model.Status</span>
+        </div>
+        <ul class="list-group list-group-flush mb-3">
+            @foreach (var item in Model.Items)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="@(string.IsNullOrEmpty(item.ProductImageUrl) ? "/images/placeholder-product.svg" : item.ProductImageUrl)" width="48" height="48" class="rounded" style="object-fit:cover" alt="@item.ProductName" />
+                        <span>@item.ProductName &times; @item.Quantity</span>
+                    </div>
+                    <span>@item.LineTotal.ToString("C")</span>
+                </li>
+            }
+        </ul>
+        <div class="d-flex justify-content-between">
+            <span class="fw-semibold">Total</span>
+            <span class="fw-bold text-heritage fs-5">@Model.TotalAmount.ToString("C")</span>
+        </div>
+    </div>
+</div>

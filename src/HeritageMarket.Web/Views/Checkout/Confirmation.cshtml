@@ -1,0 +1,38 @@
+@model OrderDetailDto
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="text-center mb-4">
+    <i class="bi bi-check-circle-fill text-success" style="font-size:3rem"></i>
+    <h2 class="mt-2">Thank you for your order!</h2>
+    <p class="text-muted">Order #@Model.Id was placed on @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Shipping to:</strong> @Model.ShippingAddress, @Model.ShippingCity</p>
+                <p><strong>Status:</strong> <span class="badge bg-warning text-dark">@Model.Status</span></p>
+                <ul class="list-group list-group-flush mb-3">
+                    @foreach (var item in Model.Items)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>@item.ProductName &times; @item.Quantity</span>
+                            <span>@item.LineTotal.ToString("C")</span>
+                        </li>
+                    }
+                </ul>
+                <div class="d-flex justify-content-between">
+                    <span class="fw-semibold">Total</span>
+                    <span class="fw-bold text-heritage fs-5">@Model.TotalAmount.ToString("C")</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a asp-controller="Products" asp-action="Index" class="btn btn-heritage">Continue Shopping</a>
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-outline-secondary">View My Orders</a>
+        </div>
+    </div>
+</div>
