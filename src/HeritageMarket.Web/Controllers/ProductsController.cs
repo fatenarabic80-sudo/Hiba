@@ -15,6 +15,7 @@ public class ProductsController : Controller
     private readonly ICategoryService _categoryService;
     private readonly ICountryService _countryService;
     private readonly IReviewService _reviewService;
+    private readonly IWishlistService _wishlistService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<ProductsController> _logger;
 
@@ -23,6 +24,7 @@ public class ProductsController : Controller
         ICategoryService categoryService,
         ICountryService countryService,
         IReviewService reviewService,
+        IWishlistService wishlistService,
         UserManager<ApplicationUser> userManager,
         ILogger<ProductsController> logger)
     {
@@ -30,6 +32,7 @@ public class ProductsController : Controller
         _categoryService = categoryService;
         _countryService = countryService;
         _reviewService = reviewService;
+        _wishlistService = wishlistService;
         _userManager = userManager;
         _logger = logger;
     }
@@ -53,6 +56,7 @@ public class ProductsController : Controller
             Filter = filter
         };
 
+        await SetWishlistedIdsAsync();
         return View(model);
     }
 
@@ -68,7 +72,17 @@ public class ProductsController : Controller
             CanReview = User.Identity?.IsAuthenticated ?? false
         };
 
+        await SetWishlistedIdsAsync();
         return View(model);
+    }
+
+    private async Task SetWishlistedIdsAsync()
+    {
+        if (!(User.Identity?.IsAuthenticated ?? false)) return;
+
+        var userId = _userManager.GetUserId(User);
+        if (userId is not null)
+            ViewData["WishlistedIds"] = await _wishlistService.GetWishlistedProductIdsAsync(userId);
     }
 
     [HttpPost, Authorize, ValidateAntiForgeryToken]

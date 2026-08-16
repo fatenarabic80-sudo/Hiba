@@ -15,6 +15,7 @@ public class UnitOfWork : IUnitOfWork
     private IOrderRepository? _orders;
     private IRepository<Review>? _reviews;
     private IRepository<Notification>? _notifications;
+    private IRepository<WishlistItem>? _wishlistItems;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -28,6 +29,7 @@ public class UnitOfWork : IUnitOfWork
     public IOrderRepository Orders => _orders ??= new OrderRepository(_context);
     public IRepository<Review> Reviews => _reviews ??= new Repository<Review>(_context);
     public IRepository<Notification> Notifications => _notifications ??= new Repository<Notification>(_context);
+    public IRepository<WishlistItem> WishlistItems => _wishlistItems ??= new Repository<WishlistItem>(_context);
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 

@@ -1,9 +1,26 @@
 @model ProductListItemDto
+@{
+    var wishlistedIds = ViewData["WishlistedIds"] as HashSet<int> ?? new HashSet<int>();
+    var isWishlisted = wishlistedIds.Contains(Model.Id);
+    var isSignedIn = User.Identity?.IsAuthenticated ?? false;
+}
 <div class="col">
     <div class="product-card">
-        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="product-media d-block">
-            <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/placeholder-product.svg" : Model.ImageUrl)" alt="@Model.Name" />
-        </a>
+        <div class="product-media">
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="d-block h-100">
+                <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/placeholder-product.svg" : Model.ImageUrl)" alt="@Model.Name" />
+            </a>
+            @if (isSignedIn)
+            {
+                <button type="button"
+                        class="wish-heart-btn @(isWishlisted ? "active" : "")"
+                        data-product-id="@Model.Id"
+                        title="@(isWishlisted ? "Remove from wishlist" : "Add to wishlist")"
+                        aria-label="Toggle wishlist">
+                    <i class="bi @(isWishlisted ? "bi-heart-fill" : "bi-heart")"></i>
+                </button>
+            }
+        </div>
         <div class="product-info">
             <div class="product-country">@Model.CountryName</div>
             <h6 class="mb-1">

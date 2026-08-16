@@ -8,9 +8,11 @@ using HeritageMarket.Web.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Threading.RateLimiting;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -67,6 +69,25 @@ try
     });
 
     builder.Services.AddAuthorization();
+
+    builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
+
+    // Keeps the AI assistant cheap to run and hard to abuse: a small per-client budget of
+    // requests per minute, independent of any per-message token caps enforced by the service itself.
+    builder.Services.AddRateLimiter(options =>
+    {
+        options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+        options.AddPolicy("assistant", httpContext => RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.User.Identity?.IsAuthenticated == true
+                ? httpContext.User.Identity!.Name!
+                : httpContext.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                Window = TimeSpan.FromMinutes(1),
+                PermitLimit = 12,
+                QueueLimit = 0
+            }));
+    });
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
@@ -127,6 +148,8 @@ try
     app.UseSerilogRequestLogging();
 
     app.UseRouting();
+
+    app.UseRateLimiter();
 
     app.UseAuthentication();
     app.UseAuthorization();

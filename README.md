@@ -96,6 +96,39 @@ via `LowStock:CheckIntervalMinutes` in `appsettings.json`) and creates a `Notifi
 product's stock drops to or below `LowStock:ThresholdQuantity` (default: 5). Notifications surface
 on the Admin dashboard.
 
+## Wishlist
+
+Signed-in users can tap the heart icon on any product card or product detail page to save it —
+backed by a real `WishlistItems` table (`Infrastructure/Persistence/Configurations/
+WishlistItemConfiguration.cs`), toggled via `POST /Wishlist/Toggle` (AJAX, no page reload) and
+viewable at `/Wishlist`. The navbar heart badge updates live.
+
+## AI Shopping Assistant ("Heritage Guide")
+
+A real, server-side chat assistant (bottom-right widget on every page), backed by
+`HeritageMarket.Infrastructure.AI.AiAssistantService`:
+
+- **Server-side only** — the Anthropic API key never reaches the browser. The client calls
+  `POST /Assistant/Ask` on our own server, which calls Anthropic's Messages API.
+- **Grounded in the real catalog** — each request builds a compact system prompt from the live
+  product list (`IProductService.GetCatalogAsync`), so answers reference actual products/prices.
+- **Graceful fallback** — with no API key configured (the default), or if the live call fails,
+  a rule-based fallback answers common questions (shipping, returns, materials, sizing) instead of
+  erroring out.
+- **Rate-limited** — `POST /Assistant/Ask` is capped at 12 requests/minute per user (or per IP for
+  guests) via ASP.NET Core's built-in rate limiter, and each message/history is capped server-side
+  (800 chars, last 6 turns) to keep token usage predictable.
+
+To enable live answers, set an Anthropic API key (never commit a real key):
+
+```powershell
+dotnet user-secrets init --project src/HeritageMarket.Web
+dotnet user-secrets set "AiAssistant:ApiKey" "sk-ant-..." --project src/HeritageMarket.Web
+```
+
+Model/limits are configurable under `AiAssistant` in `appsettings.json`
+(`Model`, `MaxTokens`, `MaxHistoryMessages`, `MaxMessageLength`).
+
 ## Documentation
 
 The `docs/` folder contains the course-required deliverables:

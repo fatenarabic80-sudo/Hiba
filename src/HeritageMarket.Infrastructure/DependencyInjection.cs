@@ -1,5 +1,6 @@
 using HeritageMarket.Domain.Interfaces;
 using HeritageMarket.Application.Services.Interfaces;
+using HeritageMarket.Infrastructure.AI;
 using HeritageMarket.Infrastructure.Auth;
 using HeritageMarket.Infrastructure.BackgroundServices;
 using HeritageMarket.Infrastructure.Identity;
@@ -33,10 +34,16 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.Configure<AiAssistantSettings>(configuration.GetSection(AiAssistantSettings.SectionName));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserDirectoryService, UserDirectoryService>();
         services.AddScoped<ITokenService, TokenService>();
+
+        services.AddHttpClient<IAiAssistantService, AiAssistantService>(client =>
+        {
+            client.Timeout = TimeSpan.FromSeconds(15);
+        });
 
         services.AddHostedService<LowStockNotificationService>();
 

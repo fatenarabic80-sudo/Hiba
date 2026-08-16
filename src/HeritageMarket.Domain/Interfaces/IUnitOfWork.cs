@@ -11,6 +11,7 @@ public interface IUnitOfWork : IDisposable
     IOrderRepository Orders { get; }
     IRepository<Review> Reviews { get; }
     IRepository<Notification> Notifications { get; }
+    IRepository<WishlistItem> WishlistItems { get; }
 
     Task<int> SaveChangesAsync();
 }

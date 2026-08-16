@@ -1,0 +1,33 @@
+<button class="ai-launcher-btn" id="aiOpenBtn" type="button" aria-label="Open Heritage Guide assistant">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+        <path d="M9 10c0-1.1.9-2 2-2h1a2 2 0 0 1 0 4h-.5" />
+        <circle cx="12" cy="16" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+</button>
+
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-head">
+        <div>
+            <strong>Heritage Guide</strong>
+            <span>Ask about products, shipping, or returns</span>
+        </div>
+        <button class="ai-close-btn" id="aiCloseBtn" type="button" aria-label="Close assistant">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+    </div>
+    <div class="ai-body" id="aiBody">
+        <div class="ai-msg bot">Hi! I'm the Heritage Guide. Ask me about a product's origin, shipping, sizing, or returns.</div>
+    </div>
+    <div class="ai-suggestions" id="aiSuggestions">
+        <button class="ai-chip" type="button" data-ask="How long does shipping take?">Shipping times</button>
+        <button class="ai-chip" type="button" data-ask="What is your return policy?">Returns</button>
+        <button class="ai-chip" type="button" data-ask="Are these products handmade?">Are items handmade?</button>
+    </div>
+    <div class="ai-input-row">
+        <input type="text" id="aiInput" placeholder="Ask about a product or policy…" maxlength="800" />
+        <button class="ai-send-btn" id="aiSendBtn" type="button" aria-label="Send">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+        </button>
+    </div>
+</div>

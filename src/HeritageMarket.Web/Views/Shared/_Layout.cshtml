@@ -67,6 +67,9 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
+                                @await Component.InvokeAsync("WishlistSummary")
+                            </li>
+                            <li class="nav-item">
                                 @await Component.InvokeAsync("CartSummary")
                             </li>
                         }
@@ -101,6 +104,8 @@
     <main role="main" class="pb-5">
         @RenderBody()
     </main>
+
+    <form id="antiForgeryForm" class="d-none">@Html.AntiForgeryToken()</form>
 
     <footer class="site-footer mt-5">
         <div class="container">
@@ -148,6 +153,10 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <partial name="_AiAssistant" />
+    <script src="~/js/ai-assistant.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

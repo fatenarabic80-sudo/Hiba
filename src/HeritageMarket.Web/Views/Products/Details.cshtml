@@ -19,6 +19,20 @@
         <div class="col-md-5">
             <div class="pd-gallery">
                 <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/placeholder-product.svg" : product.ImageUrl)" alt="@product.Name" />
+                @{
+                    var wishlistedIds = ViewData["WishlistedIds"] as HashSet<int> ?? new HashSet<int>();
+                    var isWishlisted = wishlistedIds.Contains(product.Id);
+                }
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <button type="button"
+                            class="wish-heart-btn @(isWishlisted ? "active" : "")"
+                            data-product-id="@product.Id"
+                            title="@(isWishlisted ? "Remove from wishlist" : "Add to wishlist")"
+                            aria-label="Toggle wishlist">
+                        <i class="bi @(isWishlisted ? "bi-heart-fill" : "bi-heart")"></i>
+                    </button>
+                }
             </div>
         </div>
         <div class="col-md-7">

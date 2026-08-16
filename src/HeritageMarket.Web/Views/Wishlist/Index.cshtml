@@ -1,0 +1,29 @@
+@model IReadOnlyList<ProductListItemDto>
+@{
+    ViewData["Title"] = "Your Wishlist";
+}
+
+<div class="page-banner">
+    <div class="container">
+        <div class="crumbs mb-1"><a asp-controller="Home" asp-action="Index">Home</a> / Wishlist</div>
+        <h1>Your Wishlist</h1>
+    </div>
+</div>
+
+<div class="container mt-4">
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            Your wishlist is empty. <a asp-controller="Products" asp-action="Index">Browse products</a> and tap the heart on anything you love.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var product in Model)
+            {
+                <partial name="_ProductCard" model="product" />
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,12 @@
+@model int
+<a class="icon-btn position-relative" asp-controller="Wishlist" asp-action="Index" title="Wishlist">
+    <i class="bi bi-heart fs-5"></i>
+    @if (Model > 0)
+    {
+        <span class="badge rounded-pill bg-danger cart-badge" id="wishlistCountBadge">@Model</span>
+    }
+    else
+    {
+        <span class="badge rounded-pill bg-danger cart-badge d-none" id="wishlistCountBadge">0</span>
+    }
+</a>
