@@ -26,7 +26,17 @@
                     <td>@order.ItemCount</td>
                     <td><span class="badge bg-warning text-dark">@order.Status</span></td>
                     <td>@order.TotalAmount.ToString("C")</td>
-                    <td class="text-end"><a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-secondary">View</a></td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                        @if (order.Status != OrderStatus.Cancelled && order.Status != OrderStatus.Delivered)
+                        {
+                            <form asp-action="UpdateStatus" asp-route-id="@order.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm('Cancel this order?');">
+                                <input type="hidden" name="status" value="Cancelled" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                            </form>
+                        }
+                    </td>
                 </tr>
             }
             @if (Model.Items.Count == 0)

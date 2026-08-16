@@ -83,4 +83,80 @@ public class UsersController : Controller
         TempData["StatusMessage"] = $"{user.Email} is now a {role}.";
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task<IActionResult> Edit(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is null) return NotFound();
+
+        return View(new AdminUserEditViewModel
+        {
+            Id = user.Id,
+            FullName = user.FullName,
+            Email = user.Email ?? string.Empty,
+            Address = user.Address
+        });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(string id, AdminUserEditViewModel model)
+    {
+        if (id != model.Id) return BadRequest();
+        if (!ModelState.IsValid) return View(model);
+
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is null) return NotFound();
+
+        user.FullName = model.FullName;
+        user.Address = model.Address;
+
+        if (!string.Equals(user.Email, model.Email, StringComparison.OrdinalIgnoreCase))
+        {
+            var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
+            if (!setEmailResult.Succeeded)
+            {
+                foreach (var error in setEmailResult.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+                return View(model);
+            }
+            await _userManager.SetUserNameAsync(user, model.Email);
+        }
+
+        var updateResult = await _userManager.UpdateAsync(user);
+        if (!updateResult.Succeeded)
+        {
+            foreach (var error in updateResult.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+            return View(model);
+        }
+
+        TempData["StatusMessage"] = "User details updated.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(string id)
+    {
+        if (id == _userManager.GetUserId(User))
+        {
+            TempData["ErrorMessage"] = "You cannot delete your own account.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is null) return NotFound();
+
+        try
+        {
+            var result = await _userManager.DeleteAsync(user);
+            TempData[result.Succeeded ? "StatusMessage" : "ErrorMessage"] =
+                result.Succeeded ? "User deleted." : string.Join(' ', result.Errors.Select(e => e.Description));
+        }
+        catch (DbUpdateException)
+        {
+            TempData["ErrorMessage"] = "Could not delete this user — they have existing orders, which are kept for record-keeping. Lock the account instead if you want to block access.";
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
 }

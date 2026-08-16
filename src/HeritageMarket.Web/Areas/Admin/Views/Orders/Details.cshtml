@@ -40,6 +40,15 @@
                     </select>
                     <button type="submit" class="btn btn-heritage w-100">Update Status</button>
                 </form>
+
+                @if (Model.Status != OrderStatus.Cancelled && Model.Status != OrderStatus.Delivered)
+                {
+                    <form asp-action="UpdateStatus" asp-route-id="@Model.Id" method="post" class="mt-2"
+                          onsubmit="return confirm('Cancel this order?');">
+                        <input type="hidden" name="status" value="Cancelled" />
+                        <button type="submit" class="btn btn-outline-danger w-100">Cancel Order</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

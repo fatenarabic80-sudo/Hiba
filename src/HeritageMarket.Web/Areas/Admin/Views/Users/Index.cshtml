@@ -33,6 +33,7 @@
                     <td class="text-end">
                         @if (user.Id != currentUserId)
                         {
+                            <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
                             <form asp-action="SetRole" method="post" class="d-inline">
                                 <input type="hidden" name="id" value="@user.Id" />
                                 <input type="hidden" name="role" value="@(user.Roles.Contains("Admin") ? "Customer" : "Admin")" />
@@ -42,9 +43,13 @@
                             </form>
                             <form asp-action="ToggleLock" method="post" class="d-inline">
                                 <input type="hidden" name="id" value="@user.Id" />
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <button type="submit" class="btn btn-sm btn-outline-warning">
                                     @(user.IsLockedOut ? "Unlock" : "Lock")
                                 </button>
+                            </form>
+                            <form asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('Delete this user? This cannot be undone.');">
+                                <input type="hidden" name="id" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                             </form>
                         }
                         else
