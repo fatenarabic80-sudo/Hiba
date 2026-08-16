@@ -57,11 +57,32 @@ at `/swagger`.
 
 ### Seeded accounts
 
-| Role | Email | Password |
-|---|---|---|
-| Admin | `admin@heritagemarket.local` | `Admin@12345` |
+| Role | Sign in at | Email | Password |
+|---|---|---|---|
+| Admin | `/Admin/Account/Login` | `admin@heritagemarket.local` | `Admin@12345` |
 
-Register any other account through the UI — it's assigned the `Customer` role automatically.
+Register any other account through the UI (`/Identity/Account/Register`) — it's assigned the
+`Customer` role automatically.
+
+### Admin authentication is separate from customer authentication
+
+Admins do **not** sign in through the same form as customers:
+
+- Customers sign in at `/Identity/Account/Login`. If those credentials belong to an Admin, the
+  form rejects them with a message pointing to the Admin login instead of authenticating them.
+- Admins sign in at `/Admin/Account/Login` (a distinct, unbranded portal page — not linked from the
+  public site nav). If those credentials belong to a Customer, this form rejects them too.
+- Any anonymous request into `/Admin/*` is redirected to `/Admin/Account/Login`, never the
+  customer login page (see the `OnRedirectToLogin` override in `Program.cs`).
+- The Admin's own account/profile (name, address, password) is managed at `/Admin/Profile` —
+  separate from the customer-facing `/Identity/Account/Manage` page.
+- `Admin/Users` only ever lists and manages **Customer** accounts — administrator accounts never
+  appear there and can't be edited/locked/deleted/promoted from that screen, even by URL
+  manipulation (`UsersController` checks the target's role server-side on every action).
+
+Both login forms still share the same underlying ASP.NET Core Identity user store and cookie —
+this is one authentication system with two entry points and role-based gating, not two separate
+systems.
 
 ### Connection string / secrets
 

@@ -15,7 +15,23 @@
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-globe-americas"></i> Heritage Marketplace</a>
             <span class="navbar-text text-white">Admin Panel</span>
-            <a class="btn btn-sm btn-outline-light" asp-area="" asp-controller="Home" asp-action="Index">Back to Store</a>
+            <div class="d-flex align-items-center gap-2">
+                <a class="btn btn-sm btn-outline-light" asp-area="" asp-controller="Home" asp-action="Index">Back to Store</a>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> @User.Identity?.Name
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Profile" asp-action="Index">My Profile</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li>
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Admin/Account/Login" method="post">
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -29,6 +45,7 @@
                 <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Orders" asp-action="Index"><i class="bi bi-receipt"></i> Orders</a></li>
                 <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bi bi-people"></i> Users</a></li>
                 <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Reports" asp-action="Index"><i class="bi bi-graph-up"></i> Reports</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Profile" asp-action="Index"><i class="bi bi-person-gear"></i> My Profile</a></li>
             </ul>
         </div>
         <div class="flex-fill p-4">

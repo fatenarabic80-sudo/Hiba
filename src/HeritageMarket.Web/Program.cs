@@ -66,6 +66,21 @@ try
         options.Cookie.SameSite = SameSiteMode.Lax;
         options.ExpireTimeSpan = TimeSpan.FromDays(14);
         options.SlidingExpiration = true;
+
+        // Anonymous requests into the Admin area land on the dedicated Admin login page,
+        // never the customer-facing one.
+        var defaultRedirectToLogin = options.Events.OnRedirectToLogin;
+        options.Events.OnRedirectToLogin = context =>
+        {
+            if (context.Request.Path.StartsWithSegments("/Admin"))
+            {
+                var returnUrl = Uri.EscapeDataString(context.Request.Path + context.Request.QueryString);
+                context.Response.Redirect($"/Admin/Account/Login?returnUrl={returnUrl}");
+                return Task.CompletedTask;
+            }
+
+            return defaultRedirectToLogin(context);
+        };
     });
 
     builder.Services.AddAuthorization();

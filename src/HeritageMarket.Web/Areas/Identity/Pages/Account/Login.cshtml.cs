@@ -11,11 +11,13 @@ namespace HeritageMarket.Web.Areas.Identity.Pages.Account;
 public class LoginModel : PageModel
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<LoginModel> _logger;
 
-    public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+    public LoginModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<LoginModel> logger)
     {
         _signInManager = signInManager;
+        _userManager = userManager;
         _logger = logger;
     }
 
@@ -42,6 +44,18 @@ public class LoginModel : PageModel
 
         if (!ModelState.IsValid)
             return Page();
+
+        // Administrator accounts sign in through the dedicated /Admin/Account/Login page, not here.
+        // The password is checked first so this never leaks "that email is an admin" to someone who
+        // doesn't already know the password.
+        var candidate = await _userManager.FindByEmailAsync(Input.Email);
+        if (candidate is not null
+            && await _userManager.CheckPasswordAsync(candidate, Input.Password)
+            && await _userManager.IsInRoleAsync(candidate, IdentityRoles.Admin))
+        {
+            ModelState.AddModelError(string.Empty, "Administrator accounts sign in from the Admin login page, not here.");
+            return Page();
+        }
 
         var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
 

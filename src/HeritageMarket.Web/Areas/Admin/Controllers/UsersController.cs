@@ -18,29 +18,30 @@ public class UsersController : Controller
         _userManager = userManager;
     }
 
+    // This page manages customer accounts only — administrators aren't listed or editable here.
     public async Task<IActionResult> Index()
     {
-        var users = await _userManager.Users.OrderBy(u => u.FullName).ToListAsync();
-        var currentUserId = _userManager.GetUserId(User);
+        var customers = await _userManager.GetUsersInRoleAsync(IdentityRoles.Customer);
 
         var result = new List<AdminUserListItemViewModel>();
-        foreach (var user in users)
+        foreach (var user in customers.OrderBy(u => u.FullName))
         {
-            var roles = await _userManager.GetRolesAsync(user);
             result.Add(new AdminUserListItemViewModel
             {
                 Id = user.Id,
                 FullName = user.FullName,
                 Email = user.Email ?? string.Empty,
-                Roles = roles,
+                Roles = await _userManager.GetRolesAsync(user),
                 IsLockedOut = await _userManager.IsLockedOutAsync(user),
                 CreatedAt = user.CreatedAt
             });
         }
 
-        ViewData["CurrentUserId"] = currentUserId;
         return View(result);
     }
+
+    private async Task<bool> IsProtectedFromManagementAsync(ApplicationUser user)
+        => await _userManager.IsInRoleAsync(user, IdentityRoles.Admin);
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> ToggleLock(string id)
@@ -48,9 +49,9 @@ public class UsersController : Controller
         var user = await _userManager.FindByIdAsync(id);
         if (user is null) return NotFound();
 
-        if (id == _userManager.GetUserId(User))
+        if (await IsProtectedFromManagementAsync(user))
         {
-            TempData["ErrorMessage"] = "You cannot lock your own account.";
+            TempData["ErrorMessage"] = "Administrator accounts can't be managed from here.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -70,9 +71,9 @@ public class UsersController : Controller
         var user = await _userManager.FindByIdAsync(id);
         if (user is null) return NotFound();
 
-        if (id == _userManager.GetUserId(User))
+        if (await IsProtectedFromManagementAsync(user))
         {
-            TempData["ErrorMessage"] = "You cannot change your own role.";
+            TempData["ErrorMessage"] = "Administrator accounts can't be managed from here.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -88,6 +89,7 @@ public class UsersController : Controller
     {
         var user = await _userManager.FindByIdAsync(id);
         if (user is null) return NotFound();
+        if (await IsProtectedFromManagementAsync(user)) return Forbid();
 
         return View(new AdminUserEditViewModel
         {
@@ -102,10 +104,12 @@ public class UsersController : Controller
     public async Task<IActionResult> Edit(string id, AdminUserEditViewModel model)
     {
         if (id != model.Id) return BadRequest();
-        if (!ModelState.IsValid) return View(model);
 
         var user = await _userManager.FindByIdAsync(id);
         if (user is null) return NotFound();
+        if (await IsProtectedFromManagementAsync(user)) return Forbid();
+
+        if (!ModelState.IsValid) return View(model);
 
         user.FullName = model.FullName;
         user.Address = model.Address;
@@ -137,14 +141,14 @@ public class UsersController : Controller
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(string id)
     {
-        if (id == _userManager.GetUserId(User))
-        {
-            TempData["ErrorMessage"] = "You cannot delete your own account.";
-            return RedirectToAction(nameof(Index));
-        }
-
         var user = await _userManager.FindByIdAsync(id);
         if (user is null) return NotFound();
+
+        if (await IsProtectedFromManagementAsync(user))
+        {
+            TempData["ErrorMessage"] = "Administrator accounts can't be managed from here.";
+            return RedirectToAction(nameof(Index));
+        }
 
         try
         {
