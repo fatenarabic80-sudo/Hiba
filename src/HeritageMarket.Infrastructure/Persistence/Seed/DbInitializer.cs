@@ -37,11 +37,11 @@ public static class DbInitializer
         if (!await context.Countries.AnyAsync())
         {
             context.Countries.AddRange(
-                new Country { Name = "Lebanon", Code = "LB", Description = "Levantine heritage: cedar motifs, mosaic art, and mountain craftsmanship." },
-                new Country { Name = "Morocco", Code = "MA", Description = "North African heritage: Berber patterns, zellige tilework, and desert textiles." },
-                new Country { Name = "Japan", Code = "JP", Description = "East Asian heritage: washi paper, indigo dye, and minimalist ceramics." },
-                new Country { Name = "Mexico", Code = "MX", Description = "Mesoamerican heritage: Talavera pottery, vibrant textiles, and folk art." },
-                new Country { Name = "India", Code = "IN", Description = "South Asian heritage: block printing, brassware, and handloom weaving." }
+                new Country { Name = "Lebanon", Code = "LB", Description = "Levantine heritage: cedar motifs, mosaic art, and mountain craftsmanship.", FlagImageUrl = "https://picsum.photos/seed/country-lebanon/400/500" },
+                new Country { Name = "Morocco", Code = "MA", Description = "North African heritage: Berber patterns, zellige tilework, and desert textiles.", FlagImageUrl = "https://picsum.photos/seed/country-morocco/400/500" },
+                new Country { Name = "Japan", Code = "JP", Description = "East Asian heritage: washi paper, indigo dye, and minimalist ceramics.", FlagImageUrl = "https://picsum.photos/seed/country-japan/400/500" },
+                new Country { Name = "Mexico", Code = "MX", Description = "Mesoamerican heritage: Talavera pottery, vibrant textiles, and folk art.", FlagImageUrl = "https://picsum.photos/seed/country-mexico/400/500" },
+                new Country { Name = "India", Code = "IN", Description = "South Asian heritage: block printing, brassware, and handloom weaving.", FlagImageUrl = "https://picsum.photos/seed/country-india/400/500" }
             );
             await context.SaveChangesAsync();
         }
@@ -49,11 +49,11 @@ public static class DbInitializer
         if (!await context.Categories.AnyAsync())
         {
             context.Categories.AddRange(
-                new Category { Name = "Home & Decoration", Description = "Heritage-inspired decor for the home." },
-                new Category { Name = "Accessories", Description = "Traditional accessories with a modern edge." },
-                new Category { Name = "Phone Covers", Description = "Heritage-pattern phone covers." },
-                new Category { Name = "Wear & Traditional Clothing", Description = "Garments inspired by traditional dress." },
-                new Category { Name = "Heritage Books", Description = "Books on history, culture, and traditions." }
+                new Category { Name = "Home & Decoration", Description = "Heritage-inspired decor for the home.", IconUrl = "https://picsum.photos/seed/cat-home-decor/600/760" },
+                new Category { Name = "Accessories", Description = "Traditional accessories with a modern edge.", IconUrl = "https://picsum.photos/seed/cat-accessories/600/760" },
+                new Category { Name = "Phone Covers", Description = "Heritage-pattern phone covers.", IconUrl = "https://picsum.photos/seed/cat-phone-covers/600/760" },
+                new Category { Name = "Wear & Traditional Clothing", Description = "Garments inspired by traditional dress.", IconUrl = "https://picsum.photos/seed/cat-wear/600/760" },
+                new Category { Name = "Heritage Books", Description = "Books on history, culture, and traditions.", IconUrl = "https://picsum.photos/seed/cat-books/600/760" }
             );
             await context.SaveChangesAsync();
         }
@@ -71,6 +71,7 @@ public static class DbInitializer
                     Price = 45.00m,
                     StockQuantity = 20,
                     SKU = "LB-HOME-001",
+                    ImageUrl = "https://picsum.photos/seed/prod-cedar-box/600/600",
                     CategoryId = categories["Home & Decoration"],
                     CountryId = countries["Lebanon"]
                 },
@@ -81,6 +82,7 @@ public static class DbInitializer
                     Price = 28.00m,
                     StockQuantity = 35,
                     SKU = "MA-HOME-002",
+                    ImageUrl = "https://picsum.photos/seed/prod-zellige-coasters/600/600",
                     CategoryId = categories["Home & Decoration"],
                     CountryId = countries["Morocco"]
                 },
@@ -91,6 +93,7 @@ public static class DbInitializer
                     Price = 22.00m,
                     StockQuantity = 50,
                     SKU = "JP-PHONE-001",
+                    ImageUrl = "https://picsum.photos/seed/prod-washi-phone/600/600",
                     CategoryId = categories["Phone Covers"],
                     CountryId = countries["Japan"]
                 },
@@ -101,6 +104,7 @@ public static class DbInitializer
                     Price = 20.00m,
                     StockQuantity = 40,
                     SKU = "MX-PHONE-002",
+                    ImageUrl = "https://picsum.photos/seed/prod-talavera-phone/600/600",
                     CategoryId = categories["Phone Covers"],
                     CountryId = countries["Mexico"]
                 },
@@ -111,6 +115,7 @@ public static class DbInitializer
                     Price = 32.00m,
                     StockQuantity = 25,
                     SKU = "IN-ACC-001",
+                    ImageUrl = "https://picsum.photos/seed/prod-block-print-scarf/600/600",
                     CategoryId = categories["Accessories"],
                     CountryId = countries["India"]
                 },
@@ -121,6 +126,7 @@ public static class DbInitializer
                     Price = 18.00m,
                     StockQuantity = 60,
                     SKU = "IN-ACC-002",
+                    ImageUrl = "https://picsum.photos/seed/prod-brass-earrings/600/600",
                     CategoryId = categories["Accessories"],
                     CountryId = countries["India"]
                 },
@@ -131,6 +137,7 @@ public static class DbInitializer
                     Price = 120.00m,
                     StockQuantity = 12,
                     SKU = "LB-WEAR-001",
+                    ImageUrl = "https://picsum.photos/seed/prod-thobe/600/600",
                     CategoryId = categories["Wear & Traditional Clothing"],
                     CountryId = countries["Lebanon"]
                 },
@@ -141,6 +148,7 @@ public static class DbInitializer
                     Price = 95.00m,
                     StockQuantity = 15,
                     SKU = "MA-WEAR-002",
+                    ImageUrl = "https://picsum.photos/seed/prod-kaftan/600/600",
                     CategoryId = categories["Wear & Traditional Clothing"],
                     CountryId = countries["Morocco"]
                 },
@@ -151,6 +159,7 @@ public static class DbInitializer
                     Price = 34.00m,
                     StockQuantity = 30,
                     SKU = "MA-BOOK-001",
+                    ImageUrl = "https://picsum.photos/seed/prod-zellige-book/600/600",
                     CategoryId = categories["Heritage Books"],
                     CountryId = countries["Morocco"]
                 },
@@ -161,6 +170,7 @@ public static class DbInitializer
                     Price = 29.00m,
                     StockQuantity = 22,
                     SKU = "LB-BOOK-002",
+                    ImageUrl = "https://picsum.photos/seed/prod-cedars-book/600/600",
                     CategoryId = categories["Heritage Books"],
                     CountryId = countries["Lebanon"]
                 }

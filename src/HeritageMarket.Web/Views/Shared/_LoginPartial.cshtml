@@ -6,10 +6,11 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            <i class="bi bi-person-circle"></i> @User.Identity?.Name
+        <a class="icon-btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" title="Account">
+            <i class="bi bi-person-circle fs-5"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
+            <li class="dropdown-header">@User.Identity?.Name</li>
             <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">My Profile</a></li>
             <li><a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index">My Orders</a></li>
             <li><hr class="dropdown-divider" /></li>
@@ -24,7 +25,7 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="icon-btn" asp-area="Identity" asp-page="/Account/Login" title="Login"><i class="bi bi-person fs-5"></i></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>

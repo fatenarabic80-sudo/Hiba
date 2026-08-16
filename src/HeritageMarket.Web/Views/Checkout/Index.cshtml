@@ -3,8 +3,14 @@
     ViewData["Title"] = "Checkout";
 }
 
-<h2 class="mb-4">Checkout</h2>
+<div class="page-banner">
+    <div class="container">
+        <div class="crumbs mb-1"><a asp-controller="Home" asp-action="Index">Home</a> / <a asp-controller="Cart" asp-action="Index">Cart</a> / Checkout</div>
+        <h1>Checkout</h1>
+    </div>
+</div>
 
+<div class="container mt-4">
 <div class="row g-4">
     <div class="col-lg-7">
         <div class="card">
@@ -47,6 +53,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @section Scripts {

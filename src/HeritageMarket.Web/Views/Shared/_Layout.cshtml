@@ -9,22 +9,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Heritage Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-heritage sticky-top shadow-sm">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg py-2">
             <div class="container">
-                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-globe-americas"></i> Heritage Marketplace
+                <a class="logo-mark navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#564A28" stroke-width="1.5"/><path d="M20 6 L23 17 L34 20 L23 23 L20 34 L17 23 L6 20 L17 17 Z" fill="#C39A44"/></svg>
+                    Heritage Market <span class="tag d-none d-sm-inline">Asaleh</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-3">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -56,7 +59,11 @@
                             </li>
                         }
                     </ul>
-                    <ul class="navbar-nav align-items-lg-center">
+                    <form class="search-inline d-none d-lg-flex me-3" asp-controller="Products" asp-action="Index" method="get">
+                        <i class="bi bi-search"></i>
+                        <input type="text" name="searchTerm" placeholder="Search products, countries…" />
+                    </form>
+                    <ul class="navbar-nav align-items-lg-center flex-row gap-1">
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -95,10 +102,44 @@
         @RenderBody()
     </main>
 
-    <footer class="bg-heritage text-white-50 py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-1">&copy; @DateTime.Now.Year Heritage Marketplace &mdash; celebrating world heritage, one product at a time.</p>
-            <a class="text-white-50" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="site-footer mt-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-logo mb-2">Heritage Market</div>
+                    <p class="small">A marketplace connecting cultures, traditions, and stories with people around the world.</p>
+                    <div class="social-row d-flex gap-2 mt-3">
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="mb-3">Shop</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a asp-controller="Products" asp-action="Index">All Products</a></li>
+                        <li class="mb-2"><a asp-controller="Home" asp-action="Index">Categories</a></li>
+                        <li class="mb-2"><a asp-controller="Home" asp-action="Index">Countries</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5 class="mb-3">Account</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                        <li class="mb-2"><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                        <li class="mb-2"><a asp-controller="Orders" asp-action="Index">My Orders</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="mb-3">About</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+                <span>&copy; @DateTime.Now.Year Heritage Marketplace. All rights reserved.</span>
+            </div>
         </div>
     </footer>
 

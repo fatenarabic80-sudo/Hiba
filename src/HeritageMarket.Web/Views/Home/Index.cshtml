@@ -3,45 +3,165 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="hero-banner mb-5 text-center">
-    <h1 class="display-5 fw-bold">Heritage-Inspired Products, From Every Corner of the World</h1>
-    <p class="lead mb-4">Home decor, accessories, phone covers, traditional wear, and books celebrating culture and history.</p>
-    <a asp-controller="Products" asp-action="Index" class="btn btn-light btn-lg text-heritage fw-semibold">Shop the Collection</a>
+<div class="container">
+    <section class="hero-banner mt-4 mb-5">
+        <div style="max-width:620px;">
+            <p class="eyebrow">Product &middot; Culture &middot; Story</p>
+            <h1>Discover Heritage.<br />Wear Culture. Bring <em>Tradition</em> Home.</h1>
+            <p class="lead">Explore unique products inspired by the cultures, traditions, and stories of communities
+                around the world &mdash; every piece carries a history worth knowing.</p>
+            <div class="d-flex gap-2 flex-wrap mt-4">
+                <a asp-controller="Products" asp-action="Index" class="btn btn-heritage btn-lg">Explore Products</a>
+                <a href="#stories" class="btn btn-ghost-cream btn-lg">Explore Heritage Stories</a>
+            </div>
+            <div class="hero-stats">
+                <div><strong>@Model.Countries.Count</strong><span>Countries</span></div>
+                <div><strong>@Model.Categories.Count</strong><span>Categories</span></div>
+                <div><strong>@Model.FeaturedProducts.Count+</strong><span>Featured Pieces</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <p class="eyebrow">Explore by Category</p>
+                <h2>Every category tells a different chapter of heritage</h2>
+            </div>
+            <p class="sub mb-0">From the home to the wardrobe to the bookshelf.</p>
+        </div>
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col">
+                    <a class="cat-card" asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id">
+                        <img src="@(string.IsNullOrEmpty(category.IconUrl) ? "/images/placeholder-product.svg" : category.IconUrl)" alt="@category.Name" />
+                        <div class="body">
+                            <h3>@category.Name</h3>
+                            <p>@category.ProductCount product(s)</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="section-cream-alt mb-5">
+        <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <p class="eyebrow">Explore by Country</p>
+                <h2 class="mb-0">Shop the world, one culture at a time</h2>
+            </div>
+        </div>
+        <div class="country-scroll">
+            @foreach (var country in Model.Countries)
+            {
+                <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
+                    <img src="@(string.IsNullOrEmpty(country.FlagImageUrl) ? "/images/placeholder-product.svg" : country.FlagImageUrl)" alt="@country.Name" />
+                    <div class="info">
+                        <h4>@country.Name</h4>
+                        <span class="link">Explore Heritage &rarr;</span>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+                <p class="eyebrow">Featured</p>
+                <h2 class="mb-0">Featured Products</h2>
+            </div>
+            <a asp-controller="Products" asp-action="Index" class="btn btn-outline-heritage btn-sm">View All Products</a>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var product in Model.FeaturedProducts)
+            {
+                <partial name="_ProductCard" model="product" />
+            }
+        </div>
+    </section>
+
+    <section class="mb-5" id="stories">
+        <div class="section-head mb-4">
+            <p class="eyebrow">Our Signature</p>
+            <h2>More Than a Product &mdash; A Story of Heritage</h2>
+            <p class="sub">Every item on Heritage Market is linked to the hands, patterns, and history that made it.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="product-card h-100">
+                    <div class="product-media"><img src="https://picsum.photos/seed/story-tatreez/600/420" alt="Tatreez embroidery" /></div>
+                    <div class="p-3">
+                        <p class="product-country mb-1">Palestine &middot; Tatreez</p>
+                        <h5>The Art of Palestinian Embroidery</h5>
+                        <p class="text-muted small">Discover the symbolism behind traditional embroidery patterns passed down through generations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-card h-100">
+                    <div class="product-media"><img src="https://picsum.photos/seed/story-kintsugi/600/420" alt="Kintsugi ceramics" /></div>
+                    <div class="p-3">
+                        <p class="product-country mb-1">Japan &middot; Ceramic Repair</p>
+                        <h5>Kintsugi: Beauty in Broken Things</h5>
+                        <p class="text-muted small">A centuries-old Japanese repair technique that turned imperfection into an art form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-card h-100">
+                    <div class="product-media"><img src="https://picsum.photos/seed/story-zellige/600/420" alt="Zellige tilework" /></div>
+                    <div class="p-3">
+                        <p class="product-country mb-1">Morocco &middot; Tilework</p>
+                        <h5>Zellige: Morocco's Geometric Language</h5>
+                        <p class="text-muted small">Inside the workshops of Fez, where artisans hand-cut tile fragments into geometric patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <div class="hero-banner" style="min-height:280px; background-image: linear-gradient(110deg, rgba(43,38,34,.7), rgba(60,74,59,.55)), url('https://picsum.photos/seed/heritage-banner/1600/700');">
+            <div style="max-width:520px;">
+                <p class="eyebrow">Featured Collection</p>
+                <h2 class="mb-2" style="color:#fff;">From Tradition to Your Home</h2>
+                <p class="lead">Discover handcrafted pieces that carry stories, traditions, and cultural identity from
+                    around the world.</p>
+                <a asp-controller="Products" asp-action="Index" class="btn btn-heritage btn-lg">Shop Heritage Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-cream-alt mb-5">
+        <div class="section-head mb-4">
+            <p class="eyebrow">The Journey</p>
+            <h2>How the Marketplace Works</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="bg-white rounded p-4 h-100 border">
+                    <i class="bi bi-search fs-2 text-heritage"></i>
+                    <h5 class="mt-3">Discover</h5>
+                    <p class="text-muted small mb-0">Explore products inspired by cultures from around the world, organized by category and origin.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white rounded p-4 h-100 border">
+                    <i class="bi bi-book fs-2 text-heritage"></i>
+                    <h5 class="mt-3">Learn</h5>
+                    <p class="text-muted small mb-0">Discover the story and heritage behind each product before it becomes part of your life.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white rounded p-4 h-100 border">
+                    <i class="bi bi-bag-check fs-2 text-heritage"></i>
+                    <h5 class="mt-3">Shop</h5>
+                    <p class="text-muted small mb-0">Purchase unique heritage-inspired products and bring culture into your everyday life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-
-<section class="mb-5">
-    <h3 class="mb-3">Shop by Category</h3>
-    <div class="d-flex flex-wrap gap-2">
-        @foreach (var category in Model.Categories)
-        {
-            <a class="btn btn-outline-secondary country-chip" asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id">
-                @category.Name
-            </a>
-        }
-    </div>
-</section>
-
-<section class="mb-5">
-    <h3 class="mb-3">Shop by Country</h3>
-    <div class="d-flex flex-wrap gap-2">
-        @foreach (var country in Model.Countries)
-        {
-            <a class="btn btn-outline-secondary country-chip" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
-                @country.Name
-            </a>
-        }
-    </div>
-</section>
-
-<section>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">Featured Products</h3>
-        <a asp-controller="Products" asp-action="Index" class="text-heritage">View all &rarr;</a>
-    </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach (var product in Model.FeaturedProducts)
-        {
-            <partial name="_ProductCard" model="product" />
-        }
-    </div>
-</section>
