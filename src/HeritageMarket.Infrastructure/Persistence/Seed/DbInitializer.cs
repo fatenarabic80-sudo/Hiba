@@ -34,25 +34,26 @@ public static class DbInitializer
     private static string ProductImageUrl(string categoryName, string countryName, int lockSeed) =>
         $"https://loremflickr.com/600/600/{CategoryImageKeyword[categoryName]},{Uri.EscapeDataString(countryName.Replace(" ", string.Empty))}?lock={lockSeed}";
 
-    /// <summary>Each country's single most recognizable landmark, used by the visual country picker on the Shop page.</summary>
-    private static readonly Dictionary<string, (string Keyword, int Lock)> LandmarkByCountryCode = new()
+    /// <summary>Each country's single most recognizable landmark, used by the visual country picker on the Shop page
+    /// and the country showcase page hero. Real curated photos where available; a keyword-searched fallback otherwise.</summary>
+    private static readonly Dictionary<string, string> LandmarkByCountryCode = new()
     {
-        ["LB"] = ("mohammadalaminmosque,beirut", 401),
-        ["EG"] = ("pyramidsofgiza,egypt", 402),
-        ["MA"] = ("hassanmosque,casablanca", 403),
-        ["PS"] = ("domeoftherock,jerusalem", 404),
-        ["SY"] = ("umayyadmosque,damascus", 405),
-        ["JO"] = ("petra,jordan", 406),
-        ["IQ"] = ("malwiyaminaret,samarra", 407),
-        ["TN"] = ("sidibousaid,tunisia", 408),
-        ["IN"] = ("tajmahal,india", 409),
-        ["JP"] = ("mountfuji,japan", 410),
-        ["TR"] = ("bosphorusbridge,istanbul", 411),
-        ["FR"] = ("eiffeltower,paris", 412),
-        ["IT"] = ("colosseum,rome", 413),
-        ["ES"] = ("sagradafamilia,barcelona", 415),
-        ["DE"] = ("brandenburggate,berlin", 416),
-        ["US"] = ("statueofliberty,newyork", 418)
+        ["LB"] = "/images/curated/landmark-lebanon-byblos.webp",
+        ["EG"] = "https://loremflickr.com/500/500/pyramidsofgiza,egypt?lock=402",
+        ["MA"] = "/images/curated/landmark-morocco-chefchaouen.webp",
+        ["PS"] = "/images/curated/landmark-palestine-domeoftherock.jpg",
+        ["SY"] = "/images/curated/landmark-syria-umayyadmosque.jpg",
+        ["JO"] = "/images/curated/landmark-jordan-petra.webp",
+        ["IQ"] = "/images/curated/landmark-iraq-ctesiphon.jpg",
+        ["TN"] = "/images/curated/landmark-tunisia-sidibousaid.jpg",
+        ["IN"] = "/images/curated/landmark-india-tajmahal.jpg",
+        ["JP"] = "/images/curated/landmark-japan-fushimiinari.jpg",
+        ["TR"] = "https://loremflickr.com/500/500/bosphorusbridge,istanbul?lock=411",
+        ["FR"] = "/images/curated/landmark-france-eiffeltower.jpg",
+        ["IT"] = "/images/curated/landmark-italy-colosseum.jpg",
+        ["ES"] = "/images/curated/landmark-spain-alhambra.webp",
+        ["DE"] = "/images/curated/landmark-germany-brandenburggate.jpeg",
+        ["US"] = "/images/curated/landmark-usa-grandcanyon.jpg"
     };
 
     public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -105,8 +106,8 @@ public static class DbInitializer
                     Region = seedCountry.Region,
                     Description = seedCountry.Description,
                     FlagImageUrl = $"https://flagcdn.com/w320/{seedCountry.Code.ToLowerInvariant()}.png",
-                    LandmarkImageUrl = LandmarkByCountryCode.TryGetValue(seedCountry.Code, out var landmark)
-                        ? $"https://loremflickr.com/500/500/{landmark.Keyword}?lock={landmark.Lock}"
+                    LandmarkImageUrl = LandmarkByCountryCode.TryGetValue(seedCountry.Code, out var landmarkUrl)
+                        ? landmarkUrl
                         : null
                 });
             }
