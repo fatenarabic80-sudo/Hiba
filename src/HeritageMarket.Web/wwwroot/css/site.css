@@ -78,6 +78,30 @@ header.site-header {
 }
 .search-go-btn:hover { background: var(--terracotta-dark); }
 
+/* ============ COUNTRY SHOWCASE ============ */
+.country-showcase-hero {
+  background-size: cover; background-position: center; padding: 64px 0 40px; color: #fff;
+}
+.country-showcase-hero .crumbs { font-size: 12.5px; color: rgba(255, 252, 246, .75); }
+.country-showcase-hero .crumbs a { color: rgba(255, 252, 246, .9); }
+.country-showcase-hero h1 { color: #fff; font-size: clamp(28px, 4vw, 44px); margin-bottom: 10px; }
+.country-showcase-hero p.lead { color: rgba(255, 252, 246, .9); max-width: 600px; }
+
+/* ============ SITE MENU (hamburger offcanvas) ============ */
+.menu-hamburger-btn { border: 1px solid var(--line); background: var(--white); }
+.site-menu-panel { background: var(--cream); width: min(300px, 84vw); }
+.site-menu-panel .offcanvas-header { border-bottom: 1px solid var(--line); }
+.menu-section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--charcoal-soft); margin: 4px 0 10px;
+}
+.menu-links { display: flex; flex-direction: column; }
+.menu-links li a {
+  display: block; padding: 9px 10px; border-radius: 8px; font-family: var(--serif); font-size: 15.5px;
+  color: var(--brown); text-decoration: none;
+}
+.menu-links li a:hover { background: var(--cream-2); color: var(--terracotta); }
+
 /* ============ CATEGORY TABS BAND ============ */
 .category-tabs-band {
   background: linear-gradient(100deg, var(--terracotta), var(--brown));
@@ -98,9 +122,19 @@ header.site-header {
 /* ============ HERO ============ */
 .hero-banner {
   position: relative; border-radius: var(--radius); overflow: hidden; min-height: 460px; display: flex; align-items: center;
-  background: linear-gradient(180deg, rgba(43, 38, 34, .35), rgba(43, 38, 34, .68)), url('https://picsum.photos/seed/heritage-hero/1800/900') center/cover;
+  background: linear-gradient(180deg, rgba(43, 38, 34, .35), rgba(43, 38, 34, .68)), url('https://loremflickr.com/1800/900/handicraft,heritage?lock=199') center/cover;
   color: var(--white); padding: 3rem 2.5rem;
 }
+.hero-banner-rotating { background: var(--charcoal); }
+.hero-bg-layer {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.4s ease; z-index: 0;
+}
+.hero-bg-layer::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(43, 38, 34, .35), rgba(43, 38, 34, .7));
+}
+.hero-bg-layer.active { opacity: 1; }
 .hero-banner .eyebrow { color: var(--gold); }
 .hero-banner .eyebrow::before { background: var(--gold); }
 .hero-banner h1 { color: #fff; font-size: clamp(30px, 5vw, 52px); line-height: 1.08; }

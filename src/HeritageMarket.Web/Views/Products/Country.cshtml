@@ -1,0 +1,46 @@
+@model CountryShowcaseViewModel
+@{
+    ViewData["Title"] = Model.Country.Name;
+    var heroImage = !string.IsNullOrEmpty(Model.Country.LandmarkImageUrl)
+        ? Model.Country.LandmarkImageUrl
+        : (Model.Country.FlagImageUrl ?? "/images/placeholder-product.svg");
+}
+
+<section class="country-showcase-hero" style="background-image: linear-gradient(180deg, rgba(43,38,34,.25), rgba(43,38,34,.75)), url('@heroImage');">
+    <div class="container">
+        <div class="crumbs mb-2"><a asp-controller="Home" asp-action="Index">Home</a> / @Model.Country.Name</div>
+        <p class="eyebrow" style="color:var(--gold);">@Model.Country.Region</p>
+        <h1>@Model.Country.Name Heritage Collection</h1>
+        @if (!string.IsNullOrEmpty(Model.Country.Description))
+        {
+            <p class="lead">@Model.Country.Description</p>
+        }
+        <a asp-controller="Products" asp-action="Index" asp-route-countryId="@Model.Country.Id" class="btn btn-ghost-cream mt-2">
+            <i class="bi bi-sliders"></i> Filter &amp; Search Instead
+        </a>
+    </div>
+</section>
+
+<div class="container mt-5">
+    @if (Model.Products.Count == 0)
+    {
+        <div class="alert alert-info">No products from @Model.Country.Name yet — check back soon.</div>
+    }
+    else
+    {
+        @foreach (var categoryGroup in Model.Products.GroupBy(p => p.CategoryName))
+        {
+            <section class="mb-5">
+                <div class="section-head mb-3">
+                    <h3 class="mb-0">@categoryGroup.Key</h3>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    @foreach (var product in categoryGroup)
+                    {
+                        <partial name="_ProductCard" model="product" />
+                    }
+                </div>
+            </section>
+        }
+    }
+</div>

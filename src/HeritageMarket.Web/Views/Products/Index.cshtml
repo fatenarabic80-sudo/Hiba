@@ -78,7 +78,7 @@
                         <div class="country-picker">
                             @{ var allActive = !Model.Filter.CountryId.HasValue; }
                             <label class="country-pick-item @(allActive ? "active" : "")">
-                                <input type="radio" name="countryId" value="" class="visually-hidden" checked="@allActive" />
+                                <input type="radio" name="countryId" value="" class="visually-hidden" checked="@allActive" onchange="this.form.submit()" />
                                 <span class="country-pick-thumb country-pick-thumb-all"><i class="bi bi-globe2"></i></span>
                                 <span class="country-pick-name">All</span>
                             </label>
@@ -89,7 +89,7 @@
                                 {
                                     var isActive = Model.Filter.CountryId == country.Id;
                                     <label class="country-pick-item @(isActive ? "active" : "")">
-                                        <input type="radio" name="countryId" value="@country.Id" class="visually-hidden" checked="@isActive" />
+                                        <input type="radio" name="countryId" value="@country.Id" class="visually-hidden" checked="@isActive" onchange="this.form.submit()" />
                                         <span class="country-pick-thumb">
                                             <img src="@(string.IsNullOrEmpty(country.LandmarkImageUrl) ? (country.FlagImageUrl ?? "/images/placeholder-product.svg") : country.LandmarkImageUrl)" alt="@country.Name" />
                                         </span>

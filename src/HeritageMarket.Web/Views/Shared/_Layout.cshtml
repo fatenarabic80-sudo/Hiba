@@ -22,10 +22,16 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-lg py-2">
             <div class="container">
-                <a class="logo-mark navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#564A28" stroke-width="1.5"/><path d="M20 6 L23 17 L34 20 L23 23 L20 34 L17 23 L6 20 L17 17 Z" fill="#C39A44"/></svg>
-                    Heritage Market <span class="tag d-none d-sm-inline">Asaleh</span>
-                </a>
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <button class="icon-btn menu-hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#siteMenu" aria-controls="siteMenu" title="Menu">
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+                    <a class="logo-mark navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#564A28" stroke-width="1.5"/><path d="M20 6 L23 17 L34 20 L23 23 L20 34 L17 23 L6 20 L17 17 Z" fill="#C39A44"/></svg>
+                        Heritage Market <span class="tag d-none d-sm-inline">Asaleh</span>
+                    </a>
+                    <a class="nav-link d-none d-md-inline fw-semibold" asp-controller="Products" asp-action="Index">Shop</a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -92,6 +98,29 @@
             </div>
         </div>
     </header>
+
+    <div class="offcanvas offcanvas-start site-menu-panel" tabindex="-1" id="siteMenu" aria-labelledby="siteMenuLabel">
+        <div class="offcanvas-header">
+            <div class="logo-mark" id="siteMenuLabel" style="font-size:19px;">Heritage Market <span class="tag">Asaleh</span></div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="menu-section-title">Shop by Category</div>
+            <ul class="list-unstyled menu-links">
+                @foreach (var category in navCategories)
+                {
+                    <li><a asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id" data-bs-dismiss="offcanvas">@category.Name</a></li>
+                }
+            </ul>
+            <div class="menu-section-title mt-4">Shop by Region</div>
+            <ul class="list-unstyled menu-links">
+                @foreach (var regionName in new[] { "Arab World", "Asia", "Europe", "Americas" })
+                {
+                    <li><a asp-controller="Home" asp-action="Index" asp-fragment="@("region-" + regionName.Replace(" ", ""))" data-bs-dismiss="offcanvas">@regionName</a></li>
+                }
+            </ul>
+        </div>
+    </div>
 
     @{
         var statusMessage = TempData["StatusMessage"] as string;

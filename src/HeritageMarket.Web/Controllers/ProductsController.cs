@@ -78,6 +78,27 @@ public class ProductsController : Controller
         return View(model);
     }
 
+    /// <summary>
+    /// A clean, filter-free showcase of everything one country offers — every product across every
+    /// category, grouped by category — reached from the Home page's country cards.
+    /// </summary>
+    public async Task<IActionResult> Country(int id)
+    {
+        var country = await _countryService.GetByIdAsync(id);
+        if (country is null) return NotFound();
+
+        var products = await _productService.GetCatalogAsync(new ProductFilter { CountryId = id, PageSize = 500 });
+
+        var model = new CountryShowcaseViewModel
+        {
+            Country = country,
+            Products = products.Items
+        };
+
+        await SetWishlistedIdsAsync();
+        return View(model);
+    }
+
     public async Task<IActionResult> Details(int id)
     {
         var product = await _productService.GetDetailAsync(id);

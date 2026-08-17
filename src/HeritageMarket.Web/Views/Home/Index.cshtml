@@ -4,8 +4,18 @@
 }
 
 <div class="container">
-    <section class="hero-banner mt-4 mb-5">
-        <div style="max-width:620px;">
+    @{
+        var heroBgKeywords = new[]
+        {
+            "handicraft,homedecor", "jewelry,artisan", "traditional,clothing", "phonecase,pattern", "books,library"
+        };
+    }
+    <section class="hero-banner hero-banner-rotating mt-4 mb-5" id="heroRotator">
+        @for (var i = 0; i < heroBgKeywords.Length; i++)
+        {
+            <div class="hero-bg-layer @(i == 0 ? "active" : "")" style="background-image:url('https://loremflickr.com/1800/900/@(heroBgKeywords[i])?lock=@(500 + i)');"></div>
+        }
+        <div style="max-width:620px; position:relative; z-index:2;">
             <p class="eyebrow">Product &middot; Culture &middot; Story</p>
             <h1>Discover Heritage.<br />Wear Culture. Bring <em>Tradition</em> Home.</h1>
             <p class="lead">Explore unique products inspired by the cultures, traditions, and stories of communities
@@ -37,7 +47,7 @@
         </div>
         @foreach (var region in Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key))
         {
-            <div class="region-block mb-4">
+            <div class="region-block mb-4" id="region-@(region.Key.Replace(" ", ""))">
                 <div class="region-block-head">
                     <h4>@region.Key</h4>
                     <span class="count">@region.Count() countries</span>
@@ -46,7 +56,7 @@
                     @foreach (var country in region)
                     {
                         <div class="col">
-                            <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
+                            <a class="country-card" asp-controller="Products" asp-action="Country" asp-route-id="@country.Id">
                                 <img src="@(!string.IsNullOrEmpty(country.LandmarkImageUrl) ? country.LandmarkImageUrl : (!string.IsNullOrEmpty(country.FlagImageUrl) ? country.FlagImageUrl : "/images/placeholder-product.svg"))" alt="@country.Name" />
                                 <div class="info">
                                     <h4>@country.Name</h4>
@@ -182,3 +192,18 @@
         </div>
     </section>
 </div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var layers = document.querySelectorAll('#heroRotator .hero-bg-layer');
+            if (layers.length < 2) return;
+            var i = 0;
+            setInterval(function () {
+                layers[i].classList.remove('active');
+                i = (i + 1) % layers.length;
+                layers[i].classList.add('active');
+            }, 4000);
+        })();
+    </script>
+}
