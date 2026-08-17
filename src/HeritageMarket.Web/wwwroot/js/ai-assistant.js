@@ -9,11 +9,15 @@
 
     if (!openBtn || !panel) return;
 
-    let history = [];
-    let sending = false;
-
     openBtn.addEventListener('click', () => panel.classList.add('open'));
     closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+    // The Heritage Books page (books-gate.js) drives this same chat panel with its own scripted
+    // flow — don't also wire up the general free-chat handlers there, or every message would fire twice.
+    if (document.getElementById('books-gate-data')) return;
+
+    let history = [];
+    let sending = false;
 
     function appendMessage(role, text) {
         const div = document.createElement('div');

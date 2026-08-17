@@ -134,11 +134,17 @@ classics (Dante, Homer, Cervantes, Murasaki Shikibu, Tagore, Gibran, Mahfouz, Hu
 Goethe, Twain, Morrison, and more) by authors celebrated both at home and internationally.
 
 Heritage Books isn't browsable like the other categories. Clicking it (from the nav, a category
-tile, or a direct link) intercepts the customer with a Heritage-Guide-styled intake asking why
-they're interested in reading and which country's books they'd prefer — submitting creates a real
-`BookAccessRequest` row. The category (and every book's product page) stays hidden — excluded from
-search, the Shop grid, and the homepage's featured list — until an Admin reviews and approves the
-request from **Admin → Book Requests**. Approval is per-customer, not global.
+tile, or a direct link) auto-opens the site's real AI chat widget (`Assistant/Ask`, the same one
+available everywhere else) and the Heritage Guide drives the whole exchange: if you're not logged
+in, it says so and links Login/Register right there in the chat; otherwise it asks which country's
+heritage you love (as quick-reply chips — reliable, no text parsing needed) and then why you're
+interested in reading (free text, sent to the live AI for a genuine reply, or the same fallback
+answers used elsewhere if no API key is configured). Answering both submits a real
+`BookAccessRequest` row via AJAX (`Controllers/ProductsController.cs`,
+`wwwroot/js/books-gate.js`). The category — and every book's product page — stays hidden, excluded
+from search, the Shop grid, and the homepage's featured list, until an Admin reviews and approves
+the request from **Admin → Book Requests**. Approval is per-customer, not global. Login is gated at
+this step specifically (not site-wide), matching how Cart/Checkout already work.
 
 ## Wishlist
 

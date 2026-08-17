@@ -155,6 +155,24 @@ public class ProductsController : Controller
         return RedirectToAction(nameof(Books));
     }
 
+    // Used by the AI Guide chat widget on the Books page — same effect as SubmitBookAccessRequest,
+    // but responds with JSON so the conversation can continue in place instead of redirecting.
+    [HttpPost, Authorize, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBookAccessRequestAjax(string preferredCountry, string reason)
+    {
+        if (string.IsNullOrWhiteSpace(preferredCountry) || string.IsNullOrWhiteSpace(reason))
+            return BadRequest(new { message = "A country and a reason are both required." });
+
+        await _bookAccessService.SubmitRequestAsync(new SubmitBookAccessRequest
+        {
+            ApplicationUserId = CurrentUserId!,
+            Reason = reason.Length > 500 ? reason[..500] : reason,
+            PreferredCountry = preferredCountry
+        });
+
+        return Json(new { success = true });
+    }
+
     private async Task SetWishlistedIdsAsync()
     {
         if (!(User.Identity?.IsAuthenticated ?? false)) return;
