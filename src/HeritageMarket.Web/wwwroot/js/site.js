@@ -1,3 +1,13 @@
+// Any remote image that fails to load (e.g. the free image service being unreachable or
+// rate-limited) falls back to the local placeholder instead of showing a broken-image artifact.
+// The 'error' event doesn't bubble, so this listener must run in the capture phase.
+document.addEventListener('error', function (e) {
+    const img = e.target;
+    if (img.tagName !== 'IMG' || img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = 'true';
+    img.src = '/images/placeholder-product.svg';
+}, true);
+
 // Wishlist heart toggle (AJAX, no page reload)
 document.addEventListener('click', function (e) {
     const btn = e.target.closest('.wish-heart-btn');
