@@ -148,6 +148,8 @@ try
 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+    app.UseStatusCodePagesWithReExecute("/Home/StatusCodeHandler", "?code={0}");
+
     if (!app.Environment.IsDevelopment())
     {
         app.UseHsts();

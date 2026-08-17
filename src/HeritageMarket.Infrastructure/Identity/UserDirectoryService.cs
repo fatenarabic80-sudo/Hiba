@@ -19,6 +19,12 @@ public class UserDirectoryService : IUserDirectoryService
         return !string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : user.Email ?? "Unknown User";
     }
 
+    public async Task<string> GetEmailAsync(string applicationUserId)
+    {
+        var user = await _userManager.FindByIdAsync(applicationUserId);
+        return user?.Email ?? "Unknown";
+    }
+
     public async Task<int> GetCustomerCountAsync()
     {
         var customers = await _userManager.GetUsersInRoleAsync(IdentityRoles.Customer);

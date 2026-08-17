@@ -9,6 +9,9 @@ public class OrderListItemDto
     public OrderStatus Status { get; set; }
     public decimal TotalAmount { get; set; }
     public int ItemCount { get; set; }
+    public string CustomerName { get; set; } = string.Empty;
+    public string CustomerEmail { get; set; } = string.Empty;
+    public List<string> ProductNames { get; set; } = new();
 }
 
 public class OrderDetailDto : OrderListItemDto

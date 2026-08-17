@@ -16,6 +16,7 @@ else
             <thead>
                 <tr>
                     <th>Order #</th>
+                    <th>Products</th>
                     <th>Date</th>
                     <th>Items</th>
                     <th>Status</th>
@@ -28,6 +29,7 @@ else
                 {
                     <tr>
                         <td>#@order.Id</td>
+                        <td class="small text-muted">@string.Join(", ", order.ProductNames)</td>
                         <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
                         <td>@order.ItemCount</td>
                         <td><span class="badge bg-warning text-dark">@order.Status</span></td>

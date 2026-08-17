@@ -103,7 +103,8 @@ public class OrderService : IOrderService
                 OrderDate = o.OrderDate,
                 Status = o.Status,
                 TotalAmount = o.TotalAmount,
-                ItemCount = o.Items.Sum(i => i.Quantity)
+                ItemCount = o.Items.Sum(i => i.Quantity),
+                ProductNames = o.Items.Select(i => i.Product.Name).ToList()
             })
             .ToList();
     }
@@ -136,9 +137,18 @@ public class OrderService : IOrderService
                 OrderDate = o.OrderDate,
                 Status = o.Status,
                 TotalAmount = o.TotalAmount,
-                ItemCount = o.Items.Sum(i => i.Quantity)
+                ItemCount = o.Items.Sum(i => i.Quantity),
+                CustomerName = o.ApplicationUserId,
+                ProductNames = o.Items.Select(i => i.Product.Name).ToList()
             })
             .ToListAsync();
+
+        foreach (var item in items)
+        {
+            var userId = item.CustomerName;
+            item.CustomerName = await _userDirectory.GetDisplayNameAsync(userId);
+            item.CustomerEmail = await _userDirectory.GetEmailAsync(userId);
+        }
 
         return new PagedResult<OrderListItemDto>
         {
