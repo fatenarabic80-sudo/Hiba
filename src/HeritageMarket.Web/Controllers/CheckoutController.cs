@@ -2,6 +2,7 @@ using HeritageMarket.Application.DTOs;
 using HeritageMarket.Application.Services.Interfaces;
 using HeritageMarket.Infrastructure.Identity;
 using HeritageMarket.Web.ViewModels;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -67,12 +68,10 @@ public class CheckoutController : Controller
 
         try
         {
-            var order = await _orderService.PlaceOrderAsync(new PlaceOrderRequest
-            {
-                ApplicationUserId = CurrentUserId,
-                ShippingAddress = model.ShippingAddress,
-                ShippingCity = model.ShippingCity
-            });
+            var request = model.Adapt<PlaceOrderRequest>();
+            request.ApplicationUserId = CurrentUserId;
+
+            var order = await _orderService.PlaceOrderAsync(request);
 
             return RedirectToAction(nameof(Confirmation), new { id = order.Id });
         }

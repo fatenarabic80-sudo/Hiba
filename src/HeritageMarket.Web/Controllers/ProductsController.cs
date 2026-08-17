@@ -3,6 +3,7 @@ using HeritageMarket.Application.DTOs;
 using HeritageMarket.Application.Services.Interfaces;
 using HeritageMarket.Infrastructure.Identity;
 using HeritageMarket.Web.ViewModels;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -115,13 +116,10 @@ public class ProductsController : Controller
 
         try
         {
-            await _reviewService.AddReviewAsync(new CreateReviewRequest
-            {
-                ProductId = form.ProductId,
-                ApplicationUserId = userId,
-                Rating = form.Rating,
-                Comment = form.Comment
-            });
+            var request = form.Adapt<CreateReviewRequest>();
+            request.ApplicationUserId = userId;
+
+            await _reviewService.AddReviewAsync(request);
             TempData["StatusMessage"] = "Thank you for your review!";
         }
         catch (Exception ex)

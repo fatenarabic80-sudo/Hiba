@@ -1,0 +1,102 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<div class="page-banner">
+    <div class="container">
+        <div class="crumbs mb-1"><a asp-controller="Home" asp-action="Index">Home</a> / My Dashboard</div>
+        <h1>Welcome back, @Model.FullName</h1>
+        <p class="text-muted mb-0">Member since @Model.MemberSince.ToString("MMM yyyy")</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="order-summary-card text-center py-3">
+                <div class="fs-4 fw-bold text-heritage">@Model.TotalOrders</div>
+                <div class="text-muted small">Total Orders</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="order-summary-card text-center py-3">
+                <div class="fs-4 fw-bold text-heritage">@Model.TotalSpent.ToString("C")</div>
+                <div class="text-muted small">Total Spent</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="order-summary-card text-center py-3">
+                <div class="fs-4 fw-bold text-heritage">@Model.WishlistCount</div>
+                <div class="text-muted small">Wishlist Items</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="order-summary-card text-center py-3">
+                <div class="fs-4 fw-bold text-heritage">@Model.CartItemCount</div>
+                <div class="text-muted small">Items in Cart</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 style="font-family:var(--serif); color:var(--brown);">Recent Orders</h4>
+                <a asp-controller="Orders" asp-action="Index" class="btn btn-sm btn-outline-heritage">View All</a>
+            </div>
+            @if (Model.RecentOrders.Count == 0)
+            {
+                <div class="alert alert-info">You haven't placed any orders yet. <a asp-controller="Products" asp-action="Index">Start shopping</a>.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr><th>Order #</th><th>Products</th><th>Date</th><th>Status</th><th>Total</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.RecentOrders)
+                            {
+                                <tr>
+                                    <td>#@order.Id</td>
+                                    <td class="small text-muted">@string.Join(", ", order.ProductNames)</td>
+                                    <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                    <td><span class="badge bg-warning text-dark">@order.Status</span></td>
+                                    <td>@order.TotalAmount.ToString("C")</td>
+                                    <td><a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-secondary">View</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <div class="col-lg-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 style="font-family:var(--serif); color:var(--brown);">From Your Wishlist</h4>
+                <a asp-controller="Wishlist" asp-action="Index" class="btn btn-sm btn-outline-heritage">View All</a>
+            </div>
+            @if (Model.WishlistPreview.Count == 0)
+            {
+                <div class="alert alert-info">Your wishlist is empty. <a asp-controller="Products" asp-action="Index">Browse products</a> and tap the heart icon to save favorites.</div>
+            }
+            else
+            {
+                <div class="row row-cols-2 g-3">
+                    @foreach (var product in Model.WishlistPreview)
+                    {
+                        <partial name="_ProductCard" model="product" />
+                    }
+                </div>
+            }
+
+            <div class="d-flex gap-2 mt-4">
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-heritage flex-fill"><i class="bi bi-bag"></i> Go to Cart</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-outline-heritage flex-fill"><i class="bi bi-person"></i> Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>

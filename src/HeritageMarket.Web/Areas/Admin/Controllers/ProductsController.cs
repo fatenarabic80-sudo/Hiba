@@ -3,6 +3,7 @@ using HeritageMarket.Application.Services.Interfaces;
 using HeritageMarket.Infrastructure.Identity;
 using HeritageMarket.Web.Helpers;
 using HeritageMarket.Web.ViewModels;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -60,20 +61,10 @@ public class ProductsController : Controller
         {
             var imageUrl = await FileUploadHelper.SaveImageAsync(model.ImageFile, _environment, "products");
 
-            await _productService.CreateAsync(new ProductEditDto
-            {
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
-                StockQuantity = model.StockQuantity,
-                SKU = model.SKU,
-                IsActive = model.IsActive,
-                CategoryId = model.CategoryId,
-                CountryId = model.CountryId,
-                Gender = model.Gender,
-                Sizes = model.Sizes,
-                ImageUrl = imageUrl
-            });
+            var dto = model.Adapt<ProductEditDto>();
+            dto.ImageUrl = imageUrl;
+
+            await _productService.CreateAsync(dto);
 
             TempData["StatusMessage"] = "Product created successfully.";
             return RedirectToAction(nameof(Index));
@@ -127,21 +118,10 @@ public class ProductsController : Controller
         {
             var imageUrl = await FileUploadHelper.SaveImageAsync(model.ImageFile, _environment, "products");
 
-            await _productService.UpdateAsync(new ProductEditDto
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
-                StockQuantity = model.StockQuantity,
-                SKU = model.SKU,
-                IsActive = model.IsActive,
-                CategoryId = model.CategoryId,
-                CountryId = model.CountryId,
-                Gender = model.Gender,
-                Sizes = model.Sizes,
-                ImageUrl = imageUrl ?? model.ExistingImageUrl
-            });
+            var dto = model.Adapt<ProductEditDto>();
+            dto.ImageUrl = imageUrl ?? model.ExistingImageUrl;
+
+            await _productService.UpdateAsync(dto);
 
             TempData["StatusMessage"] = "Product updated successfully.";
             return RedirectToAction(nameof(Index));
