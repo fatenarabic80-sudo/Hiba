@@ -1,6 +1,6 @@
 namespace HeritageMarket.Infrastructure.Persistence.Seed;
 
-public record SeedProduct(string Name, string Description, decimal Price, string? Gender = null, string? Sizes = null);
+public record SeedProduct(string Name, string Description, decimal Price, string? Gender = null, string? Sizes = null, string? ImageUrl = null);
 public record SeedBook(string Title, string Author, string Description, decimal Price);
 
 public record SeedCountry(
@@ -98,7 +98,11 @@ public static class HeritageCatalogSeedData
             {
                 new SeedProduct("Moroccan Kaftan", "Hand-embroidered Moroccan kaftan finished with sfifa braid trim.", 95.00m, "Women", "XS,S,M,L,XL"),
                 new SeedProduct("Berber Wool Djellaba", "Hooded djellaba handwoven from Atlas Mountains wool.", 88.00m, "Men", "S,M,L,XL,XXL"),
-                new SeedProduct("Kids' Mini Djellaba", "A child-sized hooded djellaba in soft Atlas Mountains wool blend.", 46.00m, "Kids", "2T,4T,6,8,10,12")
+                new SeedProduct("Kids' Mini Djellaba", "A child-sized hooded djellaba in soft Atlas Mountains wool blend.", 46.00m, "Kids", "2T,4T,6,8,10,12"),
+                new SeedProduct("Ruby Embroidered Kaftan", "Deep-red kaftan with dense gold sequin and bead embroidery, cinched with a metallic sash.", 168.00m, "Women", "S,M,L,XL", "/images/curated/morocco-red-kaftan.jpg"),
+                new SeedProduct("Emerald Velvet Takchita", "Forest-green velvet takchita with elaborate gold sfifa braid and a bejeweled belt.", 245.00m, "Women", "S,M,L,XL", "/images/curated/morocco-green-velvet-kaftan.jpg"),
+                new SeedProduct("Hooded Djellaba with Cloak", "Cream wool djellaba layered under a flowing hooded black cloak, Marrakech tailoring.", 138.00m, "Men", "S,M,L,XL,XXL", "/images/curated/morocco-men-djellaba-cloak.jpg"),
+                new SeedProduct("Velvet Tarbosh with Zellige Band", "Velvet tarbosh cap wrapped in a laser-cut metallic band echoing zellige star patterns.", 38.00m, "Men", "One Size", "/images/curated/morocco-tarbosh.webp")
             },
             Books: new[]
             {

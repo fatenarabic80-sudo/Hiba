@@ -186,7 +186,7 @@ public static class DbInitializer
                 Price = product.Price,
                 StockQuantity = stock,
                 SKU = $"{countryCode}-{skuCode}-{index:00}",
-                ImageUrl = ProductImageUrl(categoryName, countryName, StableSeed(countryCode, skuCode, index)),
+                ImageUrl = product.ImageUrl ?? ProductImageUrl(categoryName, countryName, StableSeed(countryCode, skuCode, index)),
                 CategoryId = categoryIds[categoryName],
                 CountryId = countryId,
                 Gender = product.Gender,
