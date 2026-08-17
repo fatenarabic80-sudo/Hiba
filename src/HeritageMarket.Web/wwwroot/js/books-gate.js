@@ -113,7 +113,8 @@
             });
             submitTyping.remove();
             if (response.ok) {
-                botSay("Thank you! I've sent this to our team for approval — I'll unlock the Heritage Books shelf for you as soon as they review it. 🎉");
+                botSay('Your Heritage Books shelf is unlocked — enjoy! Taking you there now. 🎉');
+                setTimeout(() => { window.location.href = '/Products/Books'; }, 1400);
             } else {
                 botSay("Hmm, I couldn't send that just now. Please try again in a moment.");
             }

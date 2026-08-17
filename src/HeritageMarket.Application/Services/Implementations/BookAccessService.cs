@@ -50,13 +50,19 @@ public class BookAccessService : IBookAccessService
 
     public async Task SubmitRequestAsync(SubmitBookAccessRequest request)
     {
+        // Auto-approved on submission: a manual admin wait here loses the customer's momentum
+        // right when they're most interested. The request is still logged for Admin visibility
+        // (and can be revoked from Admin -> Book Requests), it just no longer blocks access.
+        var now = DateTime.UtcNow;
         await _unitOfWork.BookAccessRequests.AddAsync(new BookAccessRequest
         {
             ApplicationUserId = request.ApplicationUserId,
             Reason = request.Reason,
             PreferredCountry = request.PreferredCountry,
-            Status = BookAccessStatus.Pending,
-            RequestedAt = DateTime.UtcNow
+            Status = BookAccessStatus.Approved,
+            RequestedAt = now,
+            ReviewedAt = now,
+            AdminNote = "Auto-approved"
         });
         await _unitOfWork.SaveChangesAsync();
     }

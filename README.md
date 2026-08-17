@@ -139,12 +139,15 @@ available everywhere else) and the Heritage Guide drives the whole exchange: if 
 in, it says so and links Login/Register right there in the chat; otherwise it asks which country's
 heritage you love (as quick-reply chips — reliable, no text parsing needed) and then why you're
 interested in reading (free text, sent to the live AI for a genuine reply, or the same fallback
-answers used elsewhere if no API key is configured). Answering both submits a real
-`BookAccessRequest` row via AJAX (`Controllers/ProductsController.cs`,
-`wwwroot/js/books-gate.js`). The category — and every book's product page — stays hidden, excluded
-from search, the Shop grid, and the homepage's featured list, until an Admin reviews and approves
-the request from **Admin → Book Requests**. Approval is per-customer, not global. Login is gated at
-this step specifically (not site-wide), matching how Cart/Checkout already work.
+answers used elsewhere if no API key is configured). Answering both submits a real `BookAccessRequest` row via AJAX
+(`Controllers/ProductsController.cs`, `wwwroot/js/books-gate.js`) and **unlocks the shelf
+immediately** — a manual admin-review wait here would cost the sale right when the customer is
+most interested, so requests auto-approve on submission instead of sitting in a queue. The category
+— and every book's product page — stays hidden, excluded from search, the Shop grid, and the
+homepage's featured list, until that request exists. **Admin → Book Requests** is a log of who
+asked for which country's books (handy for gauging interest), and an admin can still revoke or
+restore a specific customer's access from there if needed. Login is gated at this step specifically
+(not site-wide), matching how Cart/Checkout already work.
 
 ## Wishlist
 
