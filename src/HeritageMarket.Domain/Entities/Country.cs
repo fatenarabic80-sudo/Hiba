@@ -8,5 +8,8 @@ public class Country
     public string? FlagImageUrl { get; set; }
     public string? Description { get; set; }
 
+    /// <summary>Heritage/geographic grouping used to organize the country filter (e.g. "Arab World", "Europe").</summary>
+    public string Region { get; set; } = string.Empty;
+
     public ICollection<Product> Products { get; set; } = new List<Product>();
 }

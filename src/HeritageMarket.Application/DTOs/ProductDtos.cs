@@ -41,6 +41,11 @@ public class ProductFilter
     public string? SearchTerm { get; set; }
     public int? CategoryId { get; set; }
     public int? CountryId { get; set; }
+
+    /// <summary>When set (and CategoryId isn't specifically this category), excludes it from results —
+    /// used to keep the gated Heritage Books category out of general browsing/search/featured lists.</summary>
+    public int? ExcludeCategoryId { get; set; }
+
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 9;
 }

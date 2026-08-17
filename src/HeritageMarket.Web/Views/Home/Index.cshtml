@@ -49,20 +49,43 @@
     <section class="section-cream-alt mb-5">
         <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
             <div>
-                <p class="eyebrow">Explore by Country</p>
+                <p class="eyebrow">Explore by Heritage</p>
                 <h2 class="mb-0">Shop the world, one culture at a time</h2>
             </div>
+            <p class="sub mb-0">Pick a region to reveal its countries.</p>
         </div>
-        <div class="country-scroll">
-            @foreach (var country in Model.Countries)
+        <div class="accordion" id="regionAccordion">
+            @{
+                var regionGroups = Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key);
+                var first = true;
+            }
+            @foreach (var region in regionGroups)
             {
-                <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
-                    <img src="@(string.IsNullOrEmpty(country.FlagImageUrl) ? "/images/placeholder-product.svg" : country.FlagImageUrl)" alt="@country.Name" />
-                    <div class="info">
-                        <h4>@country.Name</h4>
-                        <span class="link">Explore Heritage &rarr;</span>
+                var regionSlug = region.Key.Replace(" ", "");
+                <div class="accordion-item region-accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button @(first ? "" : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#region-@regionSlug">
+                            <strong>@region.Key</strong>&nbsp;<span class="text-muted ms-2">(@region.Count() countries)</span>
+                        </button>
+                    </h2>
+                    <div id="region-@regionSlug" class="accordion-collapse collapse @(first ? "show" : "")" data-bs-parent="#regionAccordion">
+                        <div class="accordion-body">
+                            <div class="country-scroll">
+                                @foreach (var country in region)
+                                {
+                                    <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
+                                        <img src="@(string.IsNullOrEmpty(country.FlagImageUrl) ? "/images/placeholder-product.svg" : country.FlagImageUrl)" alt="@country.Name" />
+                                        <div class="info">
+                                            <h4>@country.Name</h4>
+                                            <span class="link">Explore Heritage &rarr;</span>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </a>
+                </div>
+                first = false;
             }
         </div>
     </section>

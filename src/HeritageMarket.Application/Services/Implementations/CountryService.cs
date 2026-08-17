@@ -19,7 +19,7 @@ public class CountryService : ICountryService
     public async Task<IReadOnlyList<CountryDto>> GetAllAsync()
     {
         return await _unitOfWork.Countries.Query().AsNoTracking()
-            .OrderBy(c => c.Name)
+            .OrderBy(c => c.Region).ThenBy(c => c.Name)
             .Select(c => new CountryDto
             {
                 Id = c.Id,
@@ -27,6 +27,7 @@ public class CountryService : ICountryService
                 Code = c.Code,
                 FlagImageUrl = c.FlagImageUrl,
                 Description = c.Description,
+                Region = c.Region,
                 ProductCount = c.Products.Count
             })
             .ToListAsync();
@@ -37,12 +38,12 @@ public class CountryService : ICountryService
         var c = await _unitOfWork.Countries.GetByIdAsync(id);
         if (c is null) return null;
 
-        return new CountryDto { Id = c.Id, Name = c.Name, Code = c.Code, FlagImageUrl = c.FlagImageUrl, Description = c.Description };
+        return new CountryDto { Id = c.Id, Name = c.Name, Code = c.Code, FlagImageUrl = c.FlagImageUrl, Description = c.Description, Region = c.Region };
     }
 
     public async Task<int> CreateAsync(CountryDto dto)
     {
-        var country = new Country { Name = dto.Name, Code = dto.Code, FlagImageUrl = dto.FlagImageUrl, Description = dto.Description };
+        var country = new Country { Name = dto.Name, Code = dto.Code, FlagImageUrl = dto.FlagImageUrl, Description = dto.Description, Region = dto.Region };
         await _unitOfWork.Countries.AddAsync(country);
         await _unitOfWork.SaveChangesAsync();
         return country.Id;
@@ -57,6 +58,7 @@ public class CountryService : ICountryService
         country.Code = dto.Code;
         country.FlagImageUrl = dto.FlagImageUrl;
         country.Description = dto.Description;
+        country.Region = dto.Region;
 
         _unitOfWork.Countries.Update(country);
         await _unitOfWork.SaveChangesAsync();

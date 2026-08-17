@@ -34,9 +34,14 @@
                         <label class="form-label">Country</label>
                         <select class="form-select" name="countryId">
                             <option value="">All Countries</option>
-                            @foreach (var country in Model.Countries)
+                            @foreach (var regionGroup in Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key))
                             {
-                                <option value="@country.Id" selected="@(Model.Filter.CountryId == country.Id)">@country.Name</option>
+                                <optgroup label="@regionGroup.Key">
+                                    @foreach (var country in regionGroup)
+                                    {
+                                        <option value="@country.Id" selected="@(Model.Filter.CountryId == country.Id)">@country.Name</option>
+                                    }
+                                </optgroup>
                             }
                         </select>
                     </div>

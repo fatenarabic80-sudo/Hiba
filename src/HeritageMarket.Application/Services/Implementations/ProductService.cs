@@ -17,7 +17,7 @@ public class ProductService : IProductService
         _unitOfWork = unitOfWork;
     }
 
-    private static IQueryable<Product> ApplyFilter(IQueryable<Product> query, string? searchTerm, int? categoryId, int? countryId)
+    private static IQueryable<Product> ApplyFilter(IQueryable<Product> query, string? searchTerm, int? categoryId, int? countryId, int? excludeCategoryId = null)
     {
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
@@ -30,6 +30,9 @@ public class ProductService : IProductService
 
         if (countryId.HasValue)
             query = query.Where(p => p.CountryId == countryId);
+
+        if (excludeCategoryId.HasValue && categoryId != excludeCategoryId)
+            query = query.Where(p => p.CategoryId != excludeCategoryId);
 
         return query;
     }
@@ -52,7 +55,7 @@ public class ProductService : IProductService
     public async Task<PagedResult<ProductListItemDto>> GetCatalogAsync(ProductFilter filter)
     {
         var query = ApplyFilter(_unitOfWork.Products.Query().AsNoTracking().Where(p => p.IsActive),
-            filter.SearchTerm, filter.CategoryId, filter.CountryId);
+            filter.SearchTerm, filter.CategoryId, filter.CountryId, filter.ExcludeCategoryId);
 
         var totalCount = await query.CountAsync();
 
@@ -147,10 +150,13 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<IReadOnlyList<ProductListItemDto>> GetFeaturedAsync(int count)
+    public async Task<IReadOnlyList<ProductListItemDto>> GetFeaturedAsync(int count, int? excludeCategoryId = null)
     {
-        return await _unitOfWork.Products.Query().AsNoTracking()
-            .Where(p => p.IsActive)
+        var query = _unitOfWork.Products.Query().AsNoTracking().Where(p => p.IsActive);
+        if (excludeCategoryId.HasValue)
+            query = query.Where(p => p.CategoryId != excludeCategoryId);
+
+        return await query
             .OrderByDescending(p => p.CreatedAt)
             .Take(count)
             .Select(ToListItemProjection)

@@ -1,6 +1,7 @@
 using HeritageMarket.Application.Common;
 using HeritageMarket.Application.DTOs;
 using HeritageMarket.Application.Services.Interfaces;
+using HeritageMarket.Domain.Enums;
 using HeritageMarket.Infrastructure.Identity;
 using HeritageMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,14 @@ namespace HeritageMarket.Web.Controllers;
 
 public class ProductsController : Controller
 {
+    public const string HeritageBooksCategoryName = "Heritage Books";
+
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
     private readonly ICountryService _countryService;
     private readonly IReviewService _reviewService;
     private readonly IWishlistService _wishlistService;
+    private readonly IBookAccessService _bookAccessService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<ProductsController> _logger;
 
@@ -25,6 +29,7 @@ public class ProductsController : Controller
         ICountryService countryService,
         IReviewService reviewService,
         IWishlistService wishlistService,
+        IBookAccessService bookAccessService,
         UserManager<ApplicationUser> userManager,
         ILogger<ProductsController> logger)
     {
@@ -33,17 +38,31 @@ public class ProductsController : Controller
         _countryService = countryService;
         _reviewService = reviewService;
         _wishlistService = wishlistService;
+        _bookAccessService = bookAccessService;
         _userManager = userManager;
         _logger = logger;
     }
 
+    private string? CurrentUserId => _userManager.GetUserId(User);
+
     public async Task<IActionResult> Index(string? searchTerm, int? categoryId, int? countryId, int pageNumber = 1)
     {
+        var categories = await _categoryService.GetAllAsync();
+        var booksCategoryId = categories.FirstOrDefault(c => c.Name == HeritageBooksCategoryName)?.Id;
+
+        if (categoryId.HasValue && categoryId == booksCategoryId)
+        {
+            var approved = CurrentUserId is not null && await _bookAccessService.IsApprovedAsync(CurrentUserId);
+            if (!approved)
+                return RedirectToAction(nameof(Books));
+        }
+
         var filter = new ProductFilter
         {
             SearchTerm = searchTerm,
             CategoryId = categoryId,
             CountryId = countryId,
+            ExcludeCategoryId = booksCategoryId,
             PageNumber = pageNumber,
             PageSize = 9
         };
@@ -51,7 +70,7 @@ public class ProductsController : Controller
         var model = new ProductCatalogViewModel
         {
             Products = await _productService.GetCatalogAsync(filter),
-            Categories = await _categoryService.GetAllAsync(),
+            Categories = categories,
             Countries = await _countryService.GetAllAsync(),
             Filter = filter
         };
@@ -65,6 +84,13 @@ public class ProductsController : Controller
         var product = await _productService.GetDetailAsync(id);
         if (product is null) return NotFound();
 
+        if (product.CategoryName == HeritageBooksCategoryName)
+        {
+            var approved = CurrentUserId is not null && await _bookAccessService.IsApprovedAsync(CurrentUserId);
+            if (!approved)
+                return RedirectToAction(nameof(Books));
+        }
+
         var model = new ProductDetailsViewModel
         {
             Product = product,
@@ -74,6 +100,59 @@ public class ProductsController : Controller
 
         await SetWishlistedIdsAsync();
         return View(model);
+    }
+
+    // The "magical" Heritage Books intercept: a Heritage-Guide-styled intake instead of a normal
+    // product grid, gating the category until an Admin approves the customer's request.
+    public async Task<IActionResult> Books()
+    {
+        var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+        var model = new BooksGateViewModel
+        {
+            IsAuthenticated = isAuthenticated,
+            Countries = await _countryService.GetAllAsync()
+        };
+
+        if (isAuthenticated && CurrentUserId is not null)
+        {
+            var latest = await _bookAccessService.GetLatestForUserAsync(CurrentUserId);
+            model.Status = latest?.Status;
+            model.AdminNote = latest?.AdminNote;
+
+            if (latest?.Status == BookAccessStatus.Approved)
+            {
+                var booksCategory = (await _categoryService.GetAllAsync()).FirstOrDefault(c => c.Name == HeritageBooksCategoryName);
+                if (booksCategory is not null)
+                    return RedirectToAction(nameof(Index), new { categoryId = booksCategory.Id });
+            }
+        }
+
+        return View(model);
+    }
+
+    [HttpPost, Authorize, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBookAccessRequest(BookAccessRequestFormViewModel form)
+    {
+        if (!ModelState.IsValid)
+        {
+            var model = new BooksGateViewModel
+            {
+                IsAuthenticated = true,
+                Countries = await _countryService.GetAllAsync(),
+                Form = form
+            };
+            return View(nameof(Books), model);
+        }
+
+        await _bookAccessService.SubmitRequestAsync(new SubmitBookAccessRequest
+        {
+            ApplicationUserId = CurrentUserId!,
+            Reason = form.Reason,
+            PreferredCountry = form.PreferredCountry
+        });
+
+        TempData["StatusMessage"] = "Thanks! Your Heritage Guide request has been sent to our team.";
+        return RedirectToAction(nameof(Books));
     }
 
     private async Task SetWishlistedIdsAsync()

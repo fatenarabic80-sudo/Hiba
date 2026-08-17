@@ -15,6 +15,17 @@
         </div>
     </div>
     <div class="mb-3">
+        <label asp-for="Region" class="form-label"></label>
+        <input asp-for="Region" class="form-control" list="regionOptions" placeholder="e.g. Arab World, Europe, Asia, Americas" />
+        <datalist id="regionOptions">
+            <option value="Arab World"></option>
+            <option value="Asia"></option>
+            <option value="Europe"></option>
+            <option value="Americas"></option>
+        </datalist>
+        <span asp-validation-for="Region" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
         <label asp-for="Description" class="form-label"></label>
         <textarea asp-for="Description" class="form-control" rows="3"></textarea>
     </div>

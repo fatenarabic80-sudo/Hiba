@@ -17,6 +17,7 @@ public static class DependencyInjection
         services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<IReportService, ReportService>();
         services.AddScoped<IWishlistService, WishlistService>();
+        services.AddScoped<IBookAccessService, BookAccessService>();
 
         return services;
     }

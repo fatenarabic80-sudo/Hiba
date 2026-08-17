@@ -7,6 +7,21 @@ namespace HeritageMarket.Infrastructure.Persistence.Seed;
 
 public static class DbInitializer
 {
+    private const string HomeCategory = "Home & Decoration";
+    private const string AccessoriesCategory = "Accessories";
+    private const string PhoneCoversCategory = "Phone Covers";
+    private const string WearCategory = "Wear & Traditional Clothing";
+    private const string BooksCategory = "Heritage Books";
+
+    private static readonly Dictionary<string, string> CategorySkuCode = new()
+    {
+        [HomeCategory] = "HOME",
+        [AccessoriesCategory] = "ACC",
+        [PhoneCoversCategory] = "PHONE",
+        [WearCategory] = "WEAR",
+        [BooksCategory] = "BOOK"
+    };
+
     public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         await context.Database.MigrateAsync();
@@ -34,149 +49,96 @@ public static class DbInitializer
                 await userManager.AddToRoleAsync(admin, IdentityRoles.Admin);
         }
 
-        if (!await context.Countries.AnyAsync())
+        if (!await context.Categories.AnyAsync())
         {
-            context.Countries.AddRange(
-                new Country { Name = "Lebanon", Code = "LB", Description = "Levantine heritage: cedar motifs, mosaic art, and mountain craftsmanship.", FlagImageUrl = "https://picsum.photos/seed/country-lebanon/400/500" },
-                new Country { Name = "Morocco", Code = "MA", Description = "North African heritage: Berber patterns, zellige tilework, and desert textiles.", FlagImageUrl = "https://picsum.photos/seed/country-morocco/400/500" },
-                new Country { Name = "Japan", Code = "JP", Description = "East Asian heritage: washi paper, indigo dye, and minimalist ceramics.", FlagImageUrl = "https://picsum.photos/seed/country-japan/400/500" },
-                new Country { Name = "Mexico", Code = "MX", Description = "Mesoamerican heritage: Talavera pottery, vibrant textiles, and folk art.", FlagImageUrl = "https://picsum.photos/seed/country-mexico/400/500" },
-                new Country { Name = "India", Code = "IN", Description = "South Asian heritage: block printing, brassware, and handloom weaving.", FlagImageUrl = "https://picsum.photos/seed/country-india/400/500" }
+            context.Categories.AddRange(
+                new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "https://picsum.photos/seed/cat-home-decor/600/760" },
+                new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "https://picsum.photos/seed/cat-accessories/600/760" },
+                new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "https://picsum.photos/seed/cat-phone-covers/600/760" },
+                new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "https://picsum.photos/seed/cat-wear/600/760" },
+                new Category { Name = BooksCategory, Description = "Famous heritage literature — unlocked after a short chat with our Heritage Guide.", IconUrl = "https://picsum.photos/seed/cat-books/600/760" }
             );
             await context.SaveChangesAsync();
         }
 
-        if (!await context.Categories.AnyAsync())
+        if (!await context.Countries.AnyAsync())
         {
-            context.Categories.AddRange(
-                new Category { Name = "Home & Decoration", Description = "Heritage-inspired decor for the home.", IconUrl = "https://picsum.photos/seed/cat-home-decor/600/760" },
-                new Category { Name = "Accessories", Description = "Traditional accessories with a modern edge.", IconUrl = "https://picsum.photos/seed/cat-accessories/600/760" },
-                new Category { Name = "Phone Covers", Description = "Heritage-pattern phone covers.", IconUrl = "https://picsum.photos/seed/cat-phone-covers/600/760" },
-                new Category { Name = "Wear & Traditional Clothing", Description = "Garments inspired by traditional dress.", IconUrl = "https://picsum.photos/seed/cat-wear/600/760" },
-                new Category { Name = "Heritage Books", Description = "Books on history, culture, and traditions.", IconUrl = "https://picsum.photos/seed/cat-books/600/760" }
-            );
+            foreach (var seedCountry in HeritageCatalogSeedData.Countries)
+            {
+                context.Countries.Add(new Country
+                {
+                    Name = seedCountry.Name,
+                    Code = seedCountry.Code,
+                    Region = seedCountry.Region,
+                    Description = seedCountry.Description,
+                    FlagImageUrl = $"https://picsum.photos/seed/country-{seedCountry.Code.ToLowerInvariant()}/400/500"
+                });
+            }
             await context.SaveChangesAsync();
         }
 
         if (!await context.Products.AnyAsync())
         {
-            var countries = await context.Countries.ToDictionaryAsync(c => c.Name, c => c.Id);
-            var categories = await context.Categories.ToDictionaryAsync(c => c.Name, c => c.Id);
+            var countryIds = await context.Countries.ToDictionaryAsync(c => c.Code, c => c.Id);
+            var categoryIds = await context.Categories.ToDictionaryAsync(c => c.Name, c => c.Id);
 
-            context.Products.AddRange(
-                new Product
+            foreach (var seedCountry in HeritageCatalogSeedData.Countries)
+            {
+                var countryId = countryIds[seedCountry.Code];
+
+                AddProducts(context, seedCountry.Home, HomeCategory, categoryIds, countryId, seedCountry.Code, 25);
+                AddProducts(context, seedCountry.Accessories, AccessoriesCategory, categoryIds, countryId, seedCountry.Code, 30);
+                AddProducts(context, seedCountry.PhoneCovers, PhoneCoversCategory, categoryIds, countryId, seedCountry.Code, 40);
+                AddProducts(context, seedCountry.Wear, WearCategory, categoryIds, countryId, seedCountry.Code, 15);
+
+                var bookIndex = 0;
+                foreach (var book in seedCountry.Books)
                 {
-                    Name = "Cedar-Carved Wooden Box",
-                    Description = "Hand-carved Lebanese cedar wood box with traditional inlay patterns.",
-                    Price = 45.00m,
-                    StockQuantity = 20,
-                    SKU = "LB-HOME-001",
-                    ImageUrl = "https://picsum.photos/seed/prod-cedar-box/600/600",
-                    CategoryId = categories["Home & Decoration"],
-                    CountryId = countries["Lebanon"]
-                },
-                new Product
-                {
-                    Name = "Zellige Mosaic Coasters (Set of 4)",
-                    Description = "Handmade Moroccan zellige-inspired ceramic coasters.",
-                    Price = 28.00m,
-                    StockQuantity = 35,
-                    SKU = "MA-HOME-002",
-                    ImageUrl = "https://picsum.photos/seed/prod-zellige-coasters/600/600",
-                    CategoryId = categories["Home & Decoration"],
-                    CountryId = countries["Morocco"]
-                },
-                new Product
-                {
-                    Name = "Indigo Washi Phone Cover",
-                    Description = "Phone cover featuring traditional Japanese indigo-dyed washi paper design.",
-                    Price = 22.00m,
-                    StockQuantity = 50,
-                    SKU = "JP-PHONE-001",
-                    ImageUrl = "https://picsum.photos/seed/prod-washi-phone/600/600",
-                    CategoryId = categories["Phone Covers"],
-                    CountryId = countries["Japan"]
-                },
-                new Product
-                {
-                    Name = "Talavera Pattern Phone Cover",
-                    Description = "Vibrant Mexican Talavera-pattern phone cover.",
-                    Price = 20.00m,
-                    StockQuantity = 40,
-                    SKU = "MX-PHONE-002",
-                    ImageUrl = "https://picsum.photos/seed/prod-talavera-phone/600/600",
-                    CategoryId = categories["Phone Covers"],
-                    CountryId = countries["Mexico"]
-                },
-                new Product
-                {
-                    Name = "Block-Print Cotton Scarf",
-                    Description = "Hand block-printed cotton scarf from Rajasthan, India.",
-                    Price = 32.00m,
-                    StockQuantity = 25,
-                    SKU = "IN-ACC-001",
-                    ImageUrl = "https://picsum.photos/seed/prod-block-print-scarf/600/600",
-                    CategoryId = categories["Accessories"],
-                    CountryId = countries["India"]
-                },
-                new Product
-                {
-                    Name = "Brass Filigree Earrings",
-                    Description = "Traditional Indian brass filigree earrings.",
-                    Price = 18.00m,
-                    StockQuantity = 60,
-                    SKU = "IN-ACC-002",
-                    ImageUrl = "https://picsum.photos/seed/prod-brass-earrings/600/600",
-                    CategoryId = categories["Accessories"],
-                    CountryId = countries["India"]
-                },
-                new Product
-                {
-                    Name = "Embroidered Thobe",
-                    Description = "Traditional Levantine embroidered thobe with tatreez patterns.",
-                    Price = 120.00m,
-                    StockQuantity = 12,
-                    SKU = "LB-WEAR-001",
-                    ImageUrl = "https://picsum.photos/seed/prod-thobe/600/600",
-                    CategoryId = categories["Wear & Traditional Clothing"],
-                    CountryId = countries["Lebanon"]
-                },
-                new Product
-                {
-                    Name = "Moroccan Kaftan",
-                    Description = "Hand-embroidered Moroccan kaftan.",
-                    Price = 95.00m,
-                    StockQuantity = 15,
-                    SKU = "MA-WEAR-002",
-                    ImageUrl = "https://picsum.photos/seed/prod-kaftan/600/600",
-                    CategoryId = categories["Wear & Traditional Clothing"],
-                    CountryId = countries["Morocco"]
-                },
-                new Product
-                {
-                    Name = "The Art of Zellige: Moroccan Heritage",
-                    Description = "An illustrated history of Moroccan zellige tilework and its cultural significance.",
-                    Price = 34.00m,
-                    StockQuantity = 30,
-                    SKU = "MA-BOOK-001",
-                    ImageUrl = "https://picsum.photos/seed/prod-zellige-book/600/600",
-                    CategoryId = categories["Heritage Books"],
-                    CountryId = countries["Morocco"]
-                },
-                new Product
-                {
-                    Name = "Cedars and Mosaics: A History of Lebanon",
-                    Description = "A cultural history of Lebanon's heritage crafts and traditions.",
-                    Price = 29.00m,
-                    StockQuantity = 22,
-                    SKU = "LB-BOOK-002",
-                    ImageUrl = "https://picsum.photos/seed/prod-cedars-book/600/600",
-                    CategoryId = categories["Heritage Books"],
-                    CountryId = countries["Lebanon"]
+                    bookIndex++;
+                    context.Products.Add(new Product
+                    {
+                        Name = $"{book.Title} — {book.Author}",
+                        Description = book.Description,
+                        Price = book.Price,
+                        StockQuantity = 20,
+                        SKU = $"{seedCountry.Code}-BOOK-{bookIndex:00}",
+                        ImageUrl = $"https://picsum.photos/seed/prod-{seedCountry.Code.ToLowerInvariant()}-book-{bookIndex}/600/600",
+                        CategoryId = categoryIds[BooksCategory],
+                        CountryId = countryId
+                    });
                 }
-            );
+            }
 
             await context.SaveChangesAsync();
+        }
+    }
+
+    private static void AddProducts(
+        ApplicationDbContext context,
+        SeedProduct[] products,
+        string categoryName,
+        IReadOnlyDictionary<string, int> categoryIds,
+        int countryId,
+        string countryCode,
+        int stock)
+    {
+        var skuCode = CategorySkuCode[categoryName];
+        var index = 0;
+
+        foreach (var product in products)
+        {
+            index++;
+            context.Products.Add(new Product
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = stock,
+                SKU = $"{countryCode}-{skuCode}-{index:00}",
+                ImageUrl = $"https://picsum.photos/seed/prod-{countryCode.ToLowerInvariant()}-{skuCode.ToLowerInvariant()}-{index}/600/600",
+                CategoryId = categoryIds[categoryName],
+                CountryId = countryId
+            });
         }
     }
 }

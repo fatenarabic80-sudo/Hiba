@@ -1,0 +1,85 @@
+@model BooksGateViewModel
+@{
+    ViewData["Title"] = "Heritage Books";
+}
+
+<div class="page-banner">
+    <div class="container">
+        <div class="crumbs mb-1"><a asp-controller="Home" asp-action="Index">Home</a> / Heritage Books</div>
+        <h1>Heritage Books</h1>
+    </div>
+</div>
+
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="ai-msg bot mb-3" style="max-width:100%; display:block;">
+                📚 Oh, you're interested in Heritage Books! Before I can show them to you, I'd love to
+                know a bit more — and one of our admins will take a quick look before your shelf unlocks.
+            </div>
+
+            @if (!Model.IsAuthenticated)
+            {
+                <div class="card">
+                    <div class="card-body text-center">
+                        <p class="mb-3">You'll need an account so we know who to unlock the shelf for.</p>
+                        <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="/Products/Books" class="btn btn-heritage me-2">Log In</a>
+                        <a asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="/Products/Books" class="btn btn-outline-heritage">Register</a>
+                    </div>
+                </div>
+            }
+            else if (Model.Status == HeritageMarket.Domain.Enums.BookAccessStatus.Pending)
+            {
+                <div class="ai-msg bot mb-3" style="max-width:100%; display:block;">
+                    Got it — your request is with our team right now. I'll unlock the Heritage Books shelf
+                    for you the moment an admin approves it. Check back soon!
+                </div>
+                <a asp-controller="Products" asp-action="Index" class="btn btn-outline-heritage">Keep Browsing the Shop</a>
+            }
+            else
+            {
+                @if (Model.Status == HeritageMarket.Domain.Enums.BookAccessStatus.Rejected)
+                {
+                    <div class="ai-msg bot mb-3" style="max-width:100%; display:block;">
+                        Your last request wasn't approved@(string.IsNullOrEmpty(Model.AdminNote) ? "." : $": \"{Model.AdminNote}\"") Feel free to try again with a bit more detail.
+                    </div>
+                }
+                <div class="ai-msg bot mb-3" style="max-width:100%; display:block;">
+                    Why are you interested in reading?
+                </div>
+                <div class="ai-msg bot mb-3" style="max-width:100%; display:block;">
+                    And which country's books would you most like to read?
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="SubmitBookAccessRequest" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="mb-3">
+                                <label asp-for="Form.Reason" class="form-label">Why are you interested in reading?</label>
+                                <textarea asp-for="Form.Reason" class="form-control" rows="3" placeholder="Tell the Heritage Guide a little about yourself…"></textarea>
+                                <span asp-validation-for="Form.Reason" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Form.PreferredCountry" class="form-label">Which country's books do you prefer?</label>
+                                <select asp-for="Form.PreferredCountry" class="form-select">
+                                    <option value="">Select a country…</option>
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        <option value="@country.Name">@country.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="Form.PreferredCountry" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-heritage">Send to the Heritage Guide</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

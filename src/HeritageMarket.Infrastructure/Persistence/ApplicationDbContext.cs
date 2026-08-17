@@ -20,6 +20,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<WishlistItem> WishlistItems => Set<WishlistItem>();
+    public DbSet<BookAccessRequest> BookAccessRequests => Set<BookAccessRequest>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

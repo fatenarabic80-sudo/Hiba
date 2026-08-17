@@ -1,0 +1,71 @@
+@model IReadOnlyList<BookAccessRequestDto>
+@{
+    ViewData["Title"] = "Book Requests";
+    var pending = Model.Where(r => r.Status == BookAccessStatus.Pending).ToList();
+    var reviewed = Model.Where(r => r.Status != BookAccessStatus.Pending).ToList();
+}
+
+<p class="text-muted small mb-3">Customers answer these two questions before the Heritage Books category unlocks for them. Approve or reject each request below.</p>
+
+<h5 class="mb-3">Pending (@pending.Count)</h5>
+<div class="card mb-4">
+    <table class="table align-middle mb-0">
+        <thead><tr><th>Customer</th><th>Reason</th><th>Preferred Country</th><th>Requested</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var request in pending)
+            {
+                <tr>
+                    <td>@request.RequesterName</td>
+                    <td style="max-width:320px;">@request.Reason</td>
+                    <td>@request.PreferredCountry</td>
+                    <td>@request.RequestedAt.ToString("MMM dd, yyyy")</td>
+                    <td class="text-end">
+                        <form asp-action="Approve" method="post" class="d-inline">
+                            <input type="hidden" name="Id" value="@request.Id" />
+                            <button type="submit" class="btn btn-sm btn-heritage">Approve</button>
+                        </form>
+                        <form asp-action="Reject" method="post" class="d-inline">
+                            <input type="hidden" name="Id" value="@request.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            @if (pending.Count == 0)
+            {
+                <tr><td colspan="5" class="text-center text-muted py-4">No pending requests.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<h5 class="mb-3">Reviewed</h5>
+<div class="card">
+    <table class="table align-middle mb-0">
+        <thead><tr><th>Customer</th><th>Preferred Country</th><th>Status</th><th>Reviewed</th></tr></thead>
+        <tbody>
+            @foreach (var request in reviewed)
+            {
+                <tr>
+                    <td>@request.RequesterName</td>
+                    <td>@request.PreferredCountry</td>
+                    <td>
+                        @if (request.Status == BookAccessStatus.Approved)
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                    </td>
+                    <td>@request.ReviewedAt?.ToString("MMM dd, yyyy")</td>
+                </tr>
+            }
+            @if (reviewed.Count == 0)
+            {
+                <tr><td colspan="4" class="text-center text-muted py-4">No reviewed requests yet.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

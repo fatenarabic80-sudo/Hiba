@@ -12,6 +12,9 @@ public class CountryFormViewModel
     [Required, StringLength(10)]
     public string Code { get; set; } = string.Empty;
 
+    [Required, StringLength(50)]
+    public string Region { get; set; } = string.Empty;
+
     [StringLength(1000)]
     public string? Description { get; set; }
 

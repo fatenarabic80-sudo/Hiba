@@ -16,5 +16,6 @@ public class CountryDto
     public string Code { get; set; } = string.Empty;
     public string? FlagImageUrl { get; set; }
     public string? Description { get; set; }
+    public string Region { get; set; } = string.Empty;
     public int ProductCount { get; set; }
 }

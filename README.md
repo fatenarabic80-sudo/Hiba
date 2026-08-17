@@ -117,6 +117,29 @@ via `LowStock:CheckIntervalMinutes` in `appsettings.json`) and creates a `Notifi
 product's stock drops to or below `LowStock:ThresholdQuantity` (default: 5). Notifications surface
 on the Admin dashboard.
 
+## Catalog
+
+18 countries grouped into 4 heritage regions — **Arab World** (Lebanon, Egypt, Morocco, Palestine,
+Syria, Jordan, Iraq, Tunisia), **Asia** (India, Japan, Turkey), **Europe** (France, Italy, Greece,
+Spain, Germany, Portugal), **Americas** (United States) — each with 2 real products in every
+category (Home & Decoration, Accessories, Phone Covers, Wear & Traditional Clothing) plus 2 real,
+well-known books (see below). 180 products total. The Home page and Shop filter group countries by
+region (click a region to reveal its countries); `Country.Region` is editable per-country in the
+Admin panel. Seed data lives in `Infrastructure/Persistence/Seed/HeritageCatalogSeedData.cs`.
+
+## Heritage Books — a gated category
+
+Every country's 2 books are real, well-known works — several are Nobel laureates or centuries-old
+classics (Dante, Homer, Cervantes, Murasaki Shikibu, Tagore, Gibran, Mahfouz, Hugo, Camus, Pamuk,
+Goethe, Twain, Morrison, and more) by authors celebrated both at home and internationally.
+
+Heritage Books isn't browsable like the other categories. Clicking it (from the nav, a category
+tile, or a direct link) intercepts the customer with a Heritage-Guide-styled intake asking why
+they're interested in reading and which country's books they'd prefer — submitting creates a real
+`BookAccessRequest` row. The category (and every book's product page) stays hidden — excluded from
+search, the Shop grid, and the homepage's featured list — until an Admin reviews and approves the
+request from **Admin → Book Requests**. Approval is per-customer, not global.
+
 ## Wishlist
 
 Signed-in users can tap the heart icon on any product card or product detail page to save it —
