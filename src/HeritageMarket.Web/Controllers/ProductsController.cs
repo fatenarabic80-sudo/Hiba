@@ -12,6 +12,7 @@ namespace HeritageMarket.Web.Controllers;
 public class ProductsController : Controller
 {
     public const string HeritageBooksCategoryName = "Heritage Books";
+    public const string WearCategoryName = "Wear & Traditional Clothing";
 
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
@@ -43,13 +44,18 @@ public class ProductsController : Controller
     {
         var categories = await _categoryService.GetAllAsync();
 
+        var isWearCategory = categoryId.HasValue &&
+            categories.FirstOrDefault(c => c.Id == categoryId)?.Name == WearCategoryName;
+
         var filter = new ProductFilter
         {
             SearchTerm = searchTerm,
             CategoryId = categoryId,
             CountryId = countryId,
             PageNumber = pageNumber,
-            PageSize = 9
+            // Wear is grouped into Women/Men/Kids sections in the view, so it's shown as one
+            // unbroken set rather than split awkwardly across pages.
+            PageSize = isWearCategory ? 300 : 9
         };
 
         var model = new ProductCatalogViewModel
@@ -65,6 +71,7 @@ public class ProductsController : Controller
         // greeting when you land here (see books-greeting.js), purely for the fun of it.
         ViewData["IsBooksCategory"] = categoryId.HasValue &&
             categories.FirstOrDefault(c => c.Id == categoryId)?.Name == HeritageBooksCategoryName;
+        ViewData["IsWearCategory"] = isWearCategory;
 
         await SetWishlistedIdsAsync();
         return View(model);

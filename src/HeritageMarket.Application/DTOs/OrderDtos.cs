@@ -27,6 +27,7 @@ public class OrderItemDto
     public string? ProductImageUrl { get; set; }
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
+    public string? SelectedSize { get; set; }
     public decimal LineTotal => UnitPrice * Quantity;
 }
 

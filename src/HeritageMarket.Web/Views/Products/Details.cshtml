@@ -60,17 +60,10 @@
                 }
             </div>
 
-            @if (!string.IsNullOrEmpty(product.Sizes))
-            {
-                <div class="mb-3">
-                    <strong class="d-block text-heritage small text-uppercase mb-2">Available Sizes</strong>
-                    <div class="d-flex gap-2 flex-wrap">
-                        @foreach (var size in product.Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
-                        {
-                            <span class="badge bg-light text-dark border px-3 py-2" style="font-weight:500;">@size</span>
-                        }
-                    </div>
-                </div>
+            @{
+                var sizeOptions = string.IsNullOrEmpty(product.Sizes)
+                    ? Array.Empty<string>()
+                    : product.Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             }
 
             @if (product.StockQuantity <= 0)
@@ -79,14 +72,40 @@
             }
             else
             {
-                <p class="text-success"><i class="bi bi-check-circle"></i> @product.StockQuantity in stock</p>
-                <form asp-controller="Cart" asp-action="Add" method="post" class="d-flex gap-2 align-items-end">
+                @if (product.StockQuantity <= 5)
+                {
+                    <p class="text-danger fw-semibold"><i class="bi bi-exclamation-triangle"></i> Only @product.StockQuantity left in stock — order soon!</p>
+                }
+                else
+                {
+                    <p class="text-success"><i class="bi bi-check-circle"></i> @product.StockQuantity in stock</p>
+                }
+                <form asp-controller="Cart" asp-action="Add" method="post">
                     <input type="hidden" name="productId" value="@product.Id" />
-                    <div>
-                        <label class="form-label small">Quantity</label>
-                        <input type="number" name="quantity" class="form-control" value="1" min="1" max="@product.StockQuantity" style="width:100px" />
+
+                    @if (sizeOptions.Length > 0)
+                    {
+                        <div class="mb-3">
+                            <strong class="d-block text-heritage small text-uppercase mb-2">Select a Size</strong>
+                            <div class="d-flex gap-2 flex-wrap">
+                                @for (var i = 0; i < sizeOptions.Length; i++)
+                                {
+                                    var size = sizeOptions[i];
+                                    var inputId = $"size-{product.Id}-{i}";
+                                    <input type="radio" class="btn-check" name="selectedSize" id="@inputId" value="@size" autocomplete="off" required />
+                                    <label class="btn btn-outline-secondary" for="@inputId">@size</label>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <div class="d-flex gap-2 align-items-end">
+                        <div>
+                            <label class="form-label small">Quantity</label>
+                            <input type="number" name="quantity" class="form-control" value="1" min="1" max="@product.StockQuantity" style="width:100px" />
+                        </div>
+                        <button type="submit" class="btn btn-heritage btn-lg"><i class="bi bi-bag-plus"></i> Add to Cart</button>
                     </div>
-                    <button type="submit" class="btn btn-heritage btn-lg"><i class="bi bi-bag-plus"></i> Add to Cart</button>
                 </form>
             }
         </div>

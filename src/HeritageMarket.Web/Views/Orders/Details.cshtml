@@ -25,7 +25,13 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center gap-2">
                         <img src="@(string.IsNullOrEmpty(item.ProductImageUrl) ? "/images/placeholder-product.svg" : item.ProductImageUrl)" width="48" height="48" class="rounded" style="object-fit:cover" alt="@item.ProductName" />
-                        <span>@item.ProductName &times; @item.Quantity</span>
+                        <span>
+                            @item.ProductName &times; @item.Quantity
+                            @if (!string.IsNullOrEmpty(item.SelectedSize))
+                            {
+                                <span class="badge bg-light text-dark border ms-1">Size: @item.SelectedSize</span>
+                            }
+                        </span>
                     </div>
                     <span>@item.LineTotal.ToString("C")</span>
                 </li>

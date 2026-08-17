@@ -16,5 +16,6 @@ public class CartItemDto
     public decimal UnitPrice { get; set; }
     public int Quantity { get; set; }
     public int AvailableStock { get; set; }
+    public string? SelectedSize { get; set; }
     public decimal LineTotal => UnitPrice * Quantity;
 }

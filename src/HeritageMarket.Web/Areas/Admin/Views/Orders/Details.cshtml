@@ -14,7 +14,13 @@
                     @foreach (var item in Model.Items)
                     {
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>@item.ProductName &times; @item.Quantity</span>
+                            <span>
+                                @item.ProductName &times; @item.Quantity
+                                @if (!string.IsNullOrEmpty(item.SelectedSize))
+                                {
+                                    <span class="badge bg-light text-dark border ms-1">Size: @item.SelectedSize</span>
+                                }
+                            </span>
                             <span>@item.LineTotal.ToString("C")</span>
                         </li>
                     }

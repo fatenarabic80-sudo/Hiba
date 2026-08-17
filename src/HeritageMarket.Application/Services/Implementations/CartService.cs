@@ -42,7 +42,8 @@ public class CartService : ICartService
                     ProductImageUrl = i.Product.ImageUrl,
                     UnitPrice = i.Product.Price,
                     Quantity = i.Quantity,
-                    AvailableStock = i.Product.StockQuantity
+                    AvailableStock = i.Product.StockQuantity,
+                    SelectedSize = i.SelectedSize
                 }).ToList()
             })
             .FirstOrDefaultAsync();
@@ -50,15 +51,18 @@ public class CartService : ICartService
         return cart ?? new CartDto();
     }
 
-    public async Task AddToCartAsync(string applicationUserId, int productId, int quantity)
+    public async Task AddToCartAsync(string applicationUserId, int productId, int quantity, string? selectedSize = null)
     {
         if (quantity <= 0) throw new ArgumentOutOfRangeException(nameof(quantity));
 
         var product = await _unitOfWork.Products.GetByIdAsync(productId)
             ?? throw new NotFoundException($"Product {productId} not found.");
 
+        if (!string.IsNullOrWhiteSpace(product.Sizes) && string.IsNullOrWhiteSpace(selectedSize))
+            throw new ValidationException($"Please select a size for '{product.Name}'.");
+
         var cart = await GetOrCreateCartAsync(applicationUserId);
-        var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+        var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == productId && i.SelectedSize == selectedSize);
         var requestedTotal = (existingItem?.Quantity ?? 0) + quantity;
 
         if (requestedTotal > product.StockQuantity)
@@ -70,7 +74,7 @@ public class CartService : ICartService
         }
         else
         {
-            cart.Items.Add(new CartItem { CartId = cart.Id, ProductId = productId, Quantity = quantity });
+            cart.Items.Add(new CartItem { CartId = cart.Id, ProductId = productId, Quantity = quantity, SelectedSize = selectedSize });
         }
 
         await _unitOfWork.SaveChangesAsync();

@@ -28,14 +28,18 @@ public class CartController : Controller
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Add(int productId, int quantity, string? returnUrl)
+    public async Task<IActionResult> Add(int productId, int quantity, string? selectedSize, string? returnUrl)
     {
         try
         {
-            await _cartService.AddToCartAsync(CurrentUserId, productId, quantity <= 0 ? 1 : quantity);
+            await _cartService.AddToCartAsync(CurrentUserId, productId, quantity <= 0 ? 1 : quantity, selectedSize);
             TempData["StatusMessage"] = "Item added to your cart.";
         }
         catch (InsufficientStockException ex)
+        {
+            TempData["ErrorMessage"] = ex.Message;
+        }
+        catch (ValidationException ex)
         {
             TempData["ErrorMessage"] = ex.Message;
         }

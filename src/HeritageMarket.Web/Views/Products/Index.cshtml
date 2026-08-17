@@ -60,6 +60,26 @@
             {
                 <div class="alert alert-info">No products matched your filters.</div>
             }
+            else if (ViewData["IsWearCategory"] as bool? == true)
+            {
+                var genderOrder = new[] { "Women", "Men", "Kids" };
+                var genderGroups = Model.Products.Items
+                    .GroupBy(p => p.Gender ?? "Other")
+                    .OrderBy(g => Array.IndexOf(genderOrder, g.Key) is var idx && idx >= 0 ? idx : genderOrder.Length);
+
+                foreach (var group in genderGroups)
+                {
+                    <div class="mb-4">
+                        <h4 class="mb-3" style="font-family:var(--serif); color:var(--brown);">@(group.Key == "Other" ? "More" : group.Key)</h4>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                            @foreach (var product in group)
+                            {
+                                <partial name="_ProductCard" model="product" />
+                            }
+                        </div>
+                    </div>
+                }
+            }
             else
             {
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-4">

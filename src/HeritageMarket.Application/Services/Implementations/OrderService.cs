@@ -36,7 +36,8 @@ public class OrderService : IOrderService
             ProductName = i.Product.Name,
             ProductImageUrl = i.Product.ImageUrl,
             Quantity = i.Quantity,
-            UnitPrice = i.UnitPrice
+            UnitPrice = i.UnitPrice,
+            SelectedSize = i.SelectedSize
         }).ToList()
     };
 
@@ -71,7 +72,8 @@ public class OrderService : IOrderService
             {
                 ProductId = product.Id,
                 Quantity = cartItem.Quantity,
-                UnitPrice = product.Price
+                UnitPrice = product.Price,
+                SelectedSize = cartItem.SelectedSize
             });
 
             total += product.Price * cartItem.Quantity;
