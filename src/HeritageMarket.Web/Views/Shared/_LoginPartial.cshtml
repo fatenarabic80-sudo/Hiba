@@ -11,8 +11,14 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
             <li class="dropdown-header">@User.Identity?.Name</li>
-            <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">My Profile</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index">My Orders</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2 me-2"></i>My Dashboard</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index"><i class="bi bi-bag-check me-2"></i>My Orders</a></li>
+            <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="bi bi-person me-2"></i>My Profile</a></li>
+            @if (User.IsInRole(IdentityRoles.Admin))
+            {
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
+            }
             <li><hr class="dropdown-divider" /></li>
             <li>
                 <form class="d-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

@@ -70,8 +70,30 @@ header.site-header {
 .site-header .nav-link.active, .site-header .nav-link:hover { color: var(--brown) !important; }
 .icon-btn { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--brown) !important; position: relative; transition: background .2s; text-decoration: none; }
 .icon-btn:hover { background: var(--cream-2); }
-.search-inline { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 100px; padding: 7px 16px; }
-.search-inline input { border: none; outline: none; background: transparent; font-size: 13.5px; width: 190px; }
+.search-inline { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 100px; padding: 5px 6px 5px 16px; max-width: 480px; }
+.search-inline input { border: none; outline: none; background: transparent; font-size: 13.5px; flex: 1; min-width: 0; }
+.search-go-btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex: none;
+  border: none; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: 13px; transition: background .2s;
+}
+.search-go-btn:hover { background: var(--terracotta-dark); }
+
+/* ============ CATEGORY TABS BAND ============ */
+.category-tabs-band {
+  background: linear-gradient(100deg, var(--terracotta), var(--brown));
+  overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
+}
+.category-tabs-band::-webkit-scrollbar { display: none; }
+.category-tabs {
+  display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 11px 0;
+  white-space: nowrap;
+}
+.cat-tab {
+  color: rgba(255, 255, 255, .8); font-weight: 600; font-size: 14px; text-decoration: none;
+  padding-bottom: 5px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+}
+.cat-tab:hover { color: #fff; }
+.cat-tab.active { color: #fff; border-bottom-color: var(--gold); }
 
 /* ============ HERO ============ */
 .hero-banner {

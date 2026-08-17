@@ -30,46 +30,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-3">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Index">Shop</a>
-                        </li>
-                        @{
-                            var navCategories = await CategoryService.GetAllAsync();
-                        }
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
-                            <ul class="dropdown-menu">
-                                @foreach (var category in navCategories)
-                                {
-                                    <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a></li>
-                                }
-                            </ul>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">My Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">My Orders</a>
-                            </li>
-                        }
-                        @if (User.IsInRole(IdentityRoles.Admin))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
-                            </li>
-                        }
-                    </ul>
-                    <form class="search-inline d-none d-lg-flex me-3" asp-controller="Products" asp-action="Index" method="get">
+                    <form class="search-inline flex-grow-1 mx-lg-4" asp-controller="Products" asp-action="Index" method="get">
                         <i class="bi bi-search"></i>
                         <input type="text" name="searchTerm" placeholder="Search products, countries…" />
+                        <button type="submit" class="search-go-btn" aria-label="Search"><i class="bi bi-search"></i></button>
                     </form>
-                    <ul class="navbar-nav align-items-lg-center flex-row gap-1">
+                    <ul class="navbar-nav align-items-lg-center flex-row gap-1 ms-lg-2">
                         @{
                             var currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
                             var languages = new (string Code, string Label)[]
@@ -110,6 +76,21 @@
                 </div>
             </div>
         </nav>
+        <div class="category-tabs-band">
+            <div class="container">
+                @{
+                    var navCategories = await CategoryService.GetAllAsync();
+                    var activeCategoryId = Context.Request.Query["categoryId"].ToString();
+                }
+                <ul class="category-tabs">
+                    <li><a class="cat-tab @(string.IsNullOrEmpty(activeCategoryId) ? "active" : "")" asp-controller="Products" asp-action="Index">All</a></li>
+                    @foreach (var category in navCategories)
+                    {
+                        <li><a class="cat-tab @(activeCategoryId == category.Id.ToString() ? "active" : "")" asp-controller="Products" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
     </header>
 
     @{
