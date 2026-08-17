@@ -30,6 +30,39 @@
     <section class="mb-5">
         <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
             <div>
+                <p class="eyebrow">Explore by Heritage</p>
+                <h2 class="mb-0">Shop the world, one culture at a time</h2>
+            </div>
+            <p class="sub mb-0">@Model.Countries.Count countries across four regions.</p>
+        </div>
+        @foreach (var region in Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key))
+        {
+            <div class="region-block mb-4">
+                <div class="region-block-head">
+                    <h4>@region.Key</h4>
+                    <span class="count">@region.Count() countries</span>
+                </div>
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
+                    @foreach (var country in region)
+                    {
+                        <div class="col">
+                            <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
+                                <img src="@(!string.IsNullOrEmpty(country.LandmarkImageUrl) ? country.LandmarkImageUrl : (!string.IsNullOrEmpty(country.FlagImageUrl) ? country.FlagImageUrl : "/images/placeholder-product.svg"))" alt="@country.Name" />
+                                <div class="info">
+                                    <h4>@country.Name</h4>
+                                    <span class="link">Explore Heritage &rarr;</span>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </section>
+
+    <section class="mb-5">
+        <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
                 <p class="eyebrow">Explore by Category</p>
                 <h2>Every category tells a different chapter of heritage</h2>
             </div>
@@ -47,50 +80,6 @@
                         </div>
                     </a>
                 </div>
-            }
-        </div>
-    </section>
-
-    <section class="section-cream-alt mb-5">
-        <div class="section-head d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
-            <div>
-                <p class="eyebrow">Explore by Heritage</p>
-                <h2 class="mb-0">Shop the world, one culture at a time</h2>
-            </div>
-            <p class="sub mb-0">Pick a region to reveal its countries.</p>
-        </div>
-        <div class="accordion" id="regionAccordion">
-            @{
-                var regionGroups = Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key);
-                var first = true;
-            }
-            @foreach (var region in regionGroups)
-            {
-                var regionSlug = region.Key.Replace(" ", "");
-                <div class="accordion-item region-accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button @(first ? "" : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#region-@regionSlug">
-                            <strong>@region.Key</strong>&nbsp;<span class="text-muted ms-2">(@region.Count() countries)</span>
-                        </button>
-                    </h2>
-                    <div id="region-@regionSlug" class="accordion-collapse collapse @(first ? "show" : "")" data-bs-parent="#regionAccordion">
-                        <div class="accordion-body">
-                            <div class="country-scroll">
-                                @foreach (var country in region)
-                                {
-                                    <a class="country-card" asp-controller="Products" asp-action="Index" asp-route-countryId="@country.Id">
-                                        <img src="@(string.IsNullOrEmpty(country.FlagImageUrl) ? "/images/placeholder-product.svg" : country.FlagImageUrl)" alt="@country.Name" />
-                                        <div class="info">
-                                            <h4>@country.Name</h4>
-                                            <span class="link">Explore Heritage &rarr;</span>
-                                        </div>
-                                    </a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                first = false;
             }
         </div>
     </section>
