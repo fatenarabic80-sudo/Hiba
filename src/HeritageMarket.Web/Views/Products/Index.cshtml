@@ -74,19 +74,30 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Country</label>
-                        <select class="form-select" name="countryId">
-                            <option value="">All Countries</option>
+                        <label class="form-label d-block">Country</label>
+                        <div class="country-picker">
+                            @{ var allActive = !Model.Filter.CountryId.HasValue; }
+                            <label class="country-pick-item @(allActive ? "active" : "")">
+                                <input type="radio" name="countryId" value="" class="visually-hidden" checked="@allActive" />
+                                <span class="country-pick-thumb country-pick-thumb-all"><i class="bi bi-globe2"></i></span>
+                                <span class="country-pick-name">All</span>
+                            </label>
                             @foreach (var regionGroup in Model.Countries.GroupBy(c => c.Region).OrderBy(g => g.Key))
                             {
-                                <optgroup label="@regionGroup.Key">
-                                    @foreach (var country in regionGroup)
-                                    {
-                                        <option value="@country.Id" selected="@(Model.Filter.CountryId == country.Id)">@country.Name</option>
-                                    }
-                                </optgroup>
+                                <div class="country-pick-region">@regionGroup.Key</div>
+                                @foreach (var country in regionGroup)
+                                {
+                                    var isActive = Model.Filter.CountryId == country.Id;
+                                    <label class="country-pick-item @(isActive ? "active" : "")">
+                                        <input type="radio" name="countryId" value="@country.Id" class="visually-hidden" checked="@isActive" />
+                                        <span class="country-pick-thumb">
+                                            <img src="@(string.IsNullOrEmpty(country.LandmarkImageUrl) ? (country.FlagImageUrl ?? "/images/placeholder-product.svg") : country.LandmarkImageUrl)" alt="@country.Name" />
+                                        </span>
+                                        <span class="country-pick-name">@country.Name</span>
+                                    </label>
+                                }
                             }
-                        </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-heritage w-100">Apply Filters</button>
                     <a asp-action="Index" class="btn btn-link w-100 text-center d-block mt-1">Clear</a>

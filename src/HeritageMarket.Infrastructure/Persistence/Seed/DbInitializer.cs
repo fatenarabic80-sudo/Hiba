@@ -34,6 +34,29 @@ public static class DbInitializer
     private static string ProductImageUrl(string categoryName, string countryName, int lockSeed) =>
         $"https://loremflickr.com/600/600/{CategoryImageKeyword[categoryName]},{Uri.EscapeDataString(countryName.Replace(" ", string.Empty))}?lock={lockSeed}";
 
+    /// <summary>Each country's single most recognizable landmark, used by the visual country picker on the Shop page.</summary>
+    private static readonly Dictionary<string, (string Keyword, int Lock)> LandmarkByCountryCode = new()
+    {
+        ["LB"] = ("mohammadalaminmosque,beirut", 401),
+        ["EG"] = ("pyramidsofgiza,egypt", 402),
+        ["MA"] = ("hassanmosque,casablanca", 403),
+        ["PS"] = ("domeoftherock,jerusalem", 404),
+        ["SY"] = ("umayyadmosque,damascus", 405),
+        ["JO"] = ("petra,jordan", 406),
+        ["IQ"] = ("malwiyaminaret,samarra", 407),
+        ["TN"] = ("sidibousaid,tunisia", 408),
+        ["IN"] = ("tajmahal,india", 409),
+        ["JP"] = ("mountfuji,japan", 410),
+        ["TR"] = ("bosphorusbridge,istanbul", 411),
+        ["FR"] = ("eiffeltower,paris", 412),
+        ["IT"] = ("colosseum,rome", 413),
+        ["GR"] = ("parthenon,athens", 414),
+        ["ES"] = ("sagradafamilia,barcelona", 415),
+        ["DE"] = ("brandenburggate,berlin", 416),
+        ["PT"] = ("belemtower,lisbon", 417),
+        ["US"] = ("statueofliberty,newyork", 418)
+    };
+
     public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         await context.Database.MigrateAsync();
@@ -83,7 +106,10 @@ public static class DbInitializer
                     Code = seedCountry.Code,
                     Region = seedCountry.Region,
                     Description = seedCountry.Description,
-                    FlagImageUrl = $"https://flagcdn.com/w320/{seedCountry.Code.ToLowerInvariant()}.png"
+                    FlagImageUrl = $"https://flagcdn.com/w320/{seedCountry.Code.ToLowerInvariant()}.png",
+                    LandmarkImageUrl = LandmarkByCountryCode.TryGetValue(seedCountry.Code, out var landmark)
+                        ? $"https://loremflickr.com/500/500/{landmark.Keyword}?lock={landmark.Lock}"
+                        : null
                 });
             }
             await context.SaveChangesAsync();

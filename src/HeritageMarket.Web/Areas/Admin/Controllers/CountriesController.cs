@@ -33,7 +33,7 @@ public class CountriesController : Controller
     {
         if (!ModelState.IsValid) return View(model);
 
-        await _countryService.CreateAsync(new CountryDto { Name = model.Name, Code = model.Code, Region = model.Region, Description = model.Description, FlagImageUrl = model.FlagImageUrl });
+        await _countryService.CreateAsync(new CountryDto { Name = model.Name, Code = model.Code, Region = model.Region, Description = model.Description, FlagImageUrl = model.FlagImageUrl, LandmarkImageUrl = model.LandmarkImageUrl });
         TempData["StatusMessage"] = "Country created.";
         return RedirectToAction(nameof(Index));
     }
@@ -43,7 +43,7 @@ public class CountriesController : Controller
         var country = await _countryService.GetByIdAsync(id);
         if (country is null) return NotFound();
 
-        return View(new CountryFormViewModel { Id = country.Id, Name = country.Name, Code = country.Code, Region = country.Region, Description = country.Description, FlagImageUrl = country.FlagImageUrl });
+        return View(new CountryFormViewModel { Id = country.Id, Name = country.Name, Code = country.Code, Region = country.Region, Description = country.Description, FlagImageUrl = country.FlagImageUrl, LandmarkImageUrl = country.LandmarkImageUrl });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -54,7 +54,7 @@ public class CountriesController : Controller
 
         try
         {
-            await _countryService.UpdateAsync(new CountryDto { Id = model.Id, Name = model.Name, Code = model.Code, Region = model.Region, Description = model.Description, FlagImageUrl = model.FlagImageUrl });
+            await _countryService.UpdateAsync(new CountryDto { Id = model.Id, Name = model.Name, Code = model.Code, Region = model.Region, Description = model.Description, FlagImageUrl = model.FlagImageUrl, LandmarkImageUrl = model.LandmarkImageUrl });
             TempData["StatusMessage"] = "Country updated.";
             return RedirectToAction(nameof(Index));
         }

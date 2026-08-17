@@ -20,4 +20,7 @@ public class CountryFormViewModel
 
     [StringLength(300)]
     public string? FlagImageUrl { get; set; }
+
+    [StringLength(300)]
+    public string? LandmarkImageUrl { get; set; }
 }

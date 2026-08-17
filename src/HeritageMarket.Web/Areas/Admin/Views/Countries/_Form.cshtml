@@ -33,6 +33,11 @@
         <label asp-for="FlagImageUrl" class="form-label"></label>
         <input asp-for="FlagImageUrl" class="form-control" placeholder="/images/flags/example.svg" />
     </div>
+    <div class="mb-3">
+        <label asp-for="LandmarkImageUrl" class="form-label"></label>
+        <input asp-for="LandmarkImageUrl" class="form-control" placeholder="Photo of the country's most famous landmark" />
+        <div class="form-text">Shown in the visual country picker on the Shop page (e.g. the Eiffel Tower for France).</div>
+    </div>
     <button type="submit" class="btn btn-heritage">Save Country</button>
     <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
 </form>
