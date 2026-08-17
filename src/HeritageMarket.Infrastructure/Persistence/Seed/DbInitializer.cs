@@ -87,10 +87,10 @@ public static class DbInitializer
         if (!await context.Categories.AnyAsync())
         {
             context.Categories.AddRange(
-                new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "https://loremflickr.com/600/760/handicraft,decor?lock=101" },
+                new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "/images/curated/home-lebanon-jug.jpg" },
                 new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "https://loremflickr.com/600/760/jewelry,artisan?lock=102" },
                 new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "https://loremflickr.com/600/760/phonecase,pattern?lock=103" },
-                new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "https://loremflickr.com/600/760/traditional,clothing?lock=104" },
+                new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "/images/curated/wear-turkey-kaftan.jpg" },
                 new Category { Name = BooksCategory, Description = "Famous heritage literature from every corner of the world — chat with our Heritage Guide to explore a country's stories.", IconUrl = "https://loremflickr.com/600/760/books,library?lock=105" }
             );
             await context.SaveChangesAsync();

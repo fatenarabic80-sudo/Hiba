@@ -5,15 +5,19 @@
 
 <div class="container">
     @{
-        var heroBgKeywords = new[]
+        var heroBgImages = new[]
         {
-            "handicraft,homedecor", "jewelry,artisan", "traditional,clothing", "phonecase,pattern", "books,library"
+            "/images/curated/wear-turkey-kaftan.jpg",
+            "https://loremflickr.com/1800/900/jewelry,artisan?lock=501",
+            "/images/curated/home-lebanon-jug.jpg",
+            "https://loremflickr.com/1800/900/phonecase,pattern?lock=503",
+            "https://loremflickr.com/1800/900/books,library?lock=504"
         };
     }
     <section class="hero-banner hero-banner-rotating mt-4 mb-5" id="heroRotator">
-        @for (var i = 0; i < heroBgKeywords.Length; i++)
+        @for (var i = 0; i < heroBgImages.Length; i++)
         {
-            <div class="hero-bg-layer @(i == 0 ? "active" : "")" style="background-image:url('https://loremflickr.com/1800/900/@(heroBgKeywords[i])?lock=@(500 + i)');"></div>
+            <div class="hero-bg-layer @(i == 0 ? "active" : "")" style="background-image:url('@heroBgImages[i]');"></div>
         }
         <div style="max-width:620px; position:relative; z-index:2;">
             <p class="eyebrow">Product &middot; Culture &middot; Story</p>
