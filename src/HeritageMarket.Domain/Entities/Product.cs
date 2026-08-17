@@ -12,6 +12,12 @@ public class Product
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    /// <summary>Who the item is cut for — "Women", "Men", "Kids", or null when not applicable (mainly used by Wear & Traditional Clothing).</summary>
+    public string? Gender { get; set; }
+
+    /// <summary>Comma-separated available sizes, e.g. "S,M,L,XL" or "One Size". Mainly used by Wear & Traditional Clothing.</summary>
+    public string? Sizes { get; set; }
+
     public int CategoryId { get; set; }
     public Category Category { get; set; } = null!;
 

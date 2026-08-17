@@ -49,7 +49,8 @@ public class ProductService : IProductService
         StockQuantity = p.StockQuantity,
         CategoryName = p.Category.Name,
         CountryName = p.Country.Name,
-        AverageRating = p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0
+        AverageRating = p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0,
+        Gender = p.Gender
     };
 
     public async Task<PagedResult<ProductListItemDto>> GetCatalogAsync(ProductFilter filter)
@@ -116,6 +117,8 @@ public class ProductService : IProductService
                 CountryId = p.CountryId,
                 CountryName = p.Country.Name,
                 AverageRating = p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0,
+                Gender = p.Gender,
+                Sizes = p.Sizes,
                 Reviews = p.Reviews
                     .OrderByDescending(r => r.CreatedAt)
                     .Select(r => new ReviewDto
@@ -146,7 +149,9 @@ public class ProductService : IProductService
             SKU = p.SKU,
             IsActive = p.IsActive,
             CategoryId = p.CategoryId,
-            CountryId = p.CountryId
+            CountryId = p.CountryId,
+            Gender = p.Gender,
+            Sizes = p.Sizes
         };
     }
 
@@ -176,6 +181,8 @@ public class ProductService : IProductService
             IsActive = dto.IsActive,
             CategoryId = dto.CategoryId,
             CountryId = dto.CountryId,
+            Gender = dto.Gender,
+            Sizes = dto.Sizes,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -199,6 +206,8 @@ public class ProductService : IProductService
         product.IsActive = dto.IsActive;
         product.CategoryId = dto.CategoryId;
         product.CountryId = dto.CountryId;
+        product.Gender = dto.Gender;
+        product.Sizes = dto.Sizes;
 
         _unitOfWork.Products.Update(product);
         await _unitOfWork.SaveChangesAsync();

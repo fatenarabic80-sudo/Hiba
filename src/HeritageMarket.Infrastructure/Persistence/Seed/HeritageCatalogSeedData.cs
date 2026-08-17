@@ -1,6 +1,6 @@
 namespace HeritageMarket.Infrastructure.Persistence.Seed;
 
-public record SeedProduct(string Name, string Description, decimal Price);
+public record SeedProduct(string Name, string Description, decimal Price, string? Gender = null, string? Sizes = null);
 public record SeedBook(string Title, string Author, string Description, decimal Price);
 
 public record SeedCountry(
@@ -40,8 +40,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Embroidered Tatreez Thobe", "Traditional Levantine thobe with hand-stitched tatreez embroidery.", 120.00m),
-                new SeedProduct("Mountain Village Kaftan", "Flowing kaftan inspired by traditional dress from Mount Lebanon.", 98.00m)
+                new SeedProduct("Embroidered Tatreez Thobe", "Traditional Levantine thobe with hand-stitched tatreez embroidery.", 120.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Mountain Village Kaftan", "Flowing kaftan inspired by traditional dress from Mount Lebanon.", 98.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Little Cedars Embroidered Vest", "A child-sized vest finished with a miniature tatreez embroidery pattern.", 48.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -67,8 +68,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Egyptian Cotton Galabeya", "Loose-fitting galabeya woven from Egyptian cotton with tally metallic embroidery.", 76.00m),
-                new SeedProduct("Nubian Embroidered Vest", "Vest finished with traditional Nubian geometric embroidery.", 64.00m)
+                new SeedProduct("Egyptian Cotton Galabeya", "Loose-fitting galabeya woven from Egyptian cotton with tally metallic embroidery.", 76.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Nubian Embroidered Vest", "Vest finished with traditional Nubian geometric embroidery.", 64.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Mini Galabeya for Kids", "A child-sized galabeya woven from soft Egyptian cotton.", 42.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -94,8 +96,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Moroccan Kaftan", "Hand-embroidered Moroccan kaftan finished with sfifa braid trim.", 95.00m),
-                new SeedProduct("Berber Wool Djellaba", "Hooded djellaba handwoven from Atlas Mountains wool.", 88.00m)
+                new SeedProduct("Moroccan Kaftan", "Hand-embroidered Moroccan kaftan finished with sfifa braid trim.", 95.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Berber Wool Djellaba", "Hooded djellaba handwoven from Atlas Mountains wool.", 88.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Mini Djellaba", "A child-sized hooded djellaba in soft Atlas Mountains wool blend.", 46.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -121,8 +124,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Palestinian Embroidered Thobe", "Full-length thobe hand-embroidered with tatreez cross-stitch across the chest panel.", 135.00m),
-                new SeedProduct("Tatreez Trim Vest", "Cotton vest finished with a hand-embroidered tatreez border.", 72.00m)
+                new SeedProduct("Palestinian Embroidered Thobe", "Full-length thobe hand-embroidered with tatreez cross-stitch across the chest panel.", 135.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Tatreez Trim Vest", "Cotton vest finished with a hand-embroidered tatreez border.", 72.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Tatreez Dress", "A child-sized dress finished with a simplified tatreez cross-stitch border.", 52.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -148,8 +152,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Aleppo Silk Brocade Kaftan", "Kaftan woven from Aleppo silk brocade in a centuries-old pattern.", 102.00m),
-                new SeedProduct("Damascene Embroidered Vest", "Vest finished with traditional Damascene gold-thread embroidery.", 68.00m)
+                new SeedProduct("Aleppo Silk Brocade Kaftan", "Kaftan woven from Aleppo silk brocade in a centuries-old pattern.", 102.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Damascene Embroidered Vest", "Vest finished with traditional Damascene gold-thread embroidery.", 68.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Embroidered Vest", "A child-sized vest finished with a miniature Damascene gold-thread pattern.", 44.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -175,8 +180,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Bedouin Embroidered Thobe", "Black thobe hand-embroidered with traditional Bedouin cross-stitch.", 110.00m),
-                new SeedProduct("Desert Wool Cloak", "Handwoven wool cloak (bisht-style) worn across Jordan's desert regions.", 92.00m)
+                new SeedProduct("Bedouin Embroidered Thobe", "Black thobe hand-embroidered with traditional Bedouin cross-stitch.", 110.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Desert Wool Cloak", "Handwoven wool cloak (bisht-style) worn across Jordan's desert regions.", 92.00m, "Men", "One Size"),
+                new SeedProduct("Kids' Bedouin Vest", "A child-sized vest hand-embroidered with a simplified Bedouin cross-stitch pattern.", 46.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -202,8 +208,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Baghdadi Embroidered Abaya", "Flowing abaya finished with traditional Baghdadi gold-thread embroidery.", 105.00m),
-                new SeedProduct("Kurdish-Iraqi Woven Vest", "Vest handwoven in a pattern drawn from northern Iraq's Kurdish textile tradition.", 74.00m)
+                new SeedProduct("Baghdadi Embroidered Abaya", "Flowing abaya finished with traditional Baghdadi gold-thread embroidery.", 105.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Kurdish-Iraqi Woven Vest", "Vest handwoven in a pattern drawn from northern Iraq's Kurdish textile tradition.", 74.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Embroidered Tunic", "A child-sized tunic finished with a miniature Baghdadi gold-thread border.", 44.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -229,8 +236,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Tunisian Embroidered Jebba", "Traditional jebba tunic finished with silk-thread embroidery.", 88.00m),
-                new SeedProduct("Kerkennah Woven Wrap", "Lightweight wrap handwoven on the Kerkennah Islands using a traditional loom.", 54.00m)
+                new SeedProduct("Tunisian Embroidered Jebba", "Traditional jebba tunic finished with silk-thread embroidery.", 88.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kerkennah Woven Wrap", "Lightweight wrap handwoven on the Kerkennah Islands using a traditional loom.", 54.00m, "Women", "One Size"),
+                new SeedProduct("Kids' Chechia Cap & Vest Set", "A child-sized felted cap and vest set in the Tunisian chechia tradition.", 40.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -256,8 +264,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Block-Print Cotton Kurta", "Hand block-printed cotton kurta from Jaipur artisans.", 58.00m),
-                new SeedProduct("Banarasi Silk Wedding Saree", "Richly woven silk saree in the Banarasi tradition, finished with gold zari brocade.", 165.00m)
+                new SeedProduct("Block-Print Cotton Kurta", "Hand block-printed cotton kurta from Jaipur artisans.", 58.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Banarasi Silk Wedding Saree", "Richly woven silk saree in the Banarasi tradition, finished with gold zari brocade.", 165.00m, "Women", "One Size (5.5m wrap)"),
+                new SeedProduct("Kids' Block-Print Kurta", "A child-sized kurta hand block-printed in a simplified Rajasthani pattern.", 34.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -283,8 +292,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Traditional Furisode Kimono", "Long-sleeved furisode kimono in a hand-dyed floral pattern, worn at coming-of-age celebrations.", 210.00m),
-                new SeedProduct("Indigo Noragi Jacket", "Workwear-style jacket hand-dyed with traditional Japanese indigo.", 86.00m)
+                new SeedProduct("Traditional Furisode Kimono", "Long-sleeved furisode kimono in a hand-dyed floral pattern, worn at coming-of-age celebrations.", 210.00m, "Women", "One Size (adjustable with obi)"),
+                new SeedProduct("Indigo Noragi Jacket", "Workwear-style jacket hand-dyed with traditional Japanese indigo.", 86.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Yukata Robe", "A child-sized cotton yukata in a playful indigo pattern, easy to wear for festivals.", 58.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -310,8 +320,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Anatolian Embroidered Vest", "Vest finished with traditional Anatolian silk-thread embroidery.", 78.00m),
-                new SeedProduct("Ottoman-Style Kaftan", "Flowing kaftan inspired by Ottoman court dress.", 115.00m)
+                new SeedProduct("Anatolian Embroidered Vest", "Vest finished with traditional Anatolian silk-thread embroidery.", 78.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Ottoman-Style Kaftan", "Flowing kaftan inspired by Ottoman court dress.", 115.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Embroidered Vest", "A child-sized vest finished with a miniature Anatolian embroidery pattern.", 42.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -337,8 +348,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Breton Striped Sailor Shirt", "Cotton shirt in the classic Breton stripe, a French maritime heritage staple.", 58.00m),
-                new SeedProduct("Provençal Quilted Vest", "Quilted vest made from traditional Provençal boutis fabric.", 84.00m)
+                new SeedProduct("Breton Striped Sailor Shirt", "Cotton shirt in the classic Breton stripe, a French maritime heritage staple.", 58.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Provençal Quilted Vest", "Quilted vest made from traditional Provençal boutis fabric.", 84.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Kids' Breton Striped Shirt", "A child-sized cotton shirt in the classic Breton stripe.", 36.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -364,8 +376,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Sicilian Embroidered Blouse", "Cotton blouse finished with traditional Sicilian folk embroidery.", 68.00m),
-                new SeedProduct("Florentine Wool Cape", "Wool cape in a pattern drawn from Florentine Renaissance textile design.", 98.00m)
+                new SeedProduct("Sicilian Embroidered Blouse", "Cotton blouse finished with traditional Sicilian folk embroidery.", 68.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Florentine Wool Cape", "Wool cape in a pattern drawn from Florentine Renaissance textile design.", 98.00m, "Men", "One Size"),
+                new SeedProduct("Kids' Sicilian Embroidered Romper", "A child-sized romper finished with simplified Sicilian folk embroidery.", 38.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -391,8 +404,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Aegean Embroidered Tunic", "Linen tunic finished with traditional Aegean island embroidery.", 72.00m),
-                new SeedProduct("Greek Key Pattern Wrap", "Woven wrap bordered with the classic Greek key (meander) motif.", 56.00m)
+                new SeedProduct("Aegean Embroidered Tunic", "Linen tunic finished with traditional Aegean island embroidery.", 72.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Greek Key Pattern Wrap", "Woven wrap bordered with the classic Greek key (meander) motif.", 56.00m, "Men", "One Size"),
+                new SeedProduct("Kids' Aegean Tunic", "A child-sized linen tunic finished with a simplified Aegean island embroidery border.", 40.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -418,8 +432,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Flamenco Ruffle Blouse", "Cotton blouse with traditional flamenco ruffle sleeves.", 62.00m),
-                new SeedProduct("Andalusian Embroidered Vest", "Vest finished with traditional Andalusian gold-thread embroidery.", 74.00m)
+                new SeedProduct("Flamenco Ruffle Blouse", "Cotton blouse with traditional flamenco ruffle sleeves.", 62.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Andalusian Embroidered Vest", "Vest finished with traditional Andalusian gold-thread embroidery.", 74.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Flamenco Ruffle Dress", "A child-sized dress with playful flamenco ruffle trim.", 46.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -445,8 +460,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Bavarian Dirndl-Style Blouse", "Cotton blouse in the traditional Bavarian dirndl style.", 68.00m),
-                new SeedProduct("Black Forest Wool Vest", "Wool vest finished with traditional Black Forest folk embroidery.", 76.00m)
+                new SeedProduct("Bavarian Dirndl-Style Blouse", "Cotton blouse in the traditional Bavarian dirndl style.", 68.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Black Forest Wool Vest", "Wool vest finished with traditional Black Forest folk embroidery.", 76.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Kids' Bavarian Lederhosen-Style Shorts", "Child-sized shorts in the traditional Bavarian style, with folk-pattern trim.", 44.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -472,8 +488,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Alentejo Embroidered Vest", "Vest finished with traditional Alentejo wool embroidery.", 70.00m),
-                new SeedProduct("Nazaré Fisherman's Sweater", "Wool sweater in the traditional pattern of Nazaré's fishing communities.", 82.00m)
+                new SeedProduct("Alentejo Embroidered Vest", "Vest finished with traditional Alentejo wool embroidery.", 70.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Nazaré Fisherman's Sweater", "Wool sweater in the traditional pattern of Nazaré's fishing communities.", 82.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Kids' Alentejo Vest", "A child-sized vest finished with a simplified Alentejo wool embroidery pattern.", 38.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
@@ -499,8 +516,9 @@ public static class HeritageCatalogSeedData
             },
             Wear: new[]
             {
-                new SeedProduct("Denim Heritage Jacket", "Classic American denim jacket in a heritage workwear cut.", 88.00m),
-                new SeedProduct("Quilted Patchwork Vest", "Vest stitched from a traditional American patchwork quilt pattern.", 64.00m)
+                new SeedProduct("Denim Heritage Jacket", "Classic American denim jacket in a heritage workwear cut.", 88.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Quilted Patchwork Vest", "Vest stitched from a traditional American patchwork quilt pattern.", 64.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Kids' Denim Patchwork Overalls", "Child-sized overalls stitched with a playful Americana patchwork panel.", 42.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {

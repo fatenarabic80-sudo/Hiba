@@ -22,6 +22,18 @@ public static class DbInitializer
         [BooksCategory] = "BOOK"
     };
 
+    private static readonly Dictionary<string, string> CategoryImageKeyword = new()
+    {
+        [HomeCategory] = "handicraft,homedecor",
+        [AccessoriesCategory] = "jewelry,accessory",
+        [PhoneCoversCategory] = "phonecase",
+        [WearCategory] = "traditionaldress,textile",
+        [BooksCategory] = "book,literature"
+    };
+
+    private static string ProductImageUrl(string categoryName, string countryName, int lockSeed) =>
+        $"https://loremflickr.com/600/600/{CategoryImageKeyword[categoryName]},{Uri.EscapeDataString(countryName.Replace(" ", string.Empty))}?lock={lockSeed}";
+
     public static async Task SeedAsync(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         await context.Database.MigrateAsync();
@@ -52,11 +64,11 @@ public static class DbInitializer
         if (!await context.Categories.AnyAsync())
         {
             context.Categories.AddRange(
-                new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "https://picsum.photos/seed/cat-home-decor/600/760" },
-                new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "https://picsum.photos/seed/cat-accessories/600/760" },
-                new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "https://picsum.photos/seed/cat-phone-covers/600/760" },
-                new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "https://picsum.photos/seed/cat-wear/600/760" },
-                new Category { Name = BooksCategory, Description = "Famous heritage literature — unlocked after a short chat with our Heritage Guide.", IconUrl = "https://picsum.photos/seed/cat-books/600/760" }
+                new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "https://loremflickr.com/600/760/handicraft,decor?lock=101" },
+                new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "https://loremflickr.com/600/760/jewelry,artisan?lock=102" },
+                new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "https://loremflickr.com/600/760/phonecase,pattern?lock=103" },
+                new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "https://loremflickr.com/600/760/traditional,clothing?lock=104" },
+                new Category { Name = BooksCategory, Description = "Famous heritage literature from every corner of the world — chat with our Heritage Guide to explore a country's stories.", IconUrl = "https://loremflickr.com/600/760/books,library?lock=105" }
             );
             await context.SaveChangesAsync();
         }
@@ -71,7 +83,7 @@ public static class DbInitializer
                     Code = seedCountry.Code,
                     Region = seedCountry.Region,
                     Description = seedCountry.Description,
-                    FlagImageUrl = $"https://picsum.photos/seed/country-{seedCountry.Code.ToLowerInvariant()}/400/500"
+                    FlagImageUrl = $"https://flagcdn.com/w320/{seedCountry.Code.ToLowerInvariant()}.png"
                 });
             }
             await context.SaveChangesAsync();
@@ -86,10 +98,10 @@ public static class DbInitializer
             {
                 var countryId = countryIds[seedCountry.Code];
 
-                AddProducts(context, seedCountry.Home, HomeCategory, categoryIds, countryId, seedCountry.Code, 25);
-                AddProducts(context, seedCountry.Accessories, AccessoriesCategory, categoryIds, countryId, seedCountry.Code, 30);
-                AddProducts(context, seedCountry.PhoneCovers, PhoneCoversCategory, categoryIds, countryId, seedCountry.Code, 40);
-                AddProducts(context, seedCountry.Wear, WearCategory, categoryIds, countryId, seedCountry.Code, 15);
+                AddProducts(context, seedCountry.Home, HomeCategory, categoryIds, countryId, seedCountry.Code, seedCountry.Name, 25);
+                AddProducts(context, seedCountry.Accessories, AccessoriesCategory, categoryIds, countryId, seedCountry.Code, seedCountry.Name, 30);
+                AddProducts(context, seedCountry.PhoneCovers, PhoneCoversCategory, categoryIds, countryId, seedCountry.Code, seedCountry.Name, 40);
+                AddProducts(context, seedCountry.Wear, WearCategory, categoryIds, countryId, seedCountry.Code, seedCountry.Name, 15);
 
                 var bookIndex = 0;
                 foreach (var book in seedCountry.Books)
@@ -102,7 +114,7 @@ public static class DbInitializer
                         Price = book.Price,
                         StockQuantity = 20,
                         SKU = $"{seedCountry.Code}-BOOK-{bookIndex:00}",
-                        ImageUrl = $"https://picsum.photos/seed/prod-{seedCountry.Code.ToLowerInvariant()}-book-{bookIndex}/600/600",
+                        ImageUrl = ProductImageUrl(BooksCategory, seedCountry.Name, StableSeed(seedCountry.Code, "BOOK", bookIndex)),
                         CategoryId = categoryIds[BooksCategory],
                         CountryId = countryId
                     });
@@ -113,6 +125,18 @@ public static class DbInitializer
         }
     }
 
+    private static int StableSeed(string countryCode, string skuCode, int index)
+    {
+        unchecked
+        {
+            var hash = 17;
+            foreach (var c in countryCode + skuCode)
+                hash = hash * 31 + c;
+            hash = hash * 31 + index;
+            return Math.Abs(hash);
+        }
+    }
+
     private static void AddProducts(
         ApplicationDbContext context,
         SeedProduct[] products,
@@ -120,6 +144,7 @@ public static class DbInitializer
         IReadOnlyDictionary<string, int> categoryIds,
         int countryId,
         string countryCode,
+        string countryName,
         int stock)
     {
         var skuCode = CategorySkuCode[categoryName];
@@ -135,9 +160,11 @@ public static class DbInitializer
                 Price = product.Price,
                 StockQuantity = stock,
                 SKU = $"{countryCode}-{skuCode}-{index:00}",
-                ImageUrl = $"https://picsum.photos/seed/prod-{countryCode.ToLowerInvariant()}-{skuCode.ToLowerInvariant()}-{index}/600/600",
+                ImageUrl = ProductImageUrl(categoryName, countryName, StableSeed(countryCode, skuCode, index)),
                 CategoryId = categoryIds[categoryName],
-                CountryId = countryId
+                CountryId = countryId,
+                Gender = product.Gender,
+                Sizes = product.Sizes
             });
         }
     }

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using HeritageMarket.Application;
 using HeritageMarket.Infrastructure;
@@ -8,6 +9,7 @@ using HeritageMarket.Web.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -161,6 +163,14 @@ try
     app.UseStaticFiles();
 
     app.UseSerilogRequestLogging();
+
+    var supportedCultures = new[] { "en-US", "ar-LB", "fr-FR" }.Select(c => new CultureInfo(c)).ToArray();
+    app.UseRequestLocalization(new RequestLocalizationOptions
+    {
+        DefaultRequestCulture = new RequestCulture("en-US"),
+        SupportedCultures = supportedCultures,
+        SupportedUICultures = supportedCultures
+    });
 
     app.UseRouting();
 

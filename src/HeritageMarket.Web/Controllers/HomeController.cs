@@ -35,13 +35,10 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var categories = await _categoryService.GetAllAsync();
-        var booksCategoryId = categories.FirstOrDefault(c => c.Name == ProductsController.HeritageBooksCategoryName)?.Id;
-
         var model = new HomeIndexViewModel
         {
-            FeaturedProducts = await _productService.GetFeaturedAsync(8, booksCategoryId),
-            Categories = categories,
+            FeaturedProducts = await _productService.GetFeaturedAsync(8),
+            Categories = await _categoryService.GetAllAsync(),
             Countries = await _countryService.GetAllAsync()
         };
 

@@ -54,7 +54,24 @@
                 <div><strong class="d-block text-heritage small text-uppercase">Category</strong><span class="text-muted small">@product.CategoryName</span></div>
                 <div><strong class="d-block text-heritage small text-uppercase">SKU</strong><span class="text-muted small">@product.SKU</span></div>
                 <div><strong class="d-block text-heritage small text-uppercase">Origin</strong><span class="text-muted small">@product.CountryName</span></div>
+                @if (!string.IsNullOrEmpty(product.Gender))
+                {
+                    <div><strong class="d-block text-heritage small text-uppercase">For</strong><span class="text-muted small">@product.Gender</span></div>
+                }
             </div>
+
+            @if (!string.IsNullOrEmpty(product.Sizes))
+            {
+                <div class="mb-3">
+                    <strong class="d-block text-heritage small text-uppercase mb-2">Available Sizes</strong>
+                    <div class="d-flex gap-2 flex-wrap">
+                        @foreach (var size in product.Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                        {
+                            <span class="badge bg-light text-dark border px-3 py-2" style="font-weight:500;">@size</span>
+                        }
+                    </div>
+                </div>
+            }
 
             @if (product.StockQuantity <= 0)
             {

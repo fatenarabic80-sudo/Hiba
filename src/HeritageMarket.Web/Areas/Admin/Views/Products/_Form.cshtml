@@ -49,6 +49,23 @@
                     <span asp-validation-for="CountryId" class="text-danger"></span>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Gender" class="form-label"></label>
+                    <select asp-for="Gender" class="form-select">
+                        <option value="">Not applicable</option>
+                        <option value="Women">Women</option>
+                        <option value="Men">Men</option>
+                        <option value="Kids">Kids</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Sizes" class="form-label"></label>
+                    <input asp-for="Sizes" class="form-control" placeholder="e.g. S,M,L,XL or One Size" />
+                    <span asp-validation-for="Sizes" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-check mb-3">
                 <input asp-for="IsActive" class="form-check-input" />
                 <label asp-for="IsActive" class="form-check-label"></label>

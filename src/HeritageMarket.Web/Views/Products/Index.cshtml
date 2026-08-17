@@ -80,3 +80,10 @@
         </div>
     </div>
 </div>
+
+@if (ViewData["IsBooksCategory"] as bool? == true)
+{
+    @section Scripts {
+        <script src="~/js/books-greeting.js" asp-append-version="true"></script>
+    }
+}

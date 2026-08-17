@@ -10,6 +10,7 @@ public class ProductListItemDto
     public string CategoryName { get; set; } = string.Empty;
     public string CountryName { get; set; } = string.Empty;
     public double AverageRating { get; set; }
+    public string? Gender { get; set; }
 }
 
 public class ProductDetailDto : ProductListItemDto
@@ -19,6 +20,7 @@ public class ProductDetailDto : ProductListItemDto
     public int CategoryId { get; set; }
     public int CountryId { get; set; }
     public bool IsActive { get; set; }
+    public string? Sizes { get; set; }
     public List<ReviewDto> Reviews { get; set; } = new();
 }
 
@@ -34,6 +36,8 @@ public class ProductEditDto
     public bool IsActive { get; set; } = true;
     public int CategoryId { get; set; }
     public int CountryId { get; set; }
+    public string? Gender { get; set; }
+    public string? Sizes { get; set; }
 }
 
 public class ProductFilter
@@ -42,8 +46,7 @@ public class ProductFilter
     public int? CategoryId { get; set; }
     public int? CountryId { get; set; }
 
-    /// <summary>When set (and CategoryId isn't specifically this category), excludes it from results —
-    /// used to keep the gated Heritage Books category out of general browsing/search/featured lists.</summary>
+    /// <summary>When set (and CategoryId isn't specifically this category), excludes it from results.</summary>
     public int? ExcludeCategoryId { get; set; }
 
     public int PageNumber { get; set; } = 1;

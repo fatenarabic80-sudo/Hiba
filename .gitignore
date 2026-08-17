@@ -18,6 +18,7 @@ out/
 x64/
 x86/
 [Ll]og/
+*.log
 [Ll]ogs/
 
 ## Test results

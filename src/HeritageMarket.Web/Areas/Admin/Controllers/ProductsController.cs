@@ -70,6 +70,8 @@ public class ProductsController : Controller
                 IsActive = model.IsActive,
                 CategoryId = model.CategoryId,
                 CountryId = model.CountryId,
+                Gender = model.Gender,
+                Sizes = model.Sizes,
                 ImageUrl = imageUrl
             });
 
@@ -101,6 +103,8 @@ public class ProductsController : Controller
             IsActive = product.IsActive,
             CategoryId = product.CategoryId,
             CountryId = product.CountryId,
+            Gender = product.Gender,
+            Sizes = product.Sizes,
             ExistingImageUrl = product.ImageUrl
         };
 
@@ -134,6 +138,8 @@ public class ProductsController : Controller
                 IsActive = model.IsActive,
                 CategoryId = model.CategoryId,
                 CountryId = model.CountryId,
+                Gender = model.Gender,
+                Sizes = model.Sizes,
                 ImageUrl = imageUrl ?? model.ExistingImageUrl
             });
 

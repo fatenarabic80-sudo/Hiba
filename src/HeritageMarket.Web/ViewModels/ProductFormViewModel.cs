@@ -30,6 +30,12 @@ public class ProductFormViewModel
     [Required(ErrorMessage = "Please select a country.")]
     public int CountryId { get; set; }
 
+    [StringLength(20)]
+    public string? Gender { get; set; }
+
+    [StringLength(100)]
+    public string? Sizes { get; set; }
+
     public string? ExistingImageUrl { get; set; }
 
     public IFormFile? ImageFile { get; set; }

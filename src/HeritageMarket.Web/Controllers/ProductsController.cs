@@ -1,7 +1,6 @@
 using HeritageMarket.Application.Common;
 using HeritageMarket.Application.DTOs;
 using HeritageMarket.Application.Services.Interfaces;
-using HeritageMarket.Domain.Enums;
 using HeritageMarket.Infrastructure.Identity;
 using HeritageMarket.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +18,6 @@ public class ProductsController : Controller
     private readonly ICountryService _countryService;
     private readonly IReviewService _reviewService;
     private readonly IWishlistService _wishlistService;
-    private readonly IBookAccessService _bookAccessService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<ProductsController> _logger;
 
@@ -29,7 +27,6 @@ public class ProductsController : Controller
         ICountryService countryService,
         IReviewService reviewService,
         IWishlistService wishlistService,
-        IBookAccessService bookAccessService,
         UserManager<ApplicationUser> userManager,
         ILogger<ProductsController> logger)
     {
@@ -38,31 +35,19 @@ public class ProductsController : Controller
         _countryService = countryService;
         _reviewService = reviewService;
         _wishlistService = wishlistService;
-        _bookAccessService = bookAccessService;
         _userManager = userManager;
         _logger = logger;
     }
 
-    private string? CurrentUserId => _userManager.GetUserId(User);
-
     public async Task<IActionResult> Index(string? searchTerm, int? categoryId, int? countryId, int pageNumber = 1)
     {
         var categories = await _categoryService.GetAllAsync();
-        var booksCategoryId = categories.FirstOrDefault(c => c.Name == HeritageBooksCategoryName)?.Id;
-
-        if (categoryId.HasValue && categoryId == booksCategoryId)
-        {
-            var approved = CurrentUserId is not null && await _bookAccessService.IsApprovedAsync(CurrentUserId);
-            if (!approved)
-                return RedirectToAction(nameof(Books));
-        }
 
         var filter = new ProductFilter
         {
             SearchTerm = searchTerm,
             CategoryId = categoryId,
             CountryId = countryId,
-            ExcludeCategoryId = booksCategoryId,
             PageNumber = pageNumber,
             PageSize = 9
         };
@@ -75,6 +60,12 @@ public class ProductsController : Controller
             Filter = filter
         };
 
+        // Heritage Books behaves like every other category — freely browsable, no login or
+        // approval required. The Heritage Guide just pops in with a friendly, non-blocking
+        // greeting when you land here (see books-greeting.js), purely for the fun of it.
+        ViewData["IsBooksCategory"] = categoryId.HasValue &&
+            categories.FirstOrDefault(c => c.Id == categoryId)?.Name == HeritageBooksCategoryName;
+
         await SetWishlistedIdsAsync();
         return View(model);
     }
@@ -83,13 +74,6 @@ public class ProductsController : Controller
     {
         var product = await _productService.GetDetailAsync(id);
         if (product is null) return NotFound();
-
-        if (product.CategoryName == HeritageBooksCategoryName)
-        {
-            var approved = CurrentUserId is not null && await _bookAccessService.IsApprovedAsync(CurrentUserId);
-            if (!approved)
-                return RedirectToAction(nameof(Books));
-        }
 
         var model = new ProductDetailsViewModel
         {
@@ -100,77 +84,6 @@ public class ProductsController : Controller
 
         await SetWishlistedIdsAsync();
         return View(model);
-    }
-
-    // The "magical" Heritage Books intercept: a Heritage-Guide-styled intake instead of a normal
-    // product grid, gating the category until an Admin approves the customer's request.
-    public async Task<IActionResult> Books()
-    {
-        var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
-        var model = new BooksGateViewModel
-        {
-            IsAuthenticated = isAuthenticated,
-            Countries = await _countryService.GetAllAsync()
-        };
-
-        if (isAuthenticated && CurrentUserId is not null)
-        {
-            var latest = await _bookAccessService.GetLatestForUserAsync(CurrentUserId);
-            model.Status = latest?.Status;
-            model.AdminNote = latest?.AdminNote;
-
-            if (latest?.Status == BookAccessStatus.Approved)
-            {
-                var booksCategory = (await _categoryService.GetAllAsync()).FirstOrDefault(c => c.Name == HeritageBooksCategoryName);
-                if (booksCategory is not null)
-                    return RedirectToAction(nameof(Index), new { categoryId = booksCategory.Id });
-            }
-        }
-
-        return View(model);
-    }
-
-    [HttpPost, Authorize, ValidateAntiForgeryToken]
-    public async Task<IActionResult> SubmitBookAccessRequest(BookAccessRequestFormViewModel form)
-    {
-        if (!ModelState.IsValid)
-        {
-            var model = new BooksGateViewModel
-            {
-                IsAuthenticated = true,
-                Countries = await _countryService.GetAllAsync(),
-                Form = form
-            };
-            return View(nameof(Books), model);
-        }
-
-        await _bookAccessService.SubmitRequestAsync(new SubmitBookAccessRequest
-        {
-            ApplicationUserId = CurrentUserId!,
-            Reason = form.Reason,
-            PreferredCountry = form.PreferredCountry
-        });
-
-        TempData["StatusMessage"] = "Thanks! Your Heritage Guide request has been sent to our team.";
-        return RedirectToAction(nameof(Books));
-    }
-
-    // Used by the AI Guide chat widget on the Books page — same effect as SubmitBookAccessRequest,
-    // but responds with JSON so the conversation can continue in place instead of redirecting.
-    [HttpPost, Authorize, ValidateAntiForgeryToken]
-    public async Task<IActionResult> SubmitBookAccessRequestAjax(string preferredCountry, string reason)
-    {
-        if (string.IsNullOrWhiteSpace(preferredCountry) || string.IsNullOrWhiteSpace(reason))
-            return BadRequest(new { message = "A country and a reason are both required." });
-
-        await _bookAccessService.SubmitRequestAsync(new SubmitBookAccessRequest
-        {
-            ApplicationUserId = CurrentUserId!,
-            Reason = reason.Length > 500 ? reason[..500] : reason,
-            PreferredCountry = preferredCountry
-        });
-
-        return Json(new { success = true });
     }
 
     private async Task SetWishlistedIdsAsync()

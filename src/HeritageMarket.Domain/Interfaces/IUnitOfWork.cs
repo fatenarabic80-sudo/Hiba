@@ -12,7 +12,6 @@ public interface IUnitOfWork : IDisposable
     IRepository<Review> Reviews { get; }
     IRepository<Notification> Notifications { get; }
     IRepository<WishlistItem> WishlistItems { get; }
-    IRepository<BookAccessRequest> BookAccessRequests { get; }
 
     Task<int> SaveChangesAsync();
 }

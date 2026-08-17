@@ -16,7 +16,6 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Review>? _reviews;
     private IRepository<Notification>? _notifications;
     private IRepository<WishlistItem>? _wishlistItems;
-    private IRepository<BookAccessRequest>? _bookAccessRequests;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -31,7 +30,6 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Review> Reviews => _reviews ??= new Repository<Review>(_context);
     public IRepository<Notification> Notifications => _notifications ??= new Repository<Notification>(_context);
     public IRepository<WishlistItem> WishlistItems => _wishlistItems ??= new Repository<WishlistItem>(_context);
-    public IRepository<BookAccessRequest> BookAccessRequests => _bookAccessRequests ??= new Repository<BookAccessRequest>(_context);
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 
