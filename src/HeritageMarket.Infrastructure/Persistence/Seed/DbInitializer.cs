@@ -39,7 +39,7 @@ public static class DbInitializer
     private static readonly Dictionary<string, string> LandmarkByCountryCode = new()
     {
         ["LB"] = "/images/curated/landmark-lebanon-byblos.webp",
-        ["EG"] = "https://loremflickr.com/500/500/pyramidsofgiza,egypt?lock=402",
+        ["EG"] = "/images/curated/landmark-egypt-pyramids.webp",
         ["MA"] = "/images/curated/landmark-morocco-chefchaouen.webp",
         ["PS"] = "/images/curated/landmark-palestine-domeoftherock.jpg",
         ["SY"] = "/images/curated/landmark-syria-umayyadmosque.jpg",
@@ -87,8 +87,8 @@ public static class DbInitializer
         {
             context.Categories.AddRange(
                 new Category { Name = HomeCategory, Description = "Heritage-inspired decor for the home.", IconUrl = "/images/curated/home-lebanon-jug.jpg" },
-                new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "https://loremflickr.com/600/760/jewelry,artisan?lock=102" },
-                new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "https://loremflickr.com/600/760/phonecase,pattern?lock=103" },
+                new Category { Name = AccessoriesCategory, Description = "Traditional accessories with a modern edge.", IconUrl = "/images/curated/category-accessories-bangles.jpg" },
+                new Category { Name = PhoneCoversCategory, Description = "Heritage-pattern phone covers.", IconUrl = "/images/curated/category-phonecovers-lebanon.jpg" },
                 new Category { Name = WearCategory, Description = "Garments inspired by traditional dress.", IconUrl = "/images/curated/wear-turkey-kaftan.jpg" },
                 new Category { Name = BooksCategory, Description = "Famous heritage literature from every corner of the world — chat with our Heritage Guide to explore a country's stories.", IconUrl = "https://loremflickr.com/600/760/books,library?lock=105" }
             );
