@@ -140,7 +140,7 @@ public static class DbInitializer
                         Price = book.Price,
                         StockQuantity = 20,
                         SKU = $"{seedCountry.Code}-BOOK-{bookIndex:00}",
-                        ImageUrl = ProductImageUrl(BooksCategory, seedCountry.Name, StableSeed(seedCountry.Code, "BOOK", bookIndex)),
+                        ImageUrl = book.ImageUrl ?? ProductImageUrl(BooksCategory, seedCountry.Name, StableSeed(seedCountry.Code, "BOOK", bookIndex)),
                         CategoryId = categoryIds[BooksCategory],
                         CountryId = countryId
                     });

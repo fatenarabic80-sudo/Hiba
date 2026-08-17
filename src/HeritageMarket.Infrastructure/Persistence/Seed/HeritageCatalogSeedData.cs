@@ -1,7 +1,7 @@
 namespace HeritageMarket.Infrastructure.Persistence.Seed;
 
 public record SeedProduct(string Name, string Description, decimal Price, string? Gender = null, string? Sizes = null, string? ImageUrl = null);
-public record SeedBook(string Title, string Author, string Description, decimal Price);
+public record SeedBook(string Title, string Author, string Description, decimal Price, string? ImageUrl = null);
 
 public record SeedCountry(
     string Name, string Code, string Region, string Description,
@@ -82,17 +82,24 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Zellige Mosaic Coasters (Set of 4)", "Handmade Moroccan zellige-inspired ceramic coasters.", 28.00m),
-                new SeedProduct("Moroccan Beaded Lamp", "Hand-beaded lamp shade casting intricate light patterns, in the riad tradition.", 112.00m)
+                new SeedProduct("Moroccan Beaded Lamp", "Hand-beaded lamp shade casting intricate light patterns, in the riad tradition.", 112.00m),
+                new SeedProduct("Hand-Painted Blue Zellige Tagine", "Ceramic tagine hand-painted with indigo Amazigh star and lattice motifs, food-safe glaze.", 85.00m, ImageUrl: "/images/curated/morocco-tagine.webp"),
+                new SeedProduct("Marrakech Doorways Wall Art Trio", "Set of three framed prints capturing ornate Moroccan and Rajasthani carved doorways.", 95.00m, ImageUrl: "/images/curated/morocco-doorways-wall-art.webp"),
+                new SeedProduct("Indigo Quatrefoil Canvas Set", "Four-panel watercolor-style canvas set in a classic Moroccan quatrefoil lattice pattern.", 110.00m, ImageUrl: "/images/curated/morocco-quatrefoil-wall-art.webp")
             },
             Accessories: new[]
             {
                 new SeedProduct("Fez Leather Pouf Bag", "Hand-stitched leather bag crafted using traditional Fez tanning techniques.", 68.00m),
-                new SeedProduct("Berber Silver Cuff", "Engraved silver cuff bracelet in a traditional Amazigh (Berber) pattern.", 46.00m)
+                new SeedProduct("Berber Silver Cuff", "Engraved silver cuff bracelet in a traditional Amazigh (Berber) pattern.", 46.00m),
+                new SeedProduct("Amazigh Coral Coin Necklace", "Antique-style silver necklace with coral drops and engraved coin pendants, Amazigh tradition.", 92.00m, ImageUrl: "/images/curated/morocco-coral-necklace.webp"),
+                new SeedProduct("Antique Silver Filigree Cuff", "Wide hand-hammered silver cuff with granulated filigree rosettes, Berber craftsmanship.", 78.00m, ImageUrl: "/images/curated/morocco-silver-cuff.jpg")
             },
             PhoneCovers: new[]
             {
                 new SeedProduct("Zellige Pattern Phone Case", "Phone case printed with an eight-pointed zellige tile pattern.", 28.00m),
-                new SeedProduct("Marrakech Medina Phone Case", "Phone case featuring the winding alleys of the Marrakech medina.", 24.00m)
+                new SeedProduct("Marrakech Medina Phone Case", "Phone case featuring the winding alleys of the Marrakech medina.", 24.00m),
+                new SeedProduct("Marrakech Star Mosaic Phone Case", "Bold multicolor geometric star mosaic phone case inspired by Fez zellige tilework.", 26.00m, ImageUrl: "/images/curated/morocco-star-mosaic-phonecase.jpg"),
+                new SeedProduct("Bou Inania Tile Phone Case", "Phone case wrapped in an intricate turquoise-and-gold Moroccan tile medallion pattern.", 28.00m, ImageUrl: "/images/curated/morocco-tile-phonecase.jpg")
             },
             Wear: new[]
             {
@@ -102,12 +109,16 @@ public static class HeritageCatalogSeedData
                 new SeedProduct("Ruby Embroidered Kaftan", "Deep-red kaftan with dense gold sequin and bead embroidery, cinched with a metallic sash.", 168.00m, "Women", "S,M,L,XL", "/images/curated/morocco-red-kaftan.jpg"),
                 new SeedProduct("Emerald Velvet Takchita", "Forest-green velvet takchita with elaborate gold sfifa braid and a bejeweled belt.", 245.00m, "Women", "S,M,L,XL", "/images/curated/morocco-green-velvet-kaftan.jpg"),
                 new SeedProduct("Hooded Djellaba with Cloak", "Cream wool djellaba layered under a flowing hooded black cloak, Marrakech tailoring.", 138.00m, "Men", "S,M,L,XL,XXL", "/images/curated/morocco-men-djellaba-cloak.jpg"),
-                new SeedProduct("Velvet Tarbosh with Zellige Band", "Velvet tarbosh cap wrapped in a laser-cut metallic band echoing zellige star patterns.", 38.00m, "Men", "One Size", "/images/curated/morocco-tarbosh.webp")
+                new SeedProduct("Velvet Tarbosh with Zellige Band", "Velvet tarbosh cap wrapped in a laser-cut metallic band echoing zellige star patterns.", 38.00m, "Men", "One Size", "/images/curated/morocco-tarbosh.webp"),
+                new SeedProduct("Classic Cream Hooded Djellaba", "Traditional cream wool djellaba with a deep hood and hand-stitched trim, Marrakech tailoring.", 98.00m, "Men", "S,M,L,XL,XXL", "/images/curated/morocco-men-djellaba-hood.jpg"),
+                new SeedProduct("Kids' Embroidered Green Djellaba", "Vibrant emerald djellaba with colorful floral hand-embroidery, sized for little ones.", 58.00m, "Kids", "4T,6,8,10,12", "/images/curated/morocco-kids-djellaba.webp")
             },
             Books: new[]
             {
                 new SeedBook("The Sand Child", "Tahar Ben Jelloun", "An acclaimed novel drawing on Morocco's halqa oral storytelling tradition.", 23.00m),
-                new SeedBook("Dreams of Trespass", "Fatema Mernissi", "A celebrated memoir of growing up in a 1940s Fez harem, by a leading Moroccan feminist scholar.", 22.00m)
+                new SeedBook("Dreams of Trespass", "Fatema Mernissi", "A celebrated memoir of growing up in a 1940s Fez harem, by a leading Moroccan feminist scholar.", 22.00m),
+                new SeedBook("Morocco: Its People and Places", "Edmondo De Amicis", "A two-volume 19th-century travel classic chronicling Morocco's cities, souks, and courts.", 58.00m, "/images/curated/morocco-book-peopleplaces.jpg"),
+                new SeedBook("Once a Week", "H. A. Guerber", "An antique hand-tooled leather-bound volume of collected weekly tales and travel writing.", 34.00m, "/images/curated/morocco-book-onceaweek.jpg")
             }),
 
         new("Palestine", "PS", ArabWorld, "Levantine heritage rooted in olive groves, embroidery, and craft traditions passed through generations.",
