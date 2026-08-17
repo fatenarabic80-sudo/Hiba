@@ -390,34 +390,6 @@ public static class HeritageCatalogSeedData
                 new SeedBook("The Divine Comedy", "Dante Alighieri", "The 14th-century epic poem that shaped the Italian language itself.", 22.00m)
             }),
 
-        new("Greece", "GR", Europe, "Aegean heritage: Cycladic blue-and-white craft, olive wood carving, and ancient meander motifs.",
-            Home: new[]
-            {
-                new SeedProduct("Cycladic Blue Ceramic Vase", "Hand-thrown ceramic vase in the classic blue-and-white Cycladic palette.", 48.00m),
-                new SeedProduct("Olive Wood Serving Board", "Hand-carved serving board from Greek olive wood.", 44.00m)
-            },
-            Accessories: new[]
-            {
-                new SeedProduct("Greek Evil Eye Necklace", "Hand-blown glass evil eye pendant on a delicate gold-plated chain.", 31.00m),
-                new SeedProduct("Meander Pattern Leather Belt", "Leather belt embossed with the ancient Greek meander (key) pattern.", 38.00m)
-            },
-            PhoneCovers: new[]
-            {
-                new SeedProduct("Santorini Blue Domes Phone Case", "Phone case featuring Santorini's whitewashed buildings and blue-domed churches.", 24.00m),
-                new SeedProduct("Greek Meander Pattern Phone Case", "Phone case printed with the ancient Greek meander border pattern.", 22.00m)
-            },
-            Wear: new[]
-            {
-                new SeedProduct("Aegean Embroidered Tunic", "Linen tunic finished with traditional Aegean island embroidery.", 72.00m, "Women", "XS,S,M,L,XL"),
-                new SeedProduct("Greek Key Pattern Wrap", "Woven wrap bordered with the classic Greek key (meander) motif.", 56.00m, "Men", "One Size"),
-                new SeedProduct("Kids' Aegean Tunic", "A child-sized linen tunic finished with a simplified Aegean island embroidery border.", 40.00m, "Kids", "2T,4T,6,8,10,12")
-            },
-            Books: new[]
-            {
-                new SeedBook("Zorba the Greek", "Nikos Kazantzakis", "A classic novel of Cretan life and philosophy, one of the most widely read works of modern Greek literature.", 21.00m),
-                new SeedBook("The Odyssey", "Homer", "The ancient epic of Odysseus's journey home, among the oldest and most influential works in world literature.", 19.00m)
-            }),
-
         new("Spain", "ES", Europe, "Andalusian heritage: azulejo tilework, flamenco textiles, and Toledo damascene metalwork.",
             Home: new[]
             {
@@ -472,34 +444,6 @@ public static class HeritageCatalogSeedData
             {
                 new SeedBook("Faust", "Johann Wolfgang von Goethe", "Germany's most celebrated literary work, a philosophical drama first published in 1808.", 22.00m),
                 new SeedBook("Siddhartha", "Hermann Hesse", "A spiritual classic by Germany's Nobel laureate in Literature, first published in 1922.", 18.00m)
-            }),
-
-        new("Portugal", "PT", Europe, "Portuguese heritage: azulejo tile art, cork craft, and centuries of maritime tradition.",
-            Home: new[]
-            {
-                new SeedProduct("Portuguese Azulejo Tile Coaster Set", "Hand-painted ceramic coasters in the classic blue-and-white azulejo pattern.", 30.00m),
-                new SeedProduct("Alentejo Cork Bowl", "Bowl handcrafted from sustainably harvested Alentejo cork.", 36.00m)
-            },
-            Accessories: new[]
-            {
-                new SeedProduct("Filigree Heart Pendant", "Fine gold-plated filigree pendant in the traditional Portuguese heart (coração) pattern.", 40.00m),
-                new SeedProduct("Cork Leather Wallet", "Wallet crafted from Portuguese cork leather, a centuries-old regional material.", 34.00m)
-            },
-            PhoneCovers: new[]
-            {
-                new SeedProduct("Azulejo Tile Phone Case", "Phone case printed with a traditional Portuguese azulejo tile pattern.", 24.00m),
-                new SeedProduct("Lisbon Tram Phone Case", "Phone case featuring Lisbon's iconic yellow tram.", 22.00m)
-            },
-            Wear: new[]
-            {
-                new SeedProduct("Alentejo Embroidered Vest", "Vest finished with traditional Alentejo wool embroidery.", 70.00m, "Men", "S,M,L,XL,XXL"),
-                new SeedProduct("Nazaré Fisherman's Sweater", "Wool sweater in the traditional pattern of Nazaré's fishing communities.", 82.00m, "Women", "XS,S,M,L,XL"),
-                new SeedProduct("Kids' Alentejo Vest", "A child-sized vest finished with a simplified Alentejo wool embroidery pattern.", 38.00m, "Kids", "2T,4T,6,8,10,12")
-            },
-            Books: new[]
-            {
-                new SeedBook("The Book of Disquiet", "Fernando Pessoa", "A landmark of 20th-century literature by Portugal's most celebrated modern writer.", 21.00m),
-                new SeedBook("The Lusiads", "Luís de Camões", "Portugal's national epic poem, celebrating the Age of Discovery since 1572.", 20.00m)
             }),
 
         new("United States", "US", Americas, "American heritage: Americana folk art, quilting tradition, and regional craft from coast to coast.",
