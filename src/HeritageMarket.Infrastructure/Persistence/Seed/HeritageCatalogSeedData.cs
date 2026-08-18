@@ -26,7 +26,12 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Cedar-Carved Wooden Box", "Hand-carved Lebanese cedar wood box with traditional inlay patterns.", 45.00m),
-                new SeedProduct("Beiruti Mosaic Tray", "Hand-set mosaic serving tray in a traditional Levantine geometric pattern.", 52.00m)
+                new SeedProduct("Beiruti Mosaic Tray", "Hand-set mosaic serving tray in a traditional Levantine geometric pattern.", 52.00m),
+                new SeedProduct("Hand-Painted Cedar Jar", "Blue-and-white ceramic jar hand-painted with Lebanon's cedar tree emblem, signed by the artist.", 95.00m, ImageUrl: "/images/curated/home-lebanon-jug.jpg"),
+                new SeedProduct("Embroidered Velvet Cushion Trio", "Set of three richly embroidered velvet cushions in traditional Levantine floral motifs.", 85.00m, ImageUrl: "/images/curated/lebanon-home-cushions.jpg"),
+                new SeedProduct("Suzani-Embroidered Bench", "Vibrant hand-embroidered bench upholstered in traditional suzani-style needlework.", 320.00m, ImageUrl: "/images/curated/lebanon-home-suzani-bench.jpg"),
+                new SeedProduct("Carved Wood Majlis Bench", "Hand-carved lattice-back wooden bench, traditional Lebanese mountain craftsmanship.", 260.00m, ImageUrl: "/images/curated/lebanon-home-carved-bench.png"),
+                new SeedProduct("Mountain Village Oil Painting", "Original oil painting of a traditional Lebanese mountain village home, hand-signed by the artist.", 180.00m, ImageUrl: "/images/curated/lebanon-home-village-painting.jpg")
             },
             Accessories: new[]
             {
