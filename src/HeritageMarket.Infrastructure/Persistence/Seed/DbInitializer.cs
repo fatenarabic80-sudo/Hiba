@@ -48,7 +48,7 @@ public static class DbInitializer
         ["TN"] = "/images/curated/landmark-tunisia-sidibousaid.jpg",
         ["IN"] = "/images/curated/landmark-india-tajmahal.jpg",
         ["JP"] = "/images/curated/landmark-japan-fushimiinari.jpg",
-        ["TR"] = "https://loremflickr.com/500/500/bosphorusbridge,istanbul?lock=411",
+        ["TR"] = "/images/curated/landmark-turkey-hagiasophia.jpg",
         ["FR"] = "/images/curated/landmark-france-eiffeltower.jpg",
         ["IT"] = "/images/curated/landmark-italy-colosseum.jpg",
         ["ES"] = "/images/curated/landmark-spain-alhambra.webp",
@@ -147,6 +147,80 @@ public static class DbInitializer
             }
 
             await context.SaveChangesAsync();
+        }
+
+        await SyncCuratedImagesAsync(context);
+    }
+
+    /// <summary>Keeps ImageUrl in sync with HeritageCatalogSeedData for databases that were already seeded
+    /// before a curated photo was added — runs every startup so newly-curated images reach existing rows
+    /// without requiring a full reseed.</summary>
+    private static async Task SyncCuratedImagesAsync(ApplicationDbContext context)
+    {
+        var products = await context.Products.ToDictionaryAsync(p => p.SKU);
+        var changed = false;
+
+        foreach (var seedCountry in HeritageCatalogSeedData.Countries)
+        {
+            SyncCategory(products, seedCountry.Home, seedCountry.Code, CategorySkuCode[HomeCategory], ref changed);
+            SyncCategory(products, seedCountry.Accessories, seedCountry.Code, CategorySkuCode[AccessoriesCategory], ref changed);
+            SyncCategory(products, seedCountry.PhoneCovers, seedCountry.Code, CategorySkuCode[PhoneCoversCategory], ref changed);
+            SyncCategory(products, seedCountry.Wear, seedCountry.Code, CategorySkuCode[WearCategory], ref changed);
+
+            var bookIndex = 0;
+            foreach (var book in seedCountry.Books)
+            {
+                bookIndex++;
+                if (string.IsNullOrEmpty(book.ImageUrl))
+                    continue;
+
+                var sku = $"{seedCountry.Code}-BOOK-{bookIndex:00}";
+                if (products.TryGetValue(sku, out var product) && product.ImageUrl != book.ImageUrl)
+                {
+                    product.ImageUrl = book.ImageUrl;
+                    changed = true;
+                }
+            }
+        }
+
+        if (changed)
+            await context.SaveChangesAsync();
+
+        var countries = await context.Countries.ToDictionaryAsync(c => c.Code);
+        var landmarksChanged = false;
+        foreach (var (code, landmarkUrl) in LandmarkByCountryCode)
+        {
+            if (countries.TryGetValue(code, out var country) && country.LandmarkImageUrl != landmarkUrl)
+            {
+                country.LandmarkImageUrl = landmarkUrl;
+                landmarksChanged = true;
+            }
+        }
+
+        if (landmarksChanged)
+            await context.SaveChangesAsync();
+    }
+
+    private static void SyncCategory(
+        IReadOnlyDictionary<string, Product> products,
+        SeedProduct[] seedProducts,
+        string countryCode,
+        string skuCode,
+        ref bool changed)
+    {
+        var index = 0;
+        foreach (var seedProduct in seedProducts)
+        {
+            index++;
+            if (string.IsNullOrEmpty(seedProduct.ImageUrl))
+                continue;
+
+            var sku = $"{countryCode}-{skuCode}-{index:00}";
+            if (products.TryGetValue(sku, out var product) && product.ImageUrl != seedProduct.ImageUrl)
+            {
+                product.ImageUrl = seedProduct.ImageUrl;
+                changed = true;
+            }
         }
     }
 

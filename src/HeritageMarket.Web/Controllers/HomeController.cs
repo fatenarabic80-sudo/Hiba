@@ -64,6 +64,7 @@ public class HomeController : Controller
         return View("NotFound");
     }
 
+    [HttpGet]
     [Route("Home/StatusCodeHandler")]
     public IActionResult StatusCodeHandler(int code)
     {

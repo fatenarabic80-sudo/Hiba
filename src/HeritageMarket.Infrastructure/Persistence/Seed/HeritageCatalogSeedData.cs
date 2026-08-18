@@ -25,8 +25,8 @@ public static class HeritageCatalogSeedData
         new("Lebanon", "LB", ArabWorld, "Levantine heritage: cedar motifs, mosaic art, and mountain craftsmanship.",
             Home: new[]
             {
-                new SeedProduct("Cedar-Carved Wooden Box", "Hand-carved Lebanese cedar wood box with traditional inlay patterns.", 45.00m),
-                new SeedProduct("Beiruti Mosaic Tray", "Hand-set mosaic serving tray in a traditional Levantine geometric pattern.", 52.00m),
+                new SeedProduct("Cedar-Carved Wooden Box", "Hand-carved Lebanese cedar wood box with traditional inlay patterns.", 45.00m, ImageUrl: "/images/curated/lebanon-home-wooden-box.jpg"),
+                new SeedProduct("Beiruti Mosaic Tray", "Hand-set mosaic serving tray in a traditional Levantine geometric pattern.", 52.00m, ImageUrl: "/images/curated/lebanon-home-mosaic-tray.jpg"),
                 new SeedProduct("Hand-Painted Cedar Jar", "Blue-and-white ceramic jar hand-painted with Lebanon's cedar tree emblem, signed by the artist.", 95.00m, ImageUrl: "/images/curated/home-lebanon-jug.jpg"),
                 new SeedProduct("Embroidered Velvet Cushion Trio", "Set of three richly embroidered velvet cushions in traditional Levantine floral motifs.", 85.00m, ImageUrl: "/images/curated/lebanon-home-cushions.jpg"),
                 new SeedProduct("Suzani-Embroidered Bench", "Vibrant hand-embroidered bench upholstered in traditional suzani-style needlework.", 320.00m, ImageUrl: "/images/curated/lebanon-home-suzani-bench.jpg"),
@@ -35,19 +35,19 @@ public static class HeritageCatalogSeedData
             },
             Accessories: new[]
             {
-                new SeedProduct("Cedar Pendant Necklace", "Gold-plated pendant shaped after Lebanon's national cedar emblem.", 52.00m),
+                new SeedProduct("Cedar Pendant Necklace", "Gold-plated pendant shaped after Lebanon's national cedar emblem.", 52.00m, ImageUrl: "/images/curated/lebanon-accessories-cedar-pendant.jpg"),
                 new SeedProduct("Handwoven Raffia Tote", "A market tote handwoven in the coastal villages of Mount Lebanon.", 58.00m)
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Cedar Silhouette Phone Case", "Phone case printed with Lebanon's iconic cedar tree silhouette.", 22.00m),
-                new SeedProduct("Beirut Mosaic Phone Case", "Phone case featuring a Levantine mosaic-tile pattern.", 24.00m)
+                new SeedProduct("Cedar Silhouette Phone Case", "Phone case printed with Lebanon's iconic cedar tree silhouette.", 22.00m, ImageUrl: "/images/curated/lebanon-phonecovers-cedar.jpg"),
+                new SeedProduct("Beirut Mosaic Phone Case", "Phone case featuring a Levantine mosaic-tile pattern.", 24.00m, ImageUrl: "/images/curated/lebanon-phonecovers-mosaic.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Embroidered Tatreez Thobe", "Traditional Levantine thobe with hand-stitched tatreez embroidery.", 120.00m, "Women", "XS,S,M,L,XL"),
-                new SeedProduct("Mountain Village Kaftan", "Flowing kaftan inspired by traditional dress from Mount Lebanon.", 98.00m, "Men", "S,M,L,XL,XXL"),
-                new SeedProduct("Little Cedars Embroidered Vest", "A child-sized vest finished with a miniature tatreez embroidery pattern.", 48.00m, "Kids", "2T,4T,6,8,10,12")
+                new SeedProduct("Embroidered Tatreez Thobe", "Traditional Levantine thobe with hand-stitched tatreez embroidery.", 120.00m, "Women", "XS,S,M,L,XL", "/images/curated/lebanon-wear-tatreez.jpg"),
+                new SeedProduct("Mountain Village Kaftan", "Flowing kaftan inspired by traditional dress from Mount Lebanon.", 98.00m, "Men", "S,M,L,XL,XXL", "/images/curated/lebanon-wear-kaftan.jpg"),
+                new SeedProduct("Little Cedars Embroidered Vest", "A child-sized vest finished with a miniature tatreez embroidery pattern.", 48.00m, "Kids", "2T,4T,6,8,10,12", "/images/curated/lebanon-wear-vest.jpg")
             },
             Books: new[]
             {
@@ -58,22 +58,22 @@ public static class HeritageCatalogSeedData
         new("Egypt", "EG", ArabWorld, "Ancient Nile heritage: papyrus art, pharaonic motifs, and Nubian craft.",
             Home: new[]
             {
-                new SeedProduct("Hand-Painted Papyrus Art", "Framed hand-painted papyrus depicting motifs from ancient Egyptian wall art.", 52.00m),
-                new SeedProduct("Nubian Woven Basket", "Hand-woven storage basket in traditional Nubian palm-leaf technique.", 38.00m)
+                new SeedProduct("Hand-Painted Papyrus Art", "Framed hand-painted papyrus depicting motifs from ancient Egyptian wall art.", 52.00m, ImageUrl: "/images/curated/egypt-home-papyrus-art.jpg"),
+                new SeedProduct("Nubian Woven Basket", "Hand-woven storage basket in traditional Nubian palm-leaf technique.", 38.00m, ImageUrl: "/images/curated/egypt-home-nubian-basket.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Ankh Symbol Bracelet", "Brass bracelet featuring the ankh, the ancient Egyptian symbol of life.", 28.00m),
+                new SeedProduct("Ankh Symbol Bracelet", "Brass bracelet featuring the ankh, the ancient Egyptian symbol of life.", 28.00m, ImageUrl: "/images/curated/egypt-accessories-ankh-bracelet.jpg"),
                 new SeedProduct("Khan el-Khalili Scarf", "Cotton scarf printed with motifs inspired by Cairo's historic bazaar.", 34.00m)
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Ankh Hieroglyph Phone Case", "Phone case printed with the ankh symbol and a hieroglyphic border.", 27.00m),
-                new SeedProduct("Pyramids at Giza Phone Case", "Phone case featuring the Giza plateau at golden hour.", 25.00m)
+                new SeedProduct("Ankh Hieroglyph Phone Case", "Phone case printed with the ankh symbol and a hieroglyphic border.", 27.00m, ImageUrl: "/images/curated/egypt-phonecovers-hieroglyph.jpg"),
+                new SeedProduct("Pyramids at Giza Phone Case", "Phone case featuring the Giza plateau at golden hour.", 25.00m, ImageUrl: "/images/curated/egypt-phonecovers-pyramids.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Egyptian Cotton Galabeya", "Loose-fitting galabeya woven from Egyptian cotton with tally metallic embroidery.", 76.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Egyptian Cotton Galabeya", "Loose-fitting galabeya woven from Egyptian cotton with tally metallic embroidery.", 76.00m, "Men", "S,M,L,XL,XXL", "/images/curated/egypt-wear-galabeya.jpg"),
                 new SeedProduct("Nubian Embroidered Vest", "Vest finished with traditional Nubian geometric embroidery.", 64.00m, "Women", "XS,S,M,L,XL"),
                 new SeedProduct("Mini Galabeya for Kids", "A child-sized galabeya woven from soft Egyptian cotton.", 42.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -118,23 +118,23 @@ public static class HeritageCatalogSeedData
         new("Palestine", "PS", ArabWorld, "Levantine heritage rooted in olive groves, embroidery, and craft traditions passed through generations.",
             Home: new[]
             {
-                new SeedProduct("Olive Wood Carved Bowl", "Hand-carved bowl from centuries-old Palestinian olive wood.", 42.00m),
-                new SeedProduct("Hebron Blown Glass Vase", "Hand-blown glass vase from the historic glassblowing workshops of Hebron.", 56.00m)
+                new SeedProduct("Olive Wood Carved Bowl", "Hand-carved bowl from centuries-old Palestinian olive wood.", 42.00m, ImageUrl: "/images/curated/palestine-home-olive-bowl.jpg"),
+                new SeedProduct("Hebron Blown Glass Vase", "Hand-blown glass vase from the historic glassblowing workshops of Hebron.", 56.00m, ImageUrl: "/images/curated/palestine-home-glass-vase.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Tatreez Embroidery Bag", "Canvas tote hand-stitched with tatreez cross-stitch motifs unique to the region.", 74.00m),
-                new SeedProduct("Olive Wood Rosary Beads", "Prayer beads hand-turned from Bethlehem olive wood.", 26.00m)
+                new SeedProduct("Tatreez Embroidery Bag", "Canvas tote hand-stitched with tatreez cross-stitch motifs unique to the region.", 74.00m, ImageUrl: "/images/curated/palestine-accessories-tatreez-bag.jpg"),
+                new SeedProduct("Olive Wood Rosary Beads", "Prayer beads hand-turned from Bethlehem olive wood.", 26.00m, ImageUrl: "/images/curated/palestine-accessories-rosary.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Tatreez Pattern Phone Case", "Phone case printed with a traditional tatreez cypress-tree motif.", 25.00m),
-                new SeedProduct("Olive Branch Phone Case", "Phone case featuring a hand-illustrated olive branch, a symbol of Palestinian land.", 23.00m)
+                new SeedProduct("Tatreez Pattern Phone Case", "Phone case printed with a traditional tatreez cypress-tree motif.", 25.00m, ImageUrl: "/images/curated/palestine-phonecovers-tatreez.jpg"),
+                new SeedProduct("Olive Branch Phone Case", "Phone case featuring a hand-illustrated olive branch, a symbol of Palestinian land.", 23.00m, ImageUrl: "/images/curated/palestine-phonecovers-olive-branch.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Palestinian Embroidered Thobe", "Full-length thobe hand-embroidered with tatreez cross-stitch across the chest panel.", 135.00m, "Women", "XS,S,M,L,XL"),
-                new SeedProduct("Tatreez Trim Vest", "Cotton vest finished with a hand-embroidered tatreez border.", 72.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Palestinian Embroidered Thobe", "Full-length thobe hand-embroidered with tatreez cross-stitch across the chest panel.", 135.00m, "Women", "XS,S,M,L,XL", "/images/curated/palestine-wear-thobe.jpg"),
+                new SeedProduct("Tatreez Trim Vest", "Cotton vest finished with a hand-embroidered tatreez border.", 72.00m, "Men", "S,M,L,XL,XXL", "/images/curated/palestine-wear-vest.jpg"),
                 new SeedProduct("Kids' Tatreez Dress", "A child-sized dress finished with a simplified tatreez cross-stitch border.", 52.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
@@ -146,22 +146,22 @@ public static class HeritageCatalogSeedData
         new("Syria", "SY", ArabWorld, "Damascene craft heritage: mother-of-pearl inlay, brocade weaving, and centuries-old soap making.",
             Home: new[]
             {
-                new SeedProduct("Damascene Inlaid Jewelry Box", "Wooden box inlaid with mother-of-pearl in the historic Damascene technique.", 64.00m),
-                new SeedProduct("Aleppo Laurel Soap (Gift Set)", "Traditional Aleppo soap, aged for months using laurel oil in the ancient method.", 26.00m)
+                new SeedProduct("Damascene Inlaid Jewelry Box", "Wooden box inlaid with mother-of-pearl in the historic Damascene technique.", 64.00m, ImageUrl: "/images/curated/syria-home-jewelry-box.jpg"),
+                new SeedProduct("Aleppo Laurel Soap (Gift Set)", "Traditional Aleppo soap, aged for months using laurel oil in the ancient method.", 26.00m, ImageUrl: "/images/curated/syria-home-aleppo-soap.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Damask Brocade Clutch", "Evening clutch woven from Damask silk brocade, a fabric that takes its name from the city.", 58.00m),
-                new SeedProduct("Damascene Filigree Earrings", "Fine silver filigree earrings in a traditional Damascene pattern.", 38.00m)
+                new SeedProduct("Damask Brocade Clutch", "Evening clutch woven from Damask silk brocade, a fabric that takes its name from the city.", 58.00m, ImageUrl: "/images/curated/syria-accessories-clutch.jpg"),
+                new SeedProduct("Damascene Filigree Earrings", "Fine silver filigree earrings in a traditional Damascene pattern.", 38.00m, ImageUrl: "/images/curated/syria-accessories-earrings.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Damascene Star Phone Case", "Phone case printed with an eight-pointed Damascene inlay star pattern.", 24.00m),
-                new SeedProduct("Old Damascus Alley Phone Case", "Phone case featuring the stone archways of Old Damascus.", 22.00m)
+                new SeedProduct("Damascene Star Phone Case", "Phone case printed with an eight-pointed Damascene inlay star pattern.", 24.00m, ImageUrl: "/images/curated/syria-phonecovers-star.jpg"),
+                new SeedProduct("Old Damascus Alley Phone Case", "Phone case featuring the stone archways of Old Damascus.", 22.00m, ImageUrl: "/images/curated/syria-phonecovers-alley.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Aleppo Silk Brocade Kaftan", "Kaftan woven from Aleppo silk brocade in a centuries-old pattern.", 102.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Aleppo Silk Brocade Kaftan", "Kaftan woven from Aleppo silk brocade in a centuries-old pattern.", 102.00m, "Women", "XS,S,M,L,XL", "/images/curated/syria-wear-kaftan.jpg"),
                 new SeedProduct("Damascene Embroidered Vest", "Vest finished with traditional Damascene gold-thread embroidery.", 68.00m, "Men", "S,M,L,XL,XXL"),
                 new SeedProduct("Kids' Embroidered Vest", "A child-sized vest finished with a miniature Damascene gold-thread pattern.", 44.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -175,7 +175,7 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Petra Sandstone Coaster Set", "Coasters cut from rose-hued sandstone echoing Petra's carved facades.", 32.00m),
-                new SeedProduct("Bedouin Woven Rug (Small)", "Hand-loomed wool rug in traditional Bedouin geometric bands.", 86.00m)
+                new SeedProduct("Bedouin Woven Rug (Small)", "Hand-loomed wool rug in traditional Bedouin geometric bands.", 86.00m, ImageUrl: "/images/curated/jordan-home-rug.jpg")
             },
             Accessories: new[]
             {
@@ -184,12 +184,12 @@ public static class HeritageCatalogSeedData
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Petra Treasury Phone Case", "Phone case featuring Al-Khazneh, the carved facade of Petra.", 24.00m),
-                new SeedProduct("Wadi Rum Desert Phone Case", "Phone case featuring the red dunes of Wadi Rum at sunset.", 23.00m)
+                new SeedProduct("Petra Treasury Phone Case", "Phone case featuring Al-Khazneh, the carved facade of Petra.", 24.00m, ImageUrl: "/images/curated/jordan-phonecovers-treasury.jpg"),
+                new SeedProduct("Wadi Rum Desert Phone Case", "Phone case featuring the red dunes of Wadi Rum at sunset.", 23.00m, ImageUrl: "/images/curated/jordan-phonecovers-wadirum.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Bedouin Embroidered Thobe", "Black thobe hand-embroidered with traditional Bedouin cross-stitch.", 110.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Bedouin Embroidered Thobe", "Black thobe hand-embroidered with traditional Bedouin cross-stitch.", 110.00m, "Women", "XS,S,M,L,XL", "/images/curated/jordan-wear-thobe.jpg"),
                 new SeedProduct("Desert Wool Cloak", "Handwoven wool cloak (bisht-style) worn across Jordan's desert regions.", 92.00m, "Men", "One Size"),
                 new SeedProduct("Kids' Bedouin Vest", "A child-sized vest hand-embroidered with a simplified Bedouin cross-stitch pattern.", 46.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -202,18 +202,18 @@ public static class HeritageCatalogSeedData
         new("Iraq", "IQ", ArabWorld, "Mesopotamian heritage: Baghdad calligraphy, copperware, and one of the world's oldest literary traditions.",
             Home: new[]
             {
-                new SeedProduct("Baghdad Hammered Copper Tray", "Hand-hammered copper serving tray in a traditional Mesopotamian pattern.", 58.00m),
-                new SeedProduct("Mesopotamian Ziggurat Bookend Set", "Ceramic bookends shaped after ancient Mesopotamian ziggurats.", 36.00m)
+                new SeedProduct("Baghdad Hammered Copper Tray", "Hand-hammered copper serving tray in a traditional Mesopotamian pattern.", 58.00m, ImageUrl: "/images/curated/iraq-home-copper-tray.jpg"),
+                new SeedProduct("Mesopotamian Ziggurat Bookend Set", "Ceramic bookends shaped after ancient Mesopotamian ziggurats.", 36.00m, ImageUrl: "/images/curated/iraq-ziggurat.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Baghdad Calligraphy Scarf", "Silk scarf printed with classical Arabic calligraphy in the Baghdadi style.", 36.00m),
-                new SeedProduct("Basra Pearl Hair Comb", "Mother-of-pearl hair comb inspired by Basra's historic pearl trade.", 30.00m)
+                new SeedProduct("Baghdad Calligraphy Scarf", "Silk scarf printed with classical Arabic calligraphy in the Baghdadi style.", 36.00m, ImageUrl: "/images/curated/iraq-accessories-calligraphy-scarf.jpg"),
+                new SeedProduct("Basra Pearl Hair Comb", "Mother-of-pearl hair comb inspired by Basra's historic pearl trade.", 30.00m, ImageUrl: "/images/curated/iraq-accessories-pearl-comb.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Cuneiform Script Phone Case", "Phone case printed with ancient Mesopotamian cuneiform script.", 24.00m),
-                new SeedProduct("Ziggurat Silhouette Phone Case", "Phone case featuring the silhouette of an ancient Mesopotamian ziggurat.", 22.00m)
+                new SeedProduct("Cuneiform Script Phone Case", "Phone case printed with ancient Mesopotamian cuneiform script.", 24.00m, ImageUrl: "/images/curated/iraq-phonecovers-cuneiform.jpg"),
+                new SeedProduct("Ziggurat Silhouette Phone Case", "Phone case featuring the silhouette of an ancient Mesopotamian ziggurat.", 22.00m, ImageUrl: "/images/curated/iraq-ziggurat.jpg")
             },
             Wear: new[]
             {
@@ -231,7 +231,7 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Sidi Bou Said Ceramic Plate", "Hand-painted ceramic plate in the signature blue-and-white of Sidi Bou Said.", 34.00m),
-                new SeedProduct("Nabeul Pottery Vase", "Hand-thrown vase from Tunisia's historic pottery town of Nabeul.", 46.00m)
+                new SeedProduct("Nabeul Pottery Vase", "Hand-thrown vase from Tunisia's historic pottery town of Nabeul.", 46.00m, ImageUrl: "/images/curated/tunisia-home-nabeul-vase.jpg")
             },
             Accessories: new[]
             {
@@ -240,13 +240,13 @@ public static class HeritageCatalogSeedData
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Sidi Bou Said Doorway Phone Case", "Phone case featuring the iconic blue doorways of Sidi Bou Said.", 23.00m),
-                new SeedProduct("Amazigh Pattern Phone Case", "Phone case printed with a traditional Amazigh geometric motif.", 22.00m)
+                new SeedProduct("Sidi Bou Said Doorway Phone Case", "Phone case featuring the iconic blue doorways of Sidi Bou Said.", 23.00m, ImageUrl: "/images/curated/tunisia-phonecovers-doorway.jpg"),
+                new SeedProduct("Amazigh Pattern Phone Case", "Phone case printed with a traditional Amazigh geometric motif.", 22.00m, ImageUrl: "/images/curated/tunisia-phonecovers-amazigh.jpg")
             },
             Wear: new[]
             {
                 new SeedProduct("Tunisian Embroidered Jebba", "Traditional jebba tunic finished with silk-thread embroidery.", 88.00m, "Men", "S,M,L,XL,XXL"),
-                new SeedProduct("Kerkennah Woven Wrap", "Lightweight wrap handwoven on the Kerkennah Islands using a traditional loom.", 54.00m, "Women", "One Size"),
+                new SeedProduct("Kerkennah Woven Wrap", "Lightweight wrap handwoven on the Kerkennah Islands using a traditional loom.", 54.00m, "Women", "One Size", "/images/curated/tunisia-wear-wrap.jpg"),
                 new SeedProduct("Kids' Chechia Cap & Vest Set", "A child-sized felted cap and vest set in the Tunisian chechia tradition.", 40.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
@@ -258,7 +258,7 @@ public static class HeritageCatalogSeedData
         new("India", "IN", Asia, "South Asian heritage: block printing, brassware, and centuries of handloom weaving.",
             Home: new[]
             {
-                new SeedProduct("Block-Print Table Runner", "Hand block-printed cotton table runner from Rajasthan.", 36.00m),
+                new SeedProduct("Block-Print Table Runner", "Hand block-printed cotton table runner from Rajasthan.", 36.00m, ImageUrl: "/images/curated/india-home-block-print.jpg"),
                 new SeedProduct("Meenakari Brass Bowl Set", "Hand-painted brass bowls finished with Mughal-era meenakari enamel work.", 52.00m)
             },
             Accessories: new[]
@@ -287,21 +287,21 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Kintsugi-Style Ceramic Bowl", "Ceramic bowl finished with a gold-seam kintsugi repair pattern.", 58.00m),
-                new SeedProduct("Washi Paper Lantern", "Hand-folded lantern made from traditional Japanese washi paper.", 44.00m)
+                new SeedProduct("Washi Paper Lantern", "Hand-folded lantern made from traditional Japanese washi paper.", 44.00m, ImageUrl: "/images/curated/japan-home-lantern.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Indigo-Dyed Furoshiki Cloth", "Hand-dyed cotton wrapping cloth in the traditional shibori indigo technique.", 28.00m),
+                new SeedProduct("Indigo-Dyed Furoshiki Cloth", "Hand-dyed cotton wrapping cloth in the traditional shibori indigo technique.", 28.00m, ImageUrl: "/images/curated/japan-accessories-furoshiki.jpg"),
                 new SeedProduct("Sakura Blossom Hair Pin", "Lacquered wood hair pin carved in a cherry blossom motif.", 24.00m)
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Indigo Washi Phone Cover", "Phone cover featuring traditional Japanese indigo-dyed washi paper design.", 22.00m),
-                new SeedProduct("Sakura Blossom Phone Case", "Phone case printed with a hand-illustrated cherry blossom branch.", 27.00m)
+                new SeedProduct("Indigo Washi Phone Cover", "Phone cover featuring traditional Japanese indigo-dyed washi paper design.", 22.00m, ImageUrl: "/images/curated/japan-phonecovers-shibori.jpg"),
+                new SeedProduct("Sakura Blossom Phone Case", "Phone case printed with a hand-illustrated cherry blossom branch.", 27.00m, ImageUrl: "/images/curated/japan-phonecovers-sakura.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Traditional Furisode Kimono", "Long-sleeved furisode kimono in a hand-dyed floral pattern, worn at coming-of-age celebrations.", 210.00m, "Women", "One Size (adjustable with obi)"),
+                new SeedProduct("Traditional Furisode Kimono", "Long-sleeved furisode kimono in a hand-dyed floral pattern, worn at coming-of-age celebrations.", 210.00m, "Women", "One Size (adjustable with obi)", "/images/curated/japan-wear-furisode.jpg"),
                 new SeedProduct("Indigo Noragi Jacket", "Workwear-style jacket hand-dyed with traditional Japanese indigo.", 86.00m, "Men", "S,M,L,XL,XXL"),
                 new SeedProduct("Kids' Yukata Robe", "A child-sized cotton yukata in a playful indigo pattern, easy to wear for festivals.", 58.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -320,12 +320,12 @@ public static class HeritageCatalogSeedData
             Accessories: new[]
             {
                 new SeedProduct("Traditional Turkish Scarf", "Lightweight oya-trimmed scarf woven with a traditional Anatolian border pattern.", 42.00m),
-                new SeedProduct("Evil Eye Nazar Bracelet", "Hand-strung bracelet with traditional Anatolian nazar (evil eye) beads.", 22.00m)
+                new SeedProduct("Evil Eye Nazar Bracelet", "Hand-strung bracelet with traditional Anatolian nazar (evil eye) beads.", 22.00m, ImageUrl: "/images/curated/turkey-accessories-nazar.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Heritage Pattern Phone Case", "Phone case printed with traditional Iznik tile patterns in cobalt and terracotta.", 29.00m),
-                new SeedProduct("Nazar Evil Eye Phone Case", "Phone case featuring the traditional Anatolian nazar protective symbol.", 23.00m)
+                new SeedProduct("Heritage Pattern Phone Case", "Phone case printed with traditional Iznik tile patterns in cobalt and terracotta.", 29.00m, ImageUrl: "/images/curated/turkey-phonecovers-iznik.jpg"),
+                new SeedProduct("Nazar Evil Eye Phone Case", "Phone case featuring the traditional Anatolian nazar protective symbol.", 23.00m, ImageUrl: "/images/curated/turkey-phonecovers-nazar.jpg")
             },
             Wear: new[]
             {
@@ -343,17 +343,17 @@ public static class HeritageCatalogSeedData
             Home: new[]
             {
                 new SeedProduct("Limoges-Style Porcelain Trinket Box", "Hand-painted porcelain trinket box in the Limoges tradition.", 62.00m),
-                new SeedProduct("Provençal Lavender Sachet Set", "Linen sachets filled with lavender from Provence, printed in traditional toile pattern.", 28.00m)
+                new SeedProduct("Provençal Lavender Sachet Set", "Linen sachets filled with lavender from Provence, printed in traditional toile pattern.", 28.00m, ImageUrl: "/images/curated/france-home-lavender-sachet.jpg")
             },
             Accessories: new[]
             {
-                new SeedProduct("Breton Striped Lace Scarf", "Fine lace scarf woven in the Breton coastal tradition.", 46.00m),
+                new SeedProduct("Breton Striped Lace Scarf", "Fine lace scarf woven in the Breton coastal tradition.", 46.00m, ImageUrl: "/images/curated/france-accessories-breton-lace.jpg"),
                 new SeedProduct("Provençal Print Tote Bag", "Canvas tote printed with a traditional Provençal floral pattern.", 34.00m)
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Toile de Jouy Phone Case", "Phone case printed with a classic French toile de Jouy pattern.", 25.00m),
-                new SeedProduct("Eiffel Tower Sketch Phone Case", "Phone case featuring a hand-illustrated sketch of the Eiffel Tower.", 23.00m)
+                new SeedProduct("Toile de Jouy Phone Case", "Phone case printed with a classic French toile de Jouy pattern.", 25.00m, ImageUrl: "/images/curated/france-phonecovers-toile.jpg"),
+                new SeedProduct("Eiffel Tower Sketch Phone Case", "Phone case featuring a hand-illustrated sketch of the Eiffel Tower.", 23.00m, ImageUrl: "/images/curated/france-phonecovers-eiffel.jpg")
             },
             Wear: new[]
             {
@@ -370,8 +370,8 @@ public static class HeritageCatalogSeedData
         new("Italy", "IT", Europe, "Italian heritage: Murano glass, Deruta ceramics, and Florentine leathercraft.",
             Home: new[]
             {
-                new SeedProduct("Murano-Style Glass Bowl", "Hand-blown glass bowl in swirling color, in the Venetian Murano tradition.", 76.00m),
-                new SeedProduct("Deruta Hand-Painted Plate", "Ceramic plate hand-painted in the centuries-old Deruta majolica style.", 58.00m)
+                new SeedProduct("Murano-Style Glass Bowl", "Hand-blown glass bowl in swirling color, in the Venetian Murano tradition.", 76.00m, ImageUrl: "/images/curated/italy-home-murano-bowl.jpg"),
+                new SeedProduct("Deruta Hand-Painted Plate", "Ceramic plate hand-painted in the centuries-old Deruta majolica style.", 58.00m, ImageUrl: "/images/curated/italy-home-deruta-plate.jpg")
             },
             Accessories: new[]
             {
@@ -380,8 +380,8 @@ public static class HeritageCatalogSeedData
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Venetian Carnival Mask Phone Case", "Phone case featuring a hand-illustrated Venetian carnival mask.", 24.00m),
-                new SeedProduct("Tuscan Hills Phone Case", "Phone case featuring the rolling cypress-lined hills of Tuscany.", 22.00m)
+                new SeedProduct("Venetian Carnival Mask Phone Case", "Phone case featuring a hand-illustrated Venetian carnival mask.", 24.00m, ImageUrl: "/images/curated/italy-phonecovers-mask.jpg"),
+                new SeedProduct("Tuscan Hills Phone Case", "Phone case featuring the rolling cypress-lined hills of Tuscany.", 22.00m, ImageUrl: "/images/curated/italy-phonecovers-tuscany.jpg")
             },
             Wear: new[]
             {
@@ -404,16 +404,16 @@ public static class HeritageCatalogSeedData
             Accessories: new[]
             {
                 new SeedProduct("Flamenco Fringe Shawl", "Silk shawl with hand-knotted fringe in the flamenco tradition.", 54.00m),
-                new SeedProduct("Andalusian Filigree Earrings", "Fine silver filigree earrings in a traditional Andalusian pattern.", 36.00m)
+                new SeedProduct("Andalusian Filigree Earrings", "Fine silver filigree earrings in a traditional Andalusian pattern.", 36.00m, ImageUrl: "/images/curated/spain-accessories-filigree-earrings.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Azulejo Tile Phone Case", "Phone case printed with a traditional Andalusian azulejo tile pattern.", 24.00m),
-                new SeedProduct("Flamenco Fan Phone Case", "Phone case featuring a hand-illustrated flamenco fan motif.", 22.00m)
+                new SeedProduct("Azulejo Tile Phone Case", "Phone case printed with a traditional Andalusian azulejo tile pattern.", 24.00m, ImageUrl: "/images/curated/spain-phonecovers-azulejo.jpg"),
+                new SeedProduct("Flamenco Fan Phone Case", "Phone case featuring a hand-illustrated flamenco fan motif.", 22.00m, ImageUrl: "/images/curated/spain-phonecovers-fan.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Flamenco Ruffle Blouse", "Cotton blouse with traditional flamenco ruffle sleeves.", 62.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Flamenco Ruffle Blouse", "Cotton blouse with traditional flamenco ruffle sleeves.", 62.00m, "Women", "XS,S,M,L,XL", "/images/curated/spain-wear-flamenco.jpg"),
                 new SeedProduct("Andalusian Embroidered Vest", "Vest finished with traditional Andalusian gold-thread embroidery.", 74.00m, "Men", "S,M,L,XL,XXL"),
                 new SeedProduct("Kids' Flamenco Ruffle Dress", "A child-sized dress with playful flamenco ruffle trim.", 46.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -426,8 +426,8 @@ public static class HeritageCatalogSeedData
         new("Germany", "DE", Europe, "German heritage: Black Forest woodcraft, Bavarian folk pattern, and centuries of porcelain tradition.",
             Home: new[]
             {
-                new SeedProduct("Black Forest Carved Cuckoo Box", "Hand-carved wooden box in the Black Forest woodworking tradition.", 54.00m),
-                new SeedProduct("Meissen-Style Porcelain Cup", "Hand-painted porcelain cup in the classic Meissen floral pattern.", 48.00m)
+                new SeedProduct("Black Forest Carved Cuckoo Box", "Hand-carved wooden box in the Black Forest woodworking tradition.", 54.00m, ImageUrl: "/images/curated/germany-home-cuckoo.jpg"),
+                new SeedProduct("Meissen-Style Porcelain Cup", "Hand-painted porcelain cup in the classic Meissen floral pattern.", 48.00m, ImageUrl: "/images/curated/germany-home-meissen-cup.jpg")
             },
             Accessories: new[]
             {
@@ -437,11 +437,11 @@ public static class HeritageCatalogSeedData
             PhoneCovers: new[]
             {
                 new SeedProduct("Bavarian Folk Pattern Phone Case", "Phone case printed with a traditional Bavarian folk floral motif.", 23.00m),
-                new SeedProduct("Neuschwanstein Castle Phone Case", "Phone case featuring the fairytale silhouette of Neuschwanstein Castle.", 22.00m)
+                new SeedProduct("Neuschwanstein Castle Phone Case", "Phone case featuring the fairytale silhouette of Neuschwanstein Castle.", 22.00m, ImageUrl: "/images/curated/germany-phonecovers-neuschwanstein.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Bavarian Dirndl-Style Blouse", "Cotton blouse in the traditional Bavarian dirndl style.", 68.00m, "Women", "XS,S,M,L,XL"),
+                new SeedProduct("Bavarian Dirndl-Style Blouse", "Cotton blouse in the traditional Bavarian dirndl style.", 68.00m, "Women", "XS,S,M,L,XL", "/images/curated/germany-wear-dirndl.jpg"),
                 new SeedProduct("Black Forest Wool Vest", "Wool vest finished with traditional Black Forest folk embroidery.", 76.00m, "Men", "S,M,L,XL,XXL"),
                 new SeedProduct("Kids' Bavarian Lederhosen-Style Shorts", "Child-sized shorts in the traditional Bavarian style, with folk-pattern trim.", 44.00m, "Kids", "2T,4T,6,8,10,12")
             },
@@ -454,28 +454,28 @@ public static class HeritageCatalogSeedData
         new("United States", "US", Americas, "American heritage: Americana folk art, quilting tradition, and regional craft from coast to coast.",
             Home: new[]
             {
-                new SeedProduct("Americana Folk Art Quilt Square", "Hand-stitched quilt square in a traditional American folk art pattern.", 48.00m),
+                new SeedProduct("Americana Folk Art Quilt Square", "Hand-stitched quilt square in a traditional American folk art pattern.", 48.00m, ImageUrl: "/images/curated/usa-home-quilt-square.jpg"),
                 new SeedProduct("Appalachian Carved Wood Bowl", "Hand-carved wooden bowl in the Appalachian woodworking tradition.", 42.00m)
             },
             Accessories: new[]
             {
-                new SeedProduct("Southwestern Turquoise Bracelet", "Silver bracelet set with turquoise, in a Southwestern craft tradition.", 56.00m),
-                new SeedProduct("Denim Patchwork Tote", "Tote bag stitched from reclaimed denim in a classic Americana patchwork pattern.", 38.00m)
+                new SeedProduct("Southwestern Turquoise Bracelet", "Silver bracelet set with turquoise, in a Southwestern craft tradition.", 56.00m, ImageUrl: "/images/curated/usa-accessories-turquoise-bracelet.jpg"),
+                new SeedProduct("Denim Patchwork Tote", "Tote bag stitched from reclaimed denim in a classic Americana patchwork pattern.", 38.00m, ImageUrl: "/images/curated/usa-accessories-denim-tote.jpg")
             },
             PhoneCovers: new[]
             {
-                new SeedProduct("Americana Quilt Pattern Phone Case", "Phone case printed with a traditional American patchwork quilt pattern.", 23.00m),
-                new SeedProduct("Route 66 Phone Case", "Phone case featuring vintage Route 66 highway signage art.", 22.00m)
+                new SeedProduct("Americana Quilt Pattern Phone Case", "Phone case printed with a traditional American patchwork quilt pattern.", 23.00m, ImageUrl: "/images/curated/usa-phonecovers-quilt.jpg"),
+                new SeedProduct("Route 66 Phone Case", "Phone case featuring vintage Route 66 highway signage art.", 22.00m, ImageUrl: "/images/curated/usa-phonecovers-route66.jpg")
             },
             Wear: new[]
             {
-                new SeedProduct("Denim Heritage Jacket", "Classic American denim jacket in a heritage workwear cut.", 88.00m, "Men", "S,M,L,XL,XXL"),
+                new SeedProduct("Denim Heritage Jacket", "Classic American denim jacket in a heritage workwear cut.", 88.00m, "Men", "S,M,L,XL,XXL", "/images/curated/usa-wear-denim-jacket.jpg"),
                 new SeedProduct("Quilted Patchwork Vest", "Vest stitched from a traditional American patchwork quilt pattern.", 64.00m, "Women", "XS,S,M,L,XL"),
                 new SeedProduct("Kids' Denim Patchwork Overalls", "Child-sized overalls stitched with a playful Americana patchwork panel.", 42.00m, "Kids", "2T,4T,6,8,10,12")
             },
             Books: new[]
             {
-                new SeedBook("The Adventures of Huckleberry Finn", "Mark Twain", "An 1884 classic often called the first great American novel.", 19.00m),
+                new SeedBook("The Adventures of Huckleberry Finn", "Mark Twain", "An 1884 classic often called the first great American novel.", 19.00m, "/images/curated/usa-book-huckfinn.jpg"),
                 new SeedBook("Beloved", "Toni Morrison", "A Pulitzer Prize and Nobel Prize-winning novel, among the most acclaimed works of American literature.", 20.00m)
             })
     };
