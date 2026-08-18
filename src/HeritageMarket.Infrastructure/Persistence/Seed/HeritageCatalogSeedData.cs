@@ -46,8 +46,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("The Prophet", "Khalil Gibran", "Gibran's 1923 collection of poetic essays, one of the most translated books ever written, blending Mount Lebanon imagery with mysticism.", 22.00m),
-                new SeedBook("Leo Africanus", "Amin Maalouf", "A historical novel following a 16th-century Muslim-Andalusian diplomat, by one of Lebanon's most celebrated living writers.", 24.00m)
+                new SeedBook("The Prophet", "Khalil Gibran", "Gibran's 1923 collection of poetic essays, one of the most translated books ever written, blending Mount Lebanon imagery with mysticism.", 22.00m, "/images/curated/book-lebanon-prophet.webp"),
+                new SeedBook("Leo Africanus", "Amin Maalouf", "A historical novel following a 16th-century Muslim-Andalusian diplomat, by one of Lebanon's most celebrated living writers.", 24.00m, "/images/curated/book-lebanon-baalbek.webp")
             }),
 
         new("Egypt", "EG", ArabWorld, "Ancient Nile heritage: papyrus art, pharaonic motifs, and Nubian craft.",
@@ -74,8 +74,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Palace Walk", "Naguib Mahfouz", "First novel of the Cairo Trilogy, by Egypt's Nobel laureate and the only Arabic writer to win the prize.", 25.00m),
-                new SeedBook("The Days", "Taha Hussein", "A classic autobiography by 'the Dean of Arabic Literature,' recounting his Nile Delta childhood.", 21.00m)
+                new SeedBook("Palace Walk", "Naguib Mahfouz", "First novel of the Cairo Trilogy, by Egypt's Nobel laureate and the only Arabic writer to win the prize.", 25.00m, "/images/curated/book-egypt-treasures.jpg"),
+                new SeedBook("The Days", "Taha Hussein", "A classic autobiography by 'the Dean of Arabic Literature,' recounting his Nile Delta childhood.", 21.00m, "/images/curated/book-egypt-breasted.jpg")
             }),
 
         new("Morocco", "MA", ArabWorld, "North African heritage: zellige tilework, Berber weaving, and desert leathercraft.",
@@ -134,7 +134,7 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Memory for Forgetfulness", "Mahmoud Darwish", "A lyrical memoir by the Palestinian national poet, a landmark of modern Arabic literature.", 24.00m),
+                new SeedBook("Memory for Forgetfulness", "Mahmoud Darwish", "A lyrical memoir by the Palestinian national poet, a landmark of modern Arabic literature.", 24.00m, "/images/curated/book-palestine-embroidery.jpg"),
                 new SeedBook("Men in the Sun", "Ghassan Kanafani", "A landmark 1963 novella by one of the most influential Palestinian writers of the 20th century.", 19.00m)
             }),
 
@@ -162,8 +162,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Selected Poems", "Adonis", "A collection by Syria's most influential modern poet and a perennial Nobel Prize contender.", 23.00m),
-                new SeedBook("Arabian Love Poems", "Nizar Qabbani", "Verses by one of the most widely read Arab poets of the 20th century, born in Damascus.", 20.00m)
+                new SeedBook("Selected Poems", "Adonis", "A collection by Syria's most influential modern poet and a perennial Nobel Prize contender.", 23.00m, "/images/curated/book-syria-umayyad.jpg"),
+                new SeedBook("Arabian Love Poems", "Nizar Qabbani", "Verses by one of the most widely read Arab poets of the 20th century, born in Damascus.", 20.00m, "/images/curated/book-syria-modernhistory.jpg")
             }),
 
         new("Jordan", "JO", ArabWorld, "Petra-carved heritage: Bedouin weaving, Jerash silverwork, and desert craft traditions.",
@@ -190,8 +190,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Diwan of Arar", "Mustafa Wahbi al-Tal", "Verses by Jordan's national poet, 'Arar,' foundational to modern Jordanian literature.", 21.00m),
-                new SeedBook("Time of White Horses", "Ibrahim Nasrallah", "An International Prize for Arabic Fiction-shortlisted epic of a Levantine village, by a leading Jordanian-Palestinian novelist.", 23.00m)
+                new SeedBook("Diwan of Arar", "Mustafa Wahbi al-Tal", "Verses by Jordan's national poet, 'Arar,' foundational to modern Jordanian literature.", 21.00m, "/images/curated/book-jordan-petra-bourbon.jpg"),
+                new SeedBook("Time of White Horses", "Ibrahim Nasrallah", "An International Prize for Arabic Fiction-shortlisted epic of a Levantine village, by a leading Jordanian-Palestinian novelist.", 23.00m, "/images/curated/book-jordan-petra-averbach.jpg")
             }),
 
         new("Iraq", "IQ", ArabWorld, "Mesopotamian heritage: Baghdad calligraphy, copperware, and one of the world's oldest literary traditions.",
@@ -218,8 +218,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Frankenstein in Baghdad", "Ahmed Saadawi", "A Booker International-shortlisted novel and winner of the International Prize for Arabic Fiction, set in war-torn Baghdad.", 22.00m),
-                new SeedBook("The Poetry of al-Mutanabbi", "Al-Mutanabbi", "Verses by the 10th-century poet many consider the greatest in the Arabic language.", 20.00m)
+                new SeedBook("Frankenstein in Baghdad", "Ahmed Saadawi", "A Booker International-shortlisted novel and winner of the International Prize for Arabic Fiction, set in war-torn Baghdad.", 22.00m, "/images/curated/book-iraq-gilgamesh.jpg"),
+                new SeedBook("The Poetry of al-Mutanabbi", "Al-Mutanabbi", "Verses by the 10th-century poet many consider the greatest in the Arabic language.", 20.00m, "/images/curated/book-iraq-7cities.webp")
             }),
 
         new("Tunisia", "TN", ArabWorld, "Mediterranean heritage: Sidi Bou Said blue-and-white craft, Berber jewelry, and centuries-old ceramics.",
@@ -246,8 +246,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("To the Tyrants of the World", "Abu al-Qasim al-Shabbi", "A poetry collection by Tunisia's national poet, whose verses inspired the Arab Spring.", 19.00m),
-                new SeedBook("The Sun's Blood", "Hédi Kaddour", "A celebrated novel by the acclaimed Tunisian-French writer and Prix Goncourt finalist.", 23.00m)
+                new SeedBook("To the Tyrants of the World", "Abu al-Qasim al-Shabbi", "A poetry collection by Tunisia's national poet, whose verses inspired the Arab Spring.", 19.00m, "/images/curated/book-tunisia-crusade.webp"),
+                new SeedBook("The Sun's Blood", "Hédi Kaddour", "A celebrated novel by the acclaimed Tunisian-French writer and Prix Goncourt finalist.", 23.00m, "/images/curated/book-tunisia-history.jpg")
             }),
 
         new("India", "IN", Asia, "South Asian heritage: block printing, brassware, and centuries of handloom weaving.",
@@ -274,8 +274,8 @@ public static class HeritageCatalogSeedData
             },
             Books: new[]
             {
-                new SeedBook("Gitanjali", "Rabindranath Tagore", "The 1913 Nobel Prize-winning poetry collection, the first by a non-European laureate.", 18.00m),
-                new SeedBook("Malgudi Days", "R.K. Narayan", "A beloved short story collection set in the fictional town of Malgudi, a classic of Indian English literature.", 19.00m)
+                new SeedBook("Gitanjali", "Rabindranath Tagore", "The 1913 Nobel Prize-winning poetry collection, the first by a non-European laureate.", 18.00m, "/images/curated/book-india-textiles.png"),
+                new SeedBook("Malgudi Days", "R.K. Narayan", "A beloved short story collection set in the fictional town of Malgudi, a classic of Indian English literature.", 19.00m, "/images/curated/book-india-designs.jpg")
             }),
 
         new("Japan", "JP", Asia, "East Asian heritage: washi paper, indigo dye, and minimalist ceramics.",
